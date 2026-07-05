@@ -6,6 +6,7 @@ export default function LatentSpacesDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
 
+        // Intersection Observer for scroll reveal animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -27,91 +28,120 @@ export default function LatentSpacesDetail() {
     }, []);
 
     return (
-        <div className="w-full text-on-surface">
-            {/* Cinematic Hero */}
-            <header className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-surface-container-lowest">
-                <div className="absolute inset-0 z-0">
-                    <img 
-                        className="w-full h-full object-cover opacity-60 hero-mask" 
-                        alt="Latent Spaces Hero Render"
-                        src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop"
-                    />
-                </div>
-                <div className="relative z-10 text-center select-none">
-                    <h1 className="font-hero text-hero-mobile md:text-hero text-[#ffffff] uppercase animate-fade-in tracking-tight">
-                        LATENT SPACES
-                    </h1>
-                    <div className="mt-8 flex flex-col items-center">
-                        <span className="font-micro text-micro uppercase tracking-[0.3em] text-smoke mb-4">Scroll to Explore</span>
-                        <div className="w-[1px] h-12 bg-on-surface/30 animate-pulse"></div>
-                    </div>
-                </div>
-            </header>
+        <div className="w-full text-on-surface animate-fade-in">
+            <section className="relative h-screen w-full flex flex-col justify-end items-center overflow-hidden">
+<div className="absolute inset-0 z-0">
+<img alt="Latent Spaces Hero" className="w-full h-full object-cover brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArvjDeZfjoSOg287hEzFBsQqNVWwpT3kX0d1xU6xfhcL_aBOGU38X1nAZC_ye8EWyqQ-KOhGb2TsSx7Or7VirSm357Em-khBrZM7K7iZKLPHG2X0obkgmXqg5QvRL41jOXXKAwqY32ANdaBaY5uRAl9z_UAx0b-_-J6WOwxFglbTZWSNqQUuOw8XaYfTNHtfxuTP8qmAspYiECEqXnyPNwXpQ5JYkf9GZ51LH3nHN2mq3beE9tIWyafPpnidV9uFdGLgZO3jXbd-2d" />
+<div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+</div>
+<div className="relative z-10 w-full px-margin-mobile pb-24 text-center fade-in">
+<h1 className="font-display text-display-mobile md:text-display hero-title uppercase leading-none tracking-tighter mb-8">
+                    LATENT SPACES
+                </h1>
+<div className="flex flex-col items-center gap-4 opacity-60">
+<span className="font-ui-nav text-ui-nav uppercase tracking-[0.3em]">Scroll to Explore</span>
+<div className="w-px h-16 bg-gradient-to-b from-primary to-transparent animate-pulse"></div>
+</div>
+</div>
+</section>
 
-            {/* Editorial Section: Latent Spaces */}
-            <section className="bg-[#ffffff] text-on-secondary-fixed py-section-v px-element-lg" id="architecture">
-                <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-element-lg items-start reveal">
-                    <div className="sticky top-offset-lg">
-                        <h2 className="font-heading-lg text-heading-lg uppercase leading-none text-ink">
-                            DIMENSIONAL<br />SHIFTS
-                        </h2>
-                    </div>
-                    <div className="pt-8 md:pt-16">
-                        <p className="font-body-lg text-body-lg text-ink leading-relaxed mb-8">
-                            LATENT SPACES explores coordinate systems inside high-dimensional vector representations, transforming them into real-time visual art.
-                        </p>
-                        <p className="font-body-md text-body-md text-graphite leading-relaxed">
-                            Through latent coordinate interpolation and mathematical shaders, we visualize transitions within the neural void. It documents the mathematical space where concepts change, revealing subtle patterns, geometric connections, and atmospheric gradients.
-                        </p>
-                    </div>
+<section className="w-full px-margin-mobile md:px-margin-desktop pt-gap-vertical-md pb-gap-vertical-md">
+<div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-ash pt-12">
+<div className="flex flex-col gap-2">
+<span className="font-micro text-micro text-smoke uppercase tracking-widest">Category</span>
+<span className="font-subheading text-primary uppercase">AI Content Creation</span>
+</div>
+<div className="flex flex-col gap-2">
+<span className="font-micro text-micro text-smoke uppercase tracking-widest">Timeline</span>
+<span className="font-subheading text-primary uppercase">2024</span>
+</div>
+<div className="flex flex-col gap-2">
+<span className="font-micro text-micro text-smoke uppercase tracking-widest">Method</span>
+<span className="font-subheading text-primary uppercase">Latent Analysis</span>
+</div>
+</div>
+</section>
+
+<section className="bg-paper text-ink w-full px-margin-mobile md:px-margin-desktop py-gap-vertical-lg">
+<div className="max-w-4xl mx-auto flex flex-col gap-12">
+<h2 className="font-heading-lg text-4xl md:text-heading-lg uppercase leading-none tracking-tight">
+                    VECTOR INTERPOLATION
+                </h2>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+<p className="font-body-lg text-body-lg leading-relaxed">
+                        The exploration of imaginary terrains within neural networks reveals a world where geological formations are dictated by latent weight distributions. Unlike physical erosions, these landscapes emerge through the optimization of aesthetic loss functions and multidimensional manifold mapping.
+                    </p>
+<p className="font-body-md text-body-md opacity-80 leading-relaxed italic border-l border-ink/20 pl-6">
+                        "In the space between data points, we find architectures that have no precedent in the physical realm—structures that exist only as mathematical probabilities."
+                    </p>
+</div>
+</div>
+</section>
+
+<section className="w-full h-[80vh] relative overflow-hidden bg-carbon">
+<div className="absolute inset-0 opacity-40">
+<div className="w-full h-full bg-cover bg-center grayscale mix-blend-luminosity" data-alt="A macro cinematic close-up of complex neural network textures, featuring flowing iridescent obsidian surfaces and glowing fiber-optic like filaments. The lighting is high-contrast, moody, and achromatic with subtle amber light rays piercing through dark smoke. The aesthetic is hard minimalist and technologically advanced." style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAU5_SSZjAuPXMFZ0SWI18e8_qKcyKYWVFfLCegJ8Y9dA5KQalgI7vMnWUCPgnEh2zARaI2odZy9rqzocBOebFTcKHpE9M6R7YCYDMXxmUbqm4NwCdMx-mG0QgCw9yBKqkLyRsBC1H-AYdQKJWR8jvTjrO4FnTbDx7znbBgJ8kzWV_cO-c9y2c8E2Qpear66W_YNre0WKWyVrUXvjBBmW_rfveEqLgZ4E6o-hoIcV1Ss1905ka-Izi0cgpFsEamI3y6ISvmARuK1Zr5')" }}></div>
+</div>
+<div className="absolute inset-0 flex items-center justify-center p-margin-mobile">
+<div className="max-w-xl text-center">
+<span className="font-ui-nav text-ui-nav uppercase tracking-[0.5em] text-smoke block mb-6">Internal Topology</span>
+<h3 className="font-subheading text-subheading uppercase text-primary">Mapping the unmappable through volumetric synthesis and weight-based topography.</h3>
+</div>
+</div>
+</section>
+
+<section className="w-full px-margin-mobile md:px-margin-desktop py-gap-vertical-lg">
+<div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div className="border border-ash p-8 flex flex-col gap-16 group hover:bg-carbon transition-colors duration-500">
+<span className="font-heading-lg text-4xl text-smoke/30">01</span>
+<div>
+<h4 className="font-subheading text-subheading uppercase mb-4">Latent Geometry</h4>
+<p className="font-body-md text-smoke">Defining the structural boundaries of the multidimensional space where points are mapped as physical assets.</p>
+</div>
+</div>
+<div className="border border-ash p-8 flex flex-col gap-16 group hover:bg-carbon transition-colors duration-500">
+<span className="font-heading-lg text-4xl text-smoke/30">02</span>
+<div>
+<h4 className="font-subheading text-subheading uppercase mb-4">Neural Topology</h4>
+<p className="font-body-md text-smoke">The mesh resolution is determined by the complexity of the neural pathways and density of data clusters.</p>
+</div>
+</div>
+<div className="border border-ash p-8 flex flex-col gap-16 group hover:bg-carbon transition-colors duration-500">
+<span className="font-heading-lg text-4xl text-smoke/30">03</span>
+<div>
+<h4 className="font-subheading text-subheading uppercase mb-4">Volumetric Synthesis</h4>
+<p className="font-body-md text-smoke">Final rendering phase where light interacts with the non-Euclidean surfaces generated by the model.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section className="w-full border-t border-ash py-gap-vertical-md px-margin-mobile md:px-margin-desktop">
+<Link className="group flex flex-col items-center gap-8 text-center transition-all duration-700 hover:opacity-60" to="/chrono-shift">
+<span className="font-micro text-micro uppercase tracking-[0.4em] text-smoke">Up Next</span>
+<div className="flex items-center gap-6">
+<h2 className="font-heading-lg text-4xl md:text-heading-lg uppercase leading-none tracking-tight">CHRONO SHIFT</h2>
+<span className="material-symbols-outlined text-4xl transform group-hover:translate-x-4 transition-transform duration-500">arrow_forward</span>
+</div>
+</Link>
+</section>
+
+
+<footer className="w-full relative mt-gap-vertical-lg border-t border-ash pt-gap-vertical-md pb-12 bg-background">
+<div className="px-margin-mobile md:px-margin-desktop flex flex-col items-center gap-16">
+<div className="font-hero text-hero text-primary opacity-5 select-none pointer-events-none">MU</div>
+<div className="flex flex-col md:flex-row justify-between w-full items-center gap-12">
+<div className="flex gap-12 font-ui-nav text-ui-nav uppercase tracking-[0.2em]">
+<a className="text-smoke hover:text-primary transition-colors duration-500" href="">INSTAGRAM</a>
+<a className="text-smoke hover:text-primary transition-colors duration-500" href="">LINKEDIN</a>
+<a className="text-smoke hover:text-primary transition-colors duration-500" href="">EMAIL</a>
+</div>
+<div className="font-ui-nav text-ui-nav uppercase tracking-[0.1em] text-smoke/50">
+                    ©2024 MU ARCHITECTURE. ALL RIGHTS RESERVED.
                 </div>
-            </section>
-
-            {/* Gallery Break: Perspective 01 */}
-            <section className="w-full bg-surface-container-lowest">
-                <div className="relative w-full aspect-video md:h-[90vh] overflow-hidden reveal">
-                    <img 
-                        className="w-full h-full object-cover" 
-                        alt="Latent Spaces Detail View 01"
-                        src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop"
-                    />
-                    <div className="absolute bottom-element-lg left-element-lg">
-                        <span className="font-micro text-micro uppercase tracking-[0.2em] text-on-surface opacity-60">PERSPECTIVE 01</span>
-                    </div>
-                </div>
-            </section>
-
-            {/* Next Project Section */}
-            <section className="relative w-full h-[70vh] group cursor-pointer overflow-hidden bg-surface-container-lowest">
-                <Link to="/chrono-shift" className="absolute inset-0 block">
-                    <div className="absolute inset-0 bg-black transition-transform duration-700 group-hover:scale-105 opacity-40">
-                        <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-ash/20 to-transparent"></div>
-                    </div>
-                    <div className="relative h-full flex flex-col items-center justify-center text-center">
-                        <span className="font-micro text-micro uppercase tracking-[0.4em] text-smoke mb-6">Up Next</span>
-                        <h3 className="font-display text-display uppercase tracking-tighter mb-8 text-[#ffffff]">Chrono Shift</h3>
-                        <div className="w-16 h-16 border border-ash rounded-full flex items-center justify-center group-hover:bg-on-surface group-hover:text-background transition-all duration-500">
-                            <span className="material-symbols-outlined text-white group-hover:text-black">arrow_forward</span>
-                        </div>
-                    </div>
-                </Link>
-            </section>
-
-            {/* Footer */}
-            <footer className="flex flex-col items-center pt-section-v pb-component-int px-element-lg w-full bg-background border-t border-white/10">
-                <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-nav-gap">
-                    <div className="font-body-md text-body-md text-on-surface">
-                        © 2026 MANAS UPADHYAY. ALL RIGHTS RESERVED.
-                    </div>
-                    <div className="flex gap-element-md">
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Instagram</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">LinkedIn</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Twitter</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Dribbble</a>
-                    </div>
-                </div>
-            </footer>
-
+</div>
+</div>
+</footer>
             <ScrollToTop />
         </div>
     );

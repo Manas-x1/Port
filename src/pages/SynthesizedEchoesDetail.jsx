@@ -6,6 +6,7 @@ export default function SynthesizedEchoesDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
 
+        // Intersection Observer for scroll reveal animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -27,91 +28,94 @@ export default function SynthesizedEchoesDetail() {
     }, []);
 
     return (
-        <div className="w-full text-on-surface">
-            {/* Cinematic Hero */}
-            <header className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-surface-container-lowest">
-                <div className="absolute inset-0 z-0">
-                    <img 
-                        className="w-full h-full object-cover opacity-60 hero-mask" 
-                        alt="Synthesized Echoes Hero Render"
-                        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
-                    />
-                </div>
-                <div className="relative z-10 text-center select-none">
-                    <h1 className="font-hero text-hero-mobile md:text-hero text-[#ffffff] uppercase animate-fade-in tracking-tight">
-                        SYNTHESIZED ECHOS
-                    </h1>
-                    <div className="mt-8 flex flex-col items-center">
-                        <span className="font-micro text-micro uppercase tracking-[0.3em] text-smoke mb-4">Scroll to Explore</span>
-                        <div className="w-[1px] h-12 bg-on-surface/30 animate-pulse"></div>
-                    </div>
-                </div>
-            </header>
+        <div className="w-full text-on-surface animate-fade-in">
+            <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
 
-            {/* Editorial Section: Neural Art */}
-            <section className="bg-[#ffffff] text-on-secondary-fixed py-section-v px-element-lg" id="architecture">
-                <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-element-lg items-start reveal">
-                    <div className="sticky top-offset-lg">
-                        <h2 className="font-heading-lg text-heading-lg uppercase leading-none text-ink">
-                            NEURAL<br />SYNTHESIS
-                        </h2>
-                    </div>
-                    <div className="pt-8 md:pt-16">
-                        <p className="font-body-lg text-body-lg text-ink leading-relaxed mb-8">
-                            SYNTHESIZED ECHOS explores neural visual output and the boundary between physical forms and mathematical abstractions.
-                        </p>
-                        <p className="font-body-md text-body-md text-graphite leading-relaxed">
-                            Using custom generative network parameters, we synthesize complex atmospheric textures. The output results in a beautiful combination of chromatic gradients, subtle digital noise, and organic layers that breathe in complete silence.
-                        </p>
-                    </div>
-                </div>
-            </section>
+<div className="absolute inset-0 z-0">
+<div className="w-full h-full bg-cover bg-center bg-no-repeat scale-105" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDqnS1VRSP8lzkMmBMrpNsUi9P7ReFjbFUkfxe1Yo4oYaiAfYKV7ZD2FXgnmWUFEWUWFeo4bLUz1FVG28v9Pif3Si7KAshWw_-RA3LqFoAbcM8Iag_e44rrwxXT2EFv-XwSPriqq85_pYfWkGTqGrOLr6mgeO2YuNPb4-gthd1-hbzuOYIpHydZqeiQKVpJL5Um-h7iw4lpYbM3GMkkENBYNi0SpV0vty-iQjjt48Kd4a2lT-9tI2qBjmW6GlHFUFEfzrurOktThLtz')" }}>
+<div className="absolute inset-0 bg-black/40"></div>
+</div>
+</div>
 
-            {/* Gallery Break: Perspective 01 */}
-            <section className="w-full bg-surface-container-lowest">
-                <div className="relative w-full aspect-video md:h-[90vh] overflow-hidden reveal">
-                    <img 
-                        className="w-full h-full object-cover" 
-                        alt="Synthesized Echoes Detail View 01"
-                        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
-                    />
-                    <div className="absolute bottom-element-lg left-element-lg">
-                        <span className="font-micro text-micro uppercase tracking-[0.2em] text-on-surface opacity-60">PERSPECTIVE 01</span>
-                    </div>
-                </div>
-            </section>
+<div className="relative z-10 text-center px-6">
+<h1 className="font-display-mobile text-display-mobile text-white leading-none tracking-tighter reveal-text">
+                SYNTHESIZED<br />ECHOS
+            </h1>
+<p className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-white/70 mt-6 reveal-text" style={{ animationDelay: "0.2s" }}>
+                AI CONTENT CREATION | 2024
+            </p>
+</div>
 
-            {/* Next Project Section */}
-            <section className="relative w-full h-[70vh] group cursor-pointer overflow-hidden bg-surface-container-lowest">
-                <Link to="/neural-topology" className="absolute inset-0 block">
-                    <div className="absolute inset-0 bg-black transition-transform duration-700 group-hover:scale-105 opacity-40">
-                        <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-ash/20 to-transparent"></div>
-                    </div>
-                    <div className="relative h-full flex flex-col items-center justify-center text-center">
-                        <span className="font-micro text-micro uppercase tracking-[0.4em] text-smoke mb-6">Up Next</span>
-                        <h3 className="font-display text-display uppercase tracking-tighter mb-8 text-[#ffffff]">Neural Topology</h3>
-                        <div className="w-16 h-16 border border-ash rounded-full flex items-center justify-center group-hover:bg-on-surface group-hover:text-background transition-all duration-500">
-                            <span className="material-symbols-outlined text-white group-hover:text-black">arrow_forward</span>
-                        </div>
-                    </div>
-                </Link>
-            </section>
+<div className="absolute bottom-12 left-1/2 -translate-x-1/2 scroll-indicator"></div>
+</section>
 
-            {/* Footer */}
-            <footer className="flex flex-col items-center pt-section-v pb-component-int px-element-lg w-full bg-background border-t border-white/10">
-                <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-nav-gap">
-                    <div className="font-body-md text-body-md text-on-surface">
-                        © 2026 MANAS UPADHYAY. ALL RIGHTS RESERVED.
-                    </div>
-                    <div className="flex gap-element-md">
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Instagram</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">LinkedIn</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Twitter</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Dribbble</a>
-                    </div>
-                </div>
-            </footer>
+<section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile flex flex-col items-start">
+<div className="w-full max-w-lg mx-auto">
+<span className="font-micro text-micro uppercase tracking-[0.3em] text-ash mb-4 block">01 / Concept</span>
+<h2 className="font-subheading text-subheading mb-12 leading-tight">NEURAL SYNTHESIS</h2>
+<div className="space-y-6">
+<p className="font-body-lg text-body-lg leading-relaxed text-justify">
+                    SYNTHESIZED ECHOS explores the intersection of neural networks and atmospheric noise. By leveraging generative algorithms, we transformed raw digital interference into a rhythmic visual assembly that resonates with high emotional frequency.
+                </p>
+<p className="font-body-md text-body-md text-ash leading-relaxed">
+                    The project serves as a meditation on the ghost in the machine—the unpredictable artifacts that arise when silicon attempts to mimic organic sentiment. Each frame is a unique derivation of latent space data points.
+                </p>
+</div>
+</div>
+</section>
 
+<section className="bg-black text-on-surface py-gap-vertical-lg px-margin-mobile">
+<div className="w-full max-w-lg mx-auto mb-16">
+<span className="font-micro text-micro uppercase tracking-[0.3em] text-ash mb-4 block">02 / Process</span>
+<h2 className="font-subheading text-subheading mb-12 text-white">ATMOSPHERIC NOISE</h2>
+<p className="font-body-md text-body-md text-smoke leading-relaxed">
+                The technical process involved multi-layered procedural generation. We started with low-frequency radio waves, feeding the spectral data into a custom-built GAN (Generative Adversarial Network) trained on cinematic textural libraries.
+            </p>
+</div>
+
+<div className="w-full aspect-[4/5] bg-carbon border border-ash/20 relative group overflow-hidden">
+<div className="absolute inset-0 bg-gradient-to-tr from-surface-container-lowest to-surface-bright opacity-50"></div>
+
+
+<div className="absolute bottom-6 left-6">
+<span className="font-micro text-micro uppercase tracking-widest text-ash">Fig. 2.4 — Spectral Mapping</span>
+</div>
+</div>
+<div className="w-full max-w-lg mx-auto mt-16">
+<p className="font-body-md text-body-md text-smoke leading-relaxed italic border-l border-ash/40 pl-6">
+                "The result is a visual echo of something that never existed in the physical world, yet feels hauntingly familiar."
+            </p>
+</div>
+</section>
+
+<section className="bg-black py-gap-vertical-md border-t border-ash/10">
+<Link className="group block px-margin-mobile" to="/neural-topology">
+<div className="flex flex-col items-center text-center">
+<span className="font-micro text-micro uppercase tracking-[0.4em] text-ash mb-8">Up Next</span>
+<div className="flex items-center justify-center gap-4 group-hover:gap-8 transition-all duration-700">
+<h3 className="font-subheading text-subheading md:text-[64px] text-white uppercase tracking-tighter">NEURAL TOPOLOGY</h3>
+<span className="material-symbols-outlined text-[32px] md:text-[48px] text-white">arrow_forward</span>
+</div>
+</div>
+</Link>
+</section>
+
+<footer className="flex flex-col items-center pt-[120px] pb-8 px-6 w-full border-t border-ash bg-background">
+<div className="font-hero text-[48px] uppercase tracking-[-0.04em] text-on-surface leading-none mb-24 text-center">
+            MANAS
+        </div>
+<div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-8 text-smoke font-body-md text-body-md">
+<div className="flex gap-8 order-2 md:order-1">
+<a className="hover:text-on-surface transition-colors" href="">Instagram</a>
+<a className="hover:text-on-surface transition-colors" href="">LinkedIn</a>
+<a className="hover:text-on-surface transition-colors" href="">Email</a>
+<a className="hover:text-on-surface transition-colors" href="">Archive</a>
+</div>
+<div className="order-1 md:order-2 opacity-50 tracking-widest uppercase text-[10px]">
+                © 2024 MANAS UPADHYAY
+            </div>
+</div>
+</footer>
             <ScrollToTop />
         </div>
     );

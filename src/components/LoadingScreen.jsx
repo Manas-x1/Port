@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
 
-function ScrambleText({ text, start = false }) {
+function ScrambleText({ text, start = false, delay = 0 }) {
     const [displayText, setDisplayText] = useState('');
 
     useEffect(() => {
@@ -13,35 +13,45 @@ function ScrambleText({ text, start = false }) {
         let isMounted = true;
         let iteration = 0;
         let interval = null;
+        let timeoutId = null;
 
-        interval = setInterval(() => {
-            if (!isMounted) return;
+        const run = () => {
+            interval = setInterval(() => {
+                if (!isMounted) return;
 
-            setDisplayText(
-                text
-                    .split('')
-                    .map((char, index) => {
-                        if (index < iteration) {
-                            return text[index];
-                        }
-                        if (char === ' ' || char === '-') return char;
-                        return chars[Math.floor(Math.random() * chars.length)];
-                    })
-                    .join('')
-            );
+                setDisplayText(
+                    text
+                        .split('')
+                        .map((char, index) => {
+                            if (index < iteration) {
+                                return text[index];
+                            }
+                            if (char === ' ' || char === '-' || char === '—') return char;
+                            return chars[Math.floor(Math.random() * chars.length)];
+                        })
+                        .join('')
+                );
 
-            if (iteration >= text.length) {
-                clearInterval(interval);
-            }
+                if (iteration >= text.length) {
+                    clearInterval(interval);
+                }
 
-            iteration += 1/3;
-        }, 30);
+                iteration += 1/3;
+            }, 30);
+        };
+
+        if (delay > 0) {
+            timeoutId = setTimeout(run, delay);
+        } else {
+            run();
+        }
 
         return () => {
-            clearInterval(interval);
+            if (interval) clearInterval(interval);
+            if (timeoutId) clearTimeout(timeoutId);
             isMounted = false;
         };
-    }, [text, start]);
+    }, [text, start, delay]);
 
     return <span>{displayText}</span>;
 }
@@ -118,19 +128,29 @@ export default function LoadingScreen() {
                         {/* Glowing ambient background grids */}
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.03)_1px,_transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-60"></div>
                         
-                        <div className="text-center max-w-3xl relative z-10 space-y-12">
-                            <h1 className="font-hero text-[32px] md:text-[54px] tracking-tight leading-tight uppercase font-light text-paper min-h-[120px] flex items-center justify-center text-center">
-                                <ScrambleText 
-                                    text="Welcome to the portfolio -manas upadhyay" 
-                                    start={scrambleStart} 
-                                />
-                            </h1>
+                        <div className="w-full max-w-4xl relative z-10 flex flex-col items-center justify-center px-4">
+                            <div className="flex flex-col items-center w-full space-y-6">
+                                <h1 className="font-hero text-[32px] md:text-[54px] tracking-tight leading-tight uppercase font-light text-paper text-center select-none">
+                                    <ScrambleText 
+                                        text="Welcome to the portfolio" 
+                                        start={scrambleStart} 
+                                    />
+                                </h1>
+                                
+                                <div className="font-ui-nav text-[16px] md:text-[22px] tracking-[0.15em] uppercase text-smoke select-none self-center md:self-end md:mr-16 min-h-[30px] opacity-80">
+                                    <ScrambleText 
+                                        text="— manas upadhyay" 
+                                        start={scrambleStart} 
+                                        delay={1200}
+                                    />
+                                </div>
+                            </div>
                             
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 0.4, y: 0 }}
-                                transition={{ delay: 2.2, duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-                                className="font-ui-nav text-ui-nav tracking-[0.3em] uppercase text-smoke"
+                                transition={{ delay: 2.5, duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                                className="font-ui-nav text-ui-nav tracking-[0.3em] uppercase text-smoke mt-16"
                             >
                                 click to continue
                             </motion.div>

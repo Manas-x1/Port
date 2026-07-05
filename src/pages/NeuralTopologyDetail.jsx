@@ -6,6 +6,7 @@ export default function NeuralTopologyDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
 
+        // Intersection Observer for scroll reveal animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -27,91 +28,119 @@ export default function NeuralTopologyDetail() {
     }, []);
 
     return (
-        <div className="w-full text-on-surface">
-            {/* Cinematic Hero */}
-            <header className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-surface-container-lowest">
-                <div className="absolute inset-0 z-0">
-                    <img 
-                        className="w-full h-full object-cover opacity-60 hero-mask" 
-                        alt="Neural Topology Hero Render"
-                        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop"
-                    />
-                </div>
-                <div className="relative z-10 text-center select-none">
-                    <h1 className="font-hero text-hero-mobile md:text-hero text-[#ffffff] uppercase animate-fade-in tracking-tight">
-                        NEURAL TOPOLOGY
-                    </h1>
-                    <div className="mt-8 flex flex-col items-center">
-                        <span className="font-micro text-micro uppercase tracking-[0.3em] text-smoke mb-4">Scroll to Explore</span>
-                        <div className="w-[1px] h-12 bg-on-surface/30 animate-pulse"></div>
-                    </div>
-                </div>
-            </header>
+        <div className="w-full text-on-surface animate-fade-in">
+            <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+<div className="absolute inset-0 z-0">
+<img className="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFBOJLHnF68pUz841_f2s7OAuY4SbnYW4CCd8-PEv9yo-n9bALZYiYZ3Ola-U4fcN7Vwe9XQb4GpSdNnkp-GUgG-LhMpyU3BPWC6OW0ymUXHAEvy7z4iam2v0UP3lkIf-vUNA-AZV5MiGM7Ax4fjXI7lf5sdMfXKpdKKOIKNzqwCVnIZJUeMFAJRYAicY58FKg9gwLO3Ndz9ZolQfDSLTdKRceqISkSf1Vbfg9asxu5t9oWRNDdovAlWqtgmbUfOcLCIznwKi71m9S" />
+<div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background opacity-80"></div>
+</div>
+<div className="relative z-10 flex flex-col items-center text-center px-margin-mobile">
+<p className="font-micro text-micro uppercase tracking-[0.4em] text-primary opacity-50 mb-8 scramble-reveal">CASE STUDY 042</p>
+<h1 className="font-hero text-display-mobile md:text-hero text-primary uppercase leading-none tracking-tighter scramble-reveal">
+                    NEURAL<br />TOPOLOGY
+                </h1>
+</div>
 
-            {/* Editorial Section: Procedural Landscapes */}
-            <section className="bg-[#ffffff] text-on-secondary-fixed py-section-v px-element-lg" id="architecture">
-                <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-element-lg items-start reveal">
-                    <div className="sticky top-offset-lg">
-                        <h2 className="font-heading-lg text-heading-lg uppercase leading-none text-ink">
-                            PROCEDURAL<br />LANDSCAPES
+<div className="absolute bottom-12 left-margin-mobile md:left-margin-desktop z-10 hidden md:block">
+<p className="font-micro text-micro text-ash uppercase tracking-widest">Procedural Terrain Synthesis</p>
+</div>
+<div className="absolute bottom-12 right-margin-mobile md:right-margin-desktop z-10 hidden md:block text-right">
+<p className="font-micro text-micro text-ash uppercase tracking-widest">©2024 MU_LABS_001</p>
+</div>
+</section>
+
+<div className="h-[120px] md:h-gap-vertical-lg bg-background"></div>
+
+<section className="bg-paper text-ink py-gap-vertical-md md:py-gap-vertical-lg">
+<div className="px-margin-mobile md:px-margin-desktop max-w-screen-xl mx-auto">
+<div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div className="md:col-span-5 mb-12 md:mb-0">
+<h2 className="font-display-mobile text-display-mobile md:text-heading-lg font-light leading-none mb-12 text-ink">
+                            VECTOR<br />HEIGHTMAPS
                         </h2>
-                    </div>
-                    <div className="pt-8 md:pt-16">
-                        <p className="font-body-lg text-body-lg text-ink leading-relaxed mb-8">
-                            NEURAL TOPOLOGY is a design of synthetic landscapes created using volumetric vectors and deep neural networks.
-                        </p>
-                        <p className="font-body-md text-body-md text-graphite leading-relaxed">
-                            We train custom generative models on geometric elevation values to map procedural terrain structures. The result creates a digital topology that balances natural elevation lines against artificial, hard-edged Brutalist grids.
-                        </p>
-                    </div>
-                </div>
-            </section>
+<div className="md:max-w-md">
+<p className="font-body-lg text-body-lg text-neutral-700 leading-relaxed mb-6">
+                                Neural Topology explores the procedural synthesis of imaginary terrains, where geological formations are dictated by latent weight distributions of neural networks.
+                            </p>
+<p className="font-body-lg text-body-lg text-neutral-700 leading-relaxed">
+                                By mapping multi-dimensional data into topographic wireframes, we create a tangible visual language for the intangible architecture of AI decision-making. These meshes represent the "elevations" of probability within a generative model.
+                            </p>
+</div>
+</div>
+<div className="md:col-span-7 flex flex-col gap-12">
+<div className="aspect-[4/5] md:aspect-[16/10] bg-surface-container overflow-hidden group">
+<img className="w-full h-full object-cover grayscale transition-transform duration-[2s] ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGSwVXqhzTLDiwXtCD8Jp8po9SX8inQld85gzQVzI4CKjwZ5ssBR2gHtf-j6dGcBdzWcVfESa5e-5wgYrPjrktZcg51fE3aCYTnzNuqiPFAgt_b8MNgDRiz4SktpMaWTaSrRfTZZUkuHUMWcOpPCvGcWL36eQRPRg25x1w7iKoYUOMKyAzi7Wy-3yWeebBJptA_9763BBPxhGcynI1JabhqrfrMFhr1poK3-AAej9pOL6zAFrTI8ziZNnKTHkjl4lE1APPB6cG7E_8" />
+</div>
+<div className="grid grid-cols-2 gap-gutter">
+<div className="h-1 bg-ink opacity-10"></div>
+<div className="h-1 bg-ink opacity-10"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-            {/* Gallery Break: Perspective 01 */}
-            <section className="w-full bg-surface-container-lowest">
-                <div className="relative w-full aspect-video md:h-[90vh] overflow-hidden reveal">
-                    <img 
-                        className="w-full h-full object-cover" 
-                        alt="Neural Topology Detail View 01"
-                        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop"
-                    />
-                    <div className="absolute bottom-element-lg left-element-lg">
-                        <span className="font-micro text-micro uppercase tracking-[0.2em] text-on-surface opacity-60">PERSPECTIVE 01</span>
-                    </div>
-                </div>
-            </section>
+<section className="bg-background text-primary py-gap-vertical-md md:py-gap-vertical-lg border-t border-ash">
+<div className="px-margin-mobile md:px-margin-desktop max-w-screen-xl mx-auto">
+<div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 border-b border-ash pb-12 mb-24">
+<h2 className="font-display-mobile text-display-mobile md:text-heading-lg font-light leading-none">
+                        NETWORK<br />LAYERS
+                    </h2>
+<div className="flex flex-wrap gap-4">
+<span className="px-6 py-2 border border-ash font-ui-nav text-ui-nav uppercase tracking-widest">Houdini FX</span>
+<span className="px-6 py-2 border border-ash font-ui-nav text-ui-nav uppercase tracking-widest">Stable Diffusion API</span>
+<span className="px-6 py-2 border border-ash font-ui-nav text-ui-nav uppercase tracking-widest">Custom Noise Shaders</span>
+</div>
+</div>
 
-            {/* Next Project Section */}
-            <section className="relative w-full h-[70vh] group cursor-pointer overflow-hidden bg-surface-container-lowest">
-                <Link to="/latent-spaces" className="absolute inset-0 block">
-                    <div className="absolute inset-0 bg-black transition-transform duration-700 group-hover:scale-105 opacity-40">
-                        <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-ash/20 to-transparent"></div>
-                    </div>
-                    <div className="relative h-full flex flex-col items-center justify-center text-center">
-                        <span className="font-micro text-micro uppercase tracking-[0.4em] text-smoke mb-6">Up Next</span>
-                        <h3 className="font-display text-display uppercase tracking-tighter mb-8 text-[#ffffff]">Latent Spaces</h3>
-                        <div className="w-16 h-16 border border-ash rounded-full flex items-center justify-center group-hover:bg-on-surface group-hover:text-background transition-all duration-500">
-                            <span className="material-symbols-outlined text-white group-hover:text-black">arrow_forward</span>
-                        </div>
-                    </div>
-                </Link>
-            </section>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+<div>
+<p className="font-micro text-micro text-ash uppercase tracking-[0.2em] mb-6">Process_01</p>
+<h4 className="font-subheading text-subheading mb-4">Latent Geometry</h4>
+<p className="font-body-md text-smoke opacity-80 leading-relaxed">Extracting 3D positional data from high-dimensional latent vectors using custom Python scripts within the Houdini environment.</p>
+</div>
+<div>
+<p className="font-micro text-micro text-ash uppercase tracking-[0.2em] mb-6">Process_02</p>
+<h4 className="font-subheading text-subheading mb-4">Procedural Meshing</h4>
+<p className="font-body-md text-smoke opacity-80 leading-relaxed">Applying VEX-based noise modifiers to generate hyper-detailed topographic wireframes that respond dynamically to seed changes.</p>
+</div>
+<div>
+<p className="font-micro text-micro text-ash uppercase tracking-[0.2em] mb-6">Process_03</p>
+<h4 className="font-subheading text-subheading mb-4">Volumetric Light</h4>
+<p className="font-body-md text-smoke opacity-80 leading-relaxed">Simulating organic light dispersal within the digital void to emphasize the tactile quality of the procedural mesh.</p>
+</div>
+</div>
+</div>
+</section>
 
-            {/* Footer */}
-            <footer className="flex flex-col items-center pt-section-v pb-component-int px-element-lg w-full bg-background border-t border-white/10">
-                <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-nav-gap">
-                    <div className="font-body-md text-body-md text-on-surface">
-                        © 2026 MANAS UPADHYAY. ALL RIGHTS RESERVED.
-                    </div>
-                    <div className="flex gap-element-md">
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Instagram</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">LinkedIn</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Twitter</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Dribbble</a>
-                    </div>
-                </div>
-            </footer>
+<section className="bg-carbon group cursor-pointer py-32 transition-colors duration-700 hover:bg-background overflow-hidden relative">
+<div className="px-margin-mobile md:px-margin-desktop flex flex-col items-center justify-center text-center">
+<p className="font-micro text-micro text-ash uppercase tracking-[0.5em] mb-8">NEXT CASE STUDY</p>
+<div className="flex items-center gap-8">
+<h3 className="font-heading-lg text-display-mobile md:text-heading-lg uppercase leading-none opacity-40 group-hover:opacity-100 transition-all duration-700 group-hover:tracking-wider">LATENT SPACES</h3>
+<span className="material-symbols-outlined text-4xl md:text-6xl text-primary opacity-40 group-hover:translate-x-4 transition-all duration-700 group-hover:opacity-100">arrow_forward</span>
+</div>
+</div>
+</section>
 
+
+<footer className="w-full relative mt-gap-vertical-lg bg-background dark:bg-background border-t border-ash dark:border-ash flex flex-col items-center px-margin-desktop pb-12 pt-gap-vertical-md">
+<div className="font-hero text-hero text-primary dark:text-primary opacity-10 absolute -top-24 select-none pointer-events-none">MU</div>
+<div className="flex flex-col md:flex-row justify-between w-full max-w-screen-xl gap-12 items-center md:items-start z-10">
+<div className="text-center md:text-left">
+<p className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-primary mb-2">©2024 MU ARCHITECTURE.</p>
+<p className="font-micro text-micro text-smoke uppercase tracking-widest">ALL RIGHTS RESERVED.</p>
+</div>
+<div className="flex gap-12 font-ui-nav text-ui-nav uppercase tracking-[0.2em]">
+<a className="text-smoke dark:text-smoke hover:text-primary transition-colors duration-500" href="">INSTAGRAM</a>
+<a className="text-smoke dark:text-smoke hover:text-primary transition-colors duration-500" href="">LINKEDIN</a>
+<a className="text-smoke dark:text-smoke hover:text-primary transition-colors duration-500" href="">EMAIL</a>
+</div>
+</div>
+<div className="mt-24 font-micro text-micro text-ash tracking-[0.5em] text-center">
+            ARCHITECTURE_DESIGN_AI_LABS
+        </div>
+</footer>
             <ScrollToTop />
         </div>
     );

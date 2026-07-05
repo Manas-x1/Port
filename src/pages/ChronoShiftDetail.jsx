@@ -6,6 +6,7 @@ export default function ChronoShiftDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
 
+        // Intersection Observer for scroll reveal animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -27,91 +28,138 @@ export default function ChronoShiftDetail() {
     }, []);
 
     return (
-        <div className="w-full text-on-surface">
-            {/* Cinematic Hero */}
-            <header className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-surface-container-lowest">
-                <div className="absolute inset-0 z-0">
-                    <img 
-                        className="w-full h-full object-cover opacity-60 hero-mask" 
-                        alt="Chrono Shift Hero Render"
-                        src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200&auto=format&fit=crop"
-                    />
-                </div>
-                <div className="relative z-10 text-center select-none">
-                    <h1 className="font-hero text-hero-mobile md:text-hero text-[#ffffff] uppercase animate-fade-in tracking-tight">
-                        CHRONO SHIFT
-                    </h1>
-                    <div className="mt-8 flex flex-col items-center">
-                        <span className="font-micro text-micro uppercase tracking-[0.3em] text-smoke mb-4">Scroll to Explore</span>
-                        <div className="w-[1px] h-12 bg-on-surface/30 animate-pulse"></div>
-                    </div>
-                </div>
-            </header>
+        <div className="w-full text-on-surface animate-fade-in">
+            <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+<div className="absolute inset-0 z-0">
+<img alt="CHRONO SHIFT Cinematic visual with film reels" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAElz6JdmEtgHQsWLlrdCf6wR2_SkWZ8HgOXa8suS652tEmHsm__nJrAckwTl6vPT5ZFyRsVlQW652-bBOq1Bt99UsmiUp0R42Z_KIsECX6ZBZyceeRZzfLrvJmRkFQBHUVMUSeFUu_i__HMskpQyMPRWlvGFdObG0y9FB4fB6xlg1Qlw3wO_Xz231GlJlEopJS6rQH2_3wU_ruS7Vuml2-pMfOdvWxlt42TvL1guYJsObQnFxj9RMhAQhYeVntwRt-XRm1_5R4wUxB" />
+<div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50"></div>
+</div>
+<div className="relative z-10 text-center px-6">
+<h1 className="font-hero text-display-mobile md:text-hero text-primary uppercase leading-none tracking-tighter mix-blend-difference mb-8">
+                    CHRONO<br />SHIFT
+                </h1>
+<p className="font-ui-nav text-ui-nav uppercase tracking-[0.3em] opacity-80 reveal-up">Visualizing Temporal Flux</p>
+</div>
+<div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
+<span className="font-micro text-micro uppercase tracking-widest">Scroll to explore</span>
+<div className="w-[1px] h-12 bg-primary"></div>
+</div>
+</section>
 
-            {/* Editorial Section: Temporal Assembly */}
-            <section className="bg-[#ffffff] text-on-secondary-fixed py-section-v px-element-lg" id="architecture">
-                <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-element-lg items-start reveal">
-                    <div className="sticky top-offset-lg">
-                        <h2 className="font-heading-lg text-heading-lg uppercase leading-none text-ink">
-                            TEMPORAL<br />ASSEMBLY
-                        </h2>
-                    </div>
-                    <div className="pt-8 md:pt-16">
-                        <p className="font-body-lg text-body-lg text-ink leading-relaxed mb-8">
-                            CHRONO SHIFT is a study of pacing, frame transition points, and temporal spacing that edits visual reality.
-                        </p>
-                        <p className="font-body-md text-body-md text-graphite leading-relaxed">
-                            By shifting clip timings, frame speeds, and audio pacing, we isolate cinematic moments. The editing maintains a strict rhythm, structuring frames to direct the audience's gaze and build tension using negative visual space.
-                        </p>
-                    </div>
-                </div>
-            </section>
+<section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile md:px-margin-desktop min-h-screen flex flex-col justify-center">
+<div className="max-w-4xl mx-auto">
+<span className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-ash mb-8 block reveal-up">Module 01 / Edit</span>
+<h2 className="font-display text-display-mobile md:text-display text-ink mb-16 leading-tight reveal-up">
+                    TEMPORAL<br />ARCHITECTURE
+                </h2>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-gutter reveal-up">
+<p className="font-body-lg text-body-lg leading-relaxed text-ink opacity-90">
+                        The complexity of temporal editing lies in the spaces between frames. Chrono Shift explores the rhythm of cinematic motion not just as a sequence of images, but as a structural discipline. Each cut is a calculated architectural decision, defining the volume of time.
+                    </p>
+<p className="font-body-lg text-body-lg leading-relaxed text-ink opacity-90">
+                        Frame-by-frame precision allows us to manipulate the viewer's perception of duration. By shifting the temporal axis, we create an immersive environment where the past and future converge into a singular, high-fidelity experience of the now.
+                    </p>
+</div>
+<div className="mt-24 border-t border-ash pt-12 flex justify-between items-baseline reveal-up">
+<div className="flex flex-col gap-2">
+<span className="font-micro text-micro uppercase tracking-widest text-ash">Visual Fidelity</span>
+<span className="font-subheading text-subheading">8K RAW MASTER</span>
+</div>
+<div className="flex flex-col gap-2 text-right">
+<span className="font-micro text-micro uppercase tracking-widest text-ash">Sample Rate</span>
+<span className="font-subheading text-subheading">120 FPS FLUX</span>
+</div>
+</div>
+</div>
+</section>
 
-            {/* Gallery Break: Perspective 01 */}
-            <section className="w-full bg-surface-container-lowest">
-                <div className="relative w-full aspect-video md:h-[90vh] overflow-hidden reveal">
-                    <img 
-                        className="w-full h-full object-cover" 
-                        alt="Chrono Shift Detail View 01"
-                        src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200&auto=format&fit=crop"
-                    />
-                    <div className="absolute bottom-element-lg left-element-lg">
-                        <span className="font-micro text-micro uppercase tracking-[0.2em] text-on-surface opacity-60">PERSPECTIVE 01</span>
-                    </div>
-                </div>
-            </section>
+<section className="w-full h-[80vh] relative overflow-hidden bg-background">
+<img alt="Black and white contact sheet style motion frames" className="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA83Khg-ixcuWqjKqmBMO35mhTZDpc1S2p0_ZzU5GCqh9SGAl07KHNUBl5hEYYQ-FoyaRXII78dBBBtWmsNVSCnCfnPtcnZLHV3wE7DM8-QcZGC-Nd1oeg8ncE6fu-7PVIWYhM76Ey_IWTlNmcjq7Bp4i8qK4Z0xwrgay-cJ-40u6rTnKfCNjmQ43HuHcYHB4OT5YOioUbFpIY-YKfW00yd5XJUhjOqb6bpZ4YRmLP7lIU3JbfiaeTbRo_U0A3MPo5NrMvC55ZEGDG6" />
+<div className="absolute inset-0 bg-background/20 backdrop-grayscale-[0.5]"></div>
+<div className="absolute bottom-margin-mobile left-margin-mobile md:left-margin-desktop">
+<span className="font-micro text-micro uppercase tracking-widest border border-ash px-3 py-1 text-primary">Contact Sheet Reference 012</span>
+</div>
+</section>
 
-            {/* Next Project Section */}
-            <section className="relative w-full h-[70vh] group cursor-pointer overflow-hidden bg-surface-container-lowest">
-                <Link to="/spectral-cut" className="absolute inset-0 block">
-                    <div className="absolute inset-0 bg-black transition-transform duration-700 group-hover:scale-105 opacity-40">
-                        <div className="w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-ash/20 to-transparent"></div>
-                    </div>
-                    <div className="relative h-full flex flex-col items-center justify-center text-center">
-                        <span className="font-micro text-micro uppercase tracking-[0.4em] text-smoke mb-6">Up Next</span>
-                        <h3 className="font-display text-display uppercase tracking-tighter mb-8 text-[#ffffff]">Spectral Cut</h3>
-                        <div className="w-16 h-16 border border-ash rounded-full flex items-center justify-center group-hover:bg-on-surface group-hover:text-background transition-all duration-500">
-                            <span className="material-symbols-outlined text-white group-hover:text-black">arrow_forward</span>
-                        </div>
-                    </div>
-                </Link>
-            </section>
+<section className="bg-background text-primary py-gap-vertical-lg px-margin-mobile md:px-margin-desktop">
+<div className="max-w-6xl mx-auto">
+<div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-32">
+<h2 className="font-display text-display-mobile md:text-heading-lg reveal-up">METRICS OF<br />MOTION</h2>
+<div className="max-w-sm reveal-up">
+<p className="font-body-md text-smoke">Quantifying the cinematic experience through rigorous data-driven analysis of frame transitions and luminance shift.</p>
+</div>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-            {/* Footer */}
-            <footer className="flex flex-col items-center pt-section-v pb-component-int px-element-lg w-full bg-background border-t border-white/10">
-                <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-nav-gap">
-                    <div className="font-body-md text-body-md text-on-surface">
-                        © 2026 MANAS UPADHYAY. ALL RIGHTS RESERVED.
-                    </div>
-                    <div className="flex gap-element-md">
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Instagram</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">LinkedIn</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Twitter</a>
-                        <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-colors" href="#">Dribbble</a>
-                    </div>
-                </div>
-            </footer>
+<div className="border border-ash p-12 bg-carbon/50 reveal-up">
+<span className="font-ui-nav text-ui-nav uppercase tracking-widest text-smoke mb-4 block">Process 04</span>
+<h3 className="font-subheading text-subheading text-primary mb-8">FRAME TRANSITIONS</h3>
+<div className="space-y-6">
+<div className="flex justify-between items-end border-b border-ash pb-2">
+<span className="font-micro text-micro uppercase text-smoke">Shutter Angle</span>
+<span className="font-body-lg">180.0°</span>
+</div>
+<div className="flex justify-between items-end border-b border-ash pb-2">
+<span className="font-micro text-micro uppercase text-smoke">Motion Blur Radius</span>
+<span className="font-body-lg">12px / Interframe</span>
+</div>
+<div className="flex justify-between items-end border-b border-ash pb-2">
+<span className="font-micro text-micro uppercase text-smoke">Opacity Delta</span>
+<span className="font-body-lg">0.04ms</span>
+</div>
+</div>
+</div>
 
+<div className="border border-ash p-12 bg-carbon/50 reveal-up">
+<span className="font-ui-nav text-ui-nav uppercase tracking-widest text-smoke mb-4 block">Process 05</span>
+<h3 className="font-subheading text-subheading text-primary mb-8">TIMING METRICS</h3>
+<div className="space-y-6">
+<div className="flex justify-between items-end border-b border-ash pb-2">
+<span className="font-micro text-micro uppercase text-smoke">Temporal Gain</span>
+<span className="font-body-lg">+1.22% Shift</span>
+</div>
+<div className="flex justify-between items-end border-b border-ash pb-2">
+<span className="font-micro text-micro uppercase text-smoke">Beat Frequency</span>
+<span className="font-body-lg">24.5 Hz</span>
+</div>
+<div className="flex justify-between items-end border-b border-ash pb-2">
+<span className="font-micro text-micro uppercase text-smoke">Rhythmic Variance</span>
+<span className="font-body-lg">0.002σ</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section className="bg-carbon py-gap-vertical-lg px-margin-mobile text-center">
+<span className="font-ui-nav text-ui-nav uppercase tracking-[0.4em] text-smoke mb-12 block">Continuing the Sequence</span>
+<Link className="group relative inline-block" to="/spectral-cut">
+<h2 className="font-display text-display-mobile md:text-display text-primary uppercase transition-all duration-700 group-hover:scale-105">
+                    SPECTRAL CUT
+                </h2>
+<div className="mt-12 flex justify-center items-center gap-4 group-hover:gap-8 transition-all duration-500">
+<span className="material-symbols-outlined text-4xl font-light">arrow_forward</span>
+</div>
+</Link>
+</section>
+
+
+<footer className="w-full relative bg-background px-margin-mobile md:px-margin-desktop pb-12 pt-gap-vertical-md border-t border-ash flex flex-col items-center">
+<div className="absolute top-12 left-1/2 -translate-x-1/2 pointer-events-none">
+<span className="font-hero text-hero text-primary opacity-5 whitespace-nowrap">MU ARCHITECTURE</span>
+</div>
+<div className="z-10 flex flex-col items-center">
+<div className="flex gap-12 mb-16">
+<a className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-smoke hover:text-primary transition-colors duration-500" href="">INSTAGRAM</a>
+<a className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-smoke hover:text-primary transition-colors duration-500" href="">LINKEDIN</a>
+<a className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-smoke hover:text-primary transition-colors duration-500" href="">EMAIL</a>
+</div>
+<p className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-smoke opacity-60">
+                ©2024 MU ARCHITECTURE. ALL RIGHTS RESERVED.
+            </p>
+</div>
+</footer>
             <ScrollToTop />
         </div>
     );
