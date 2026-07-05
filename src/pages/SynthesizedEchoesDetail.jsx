@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function SynthesizedEchoesDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 
 <div className="absolute inset-0 z-0">
 <div className="w-full h-full bg-cover bg-center bg-no-repeat scale-105" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDqnS1VRSP8lzkMmBMrpNsUi9P7ReFjbFUkfxe1Yo4oYaiAfYKV7ZD2FXgnmWUFEWUWFeo4bLUz1FVG28v9Pif3Si7KAshWw_-RA3LqFoAbcM8Iag_e44rrwxXT2EFv-XwSPriqq85_pYfWkGTqGrOLr6mgeO2YuNPb4-gthd1-hbzuOYIpHydZqeiQKVpJL5Um-h7iw4lpYbM3GMkkENBYNi0SpV0vty-iQjjt48Kd4a2lT-9tI2qBjmW6GlHFUFEfzrurOktThLtz')" }}>
@@ -47,9 +34,9 @@ export default function SynthesizedEchoesDetail() {
 </div>
 
 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 scroll-indicator"></div>
-</section>
+</motion.section>
 
-<section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile flex flex-col items-start">
+<motion.section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile flex flex-col items-start" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="w-full max-w-lg mx-auto">
 <span className="font-micro text-micro uppercase tracking-[0.3em] text-ash mb-4 block">01 / Concept</span>
 <h2 className="font-subheading text-subheading mb-12 leading-tight">NEURAL SYNTHESIS</h2>
@@ -62,9 +49,9 @@ export default function SynthesizedEchoesDetail() {
                 </p>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-black text-on-surface py-gap-vertical-lg px-margin-mobile">
+<motion.section className="bg-black text-on-surface py-gap-vertical-lg px-margin-mobile" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="w-full max-w-lg mx-auto mb-16">
 <span className="font-micro text-micro uppercase tracking-[0.3em] text-ash mb-4 block">02 / Process</span>
 <h2 className="font-subheading text-subheading mb-12 text-white">ATMOSPHERIC NOISE</h2>
@@ -86,9 +73,9 @@ export default function SynthesizedEchoesDetail() {
                 "The result is a visual echo of something that never existed in the physical world, yet feels hauntingly familiar."
             </p>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-black py-gap-vertical-md border-t border-ash/10">
+<motion.section className="bg-black py-gap-vertical-md border-t border-ash/10" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <Link className="group block px-margin-mobile" to="/neural-topology">
 <div className="flex flex-col items-center text-center">
 <span className="font-micro text-micro uppercase tracking-[0.4em] text-ash mb-8">Up Next</span>
@@ -98,12 +85,10 @@ export default function SynthesizedEchoesDetail() {
 </div>
 </div>
 </Link>
-</section>
+</motion.section>
 
 <footer className="flex flex-col items-center pt-[120px] pb-8 px-6 w-full border-t border-ash bg-background">
-<div className="font-hero text-[48px] uppercase tracking-[-0.04em] text-on-surface leading-none mb-24 text-center">
-            MANAS
-        </div>
+
 <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-8 text-smoke font-body-md text-body-md">
 <div className="flex gap-8 order-2 md:order-1">
 <a className="hover:text-on-surface transition-colors" href="">Instagram</a>
@@ -117,6 +102,6 @@ export default function SynthesizedEchoesDetail() {
 </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

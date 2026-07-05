@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function IdentityDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full bg-ink-black flex flex-col items-center justify-center overflow-hidden">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full bg-ink-black flex flex-col items-center justify-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 
 <div className="absolute inset-0 z-0 opacity-80 scale-110">
 <img alt="Identity Badge 3D Render" className="w-full h-full object-cover grayscale brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVjeTyYjlb4HcBckXJ7Lwt5pvhCe4Y7IL8slB1SUO9UqM6T2p-4l12Smz3QtssJtZV5dK7LLM5JLbahLPfvXuV0_FeJLNMN3Aq1GrFeY9pFN73aYzFT2ZUDiKLaVamruul0X6WQQuqW7Sn28v6nQ28dJHLk6IB002WlO1qd5QDNyd_NM2bqVYoL3Bx5wJkl3kUp7RSqf_EmpssiXC1j3DhWqGJ6kvWDMqBeaSSFHJT4Wm4oIq_Q26kIMTtmerZavuat5R5eoCU75H9" />
@@ -46,9 +33,9 @@ export default function IdentityDetail() {
 <span className="material-symbols-outlined text-paper-white text-[20px]">expand_more</span>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper-white py-section-v px-element-lg">
+<motion.section className="bg-paper-white py-section-v px-element-lg" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
 <div className="md:col-span-5">
 <h2 className="font-headline-lg text-headline-lg text-ink-black uppercase leading-tight md:text-headline-lg text-headline-xl-mobile">
@@ -62,9 +49,9 @@ export default function IdentityDetail() {
 <div className="mt-stack-md w-24 h-[1px] bg-ink-black"></div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper-white pb-section-v px-element-lg">
+<motion.section className="bg-paper-white pb-section-v px-element-lg" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-stack-md">
 
 <div className="aspect-[4/5] bg-surface-container-low overflow-hidden group">
@@ -81,9 +68,9 @@ export default function IdentityDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper-white border-t border-pewter py-section-v px-element-lg">
+<motion.section className="bg-paper-white border-t border-pewter py-section-v px-element-lg" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
 <div className="md:col-span-8">
 <div className="flex items-center gap-4 mb-stack-sm">
@@ -107,9 +94,9 @@ export default function IdentityDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-ink-black py-section-v px-element-lg overflow-hidden group cursor-pointer transition-colors duration-500 hover:bg-graphite">
+<motion.section className="bg-ink-black py-section-v px-element-lg overflow-hidden group cursor-pointer transition-colors duration-500 hover:bg-graphite" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-[1440px] mx-auto flex flex-col items-center">
 <span className="font-label-sm text-label-sm text-smoke uppercase tracking-[0.3em] mb-stack-sm">UP NEXT</span>
 <Link className="flex items-center gap-6 group" to="/fluid-waves">
@@ -119,11 +106,11 @@ export default function IdentityDetail() {
 <span className="material-symbols-outlined text-paper-white text-[80px] font-light transition-transform duration-700 group-hover:translate-x-8">arrow_forward</span>
 </Link>
 </div>
-</section>
+</motion.section>
 
 
 <footer className="flex flex-col items-center pt-section-v pb-component-int px-element-lg w-full bg-background border-t border-ash">
-<div className="font-hero text-hero-mobile md:text-hero uppercase tracking-[-0.04em] text-on-surface leading-none mb-stack-xl">MANAS</div>
+
 <div className="w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-stack-md">
 <div className="font-body-md text-body-md text-smoke">
                 © 2024 MANAS UPADHYAY
@@ -137,6 +124,6 @@ export default function IdentityDetail() {
 </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

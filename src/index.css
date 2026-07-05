@@ -125,6 +125,45 @@
   --text-hero-mobile: 80px;
   --text-hero-mobile--line-height: 72px;
   --text-hero-mobile--font-weight: 300;
+
+  /* Custom Stitch Page Spacings */
+  --spacing-margin-mobile: 24px;
+  --spacing-margin-desktop: 64px;
+  --spacing-gap-vertical-md: 80px;
+  --spacing-gap-vertical-lg: 150px;
+  --spacing-gutter: 24px;
+  --spacing-stack-xl: 64px;
+  --spacing-stack-md: 32px;
+  --spacing-stack-sm: 16px;
+  --spacing-margin-edge: 40px;
+  --spacing-section-v-padding: 120px;
+  --spacing-section-v-padding-sm: 80px;
+
+  /* Custom Stitch Page Colors */
+  --color-paper-white: #ffffff;
+  --color-ink-black: #000000;
+  --color-graphite: #333333;
+  --color-pewter: #e2e2e2;
+
+  /* Custom Stitch Page Font Sizes */
+  --text-headline-xl: 120px;
+  --text-headline-xl--line-height: 108px;
+  --text-headline-xl--font-weight: 300;
+  --text-headline-xl--letter-spacing: -0.03em;
+
+  --text-headline-xl-mobile: 48px;
+  --text-headline-xl-mobile--line-height: 48px;
+  --text-headline-xl-mobile--font-weight: 300;
+
+  --text-headline-lg: 64px;
+  --text-headline-lg--line-height: 70px;
+  --text-headline-lg--font-weight: 300;
+  --text-headline-lg--letter-spacing: -0.02em;
+
+  --text-display-hero-mobile: 80px;
+  --text-display-hero-mobile--line-height: 68px;
+  --text-display-hero-mobile--font-weight: 300;
+  --text-display-hero-mobile--letter-spacing: -0.04em;
 }
 
 /* Base Styles & Core Theme Variables */

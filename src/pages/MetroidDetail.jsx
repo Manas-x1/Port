@@ -33,8 +33,8 @@ export default function MetroidDetail() {
             {/* Cinematic Hero */}
             <header className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-surface-container-lowest">
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        className="w-full h-full object-cover opacity-60 hero-mask" 
+                    <img
+                        className="w-full h-full object-cover opacity-60 hero-mask"
                         alt="Metroid 3D Hero Render"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSgAv7jAQYrQN82lb68tevxiSWhxmgDfdERNLJ_0UxS6nE2g1SHmSSvp9R3mRKRa6sOAtQ7c-jRRDu8NUBvhSL4V9d3udPtcTlPcj3EI3MAzjGfrDMzkflbLcTGKbds-MefvCPS0UuQ1vKmkHgf8-l7CURgyjpO08O253oB_eCSkH3-DH7-XNi4kCT1ZfUMgs_ZCsipDHN3hzoI1F2WyUFvgg8CjLyrFnrNN6zuot0rKjqUKoQvXzeGIxLTtNlLzvd1BocbxAXxrx0"
                     />
@@ -72,8 +72,8 @@ export default function MetroidDetail() {
             {/* Gallery Break: Perspective 01 */}
             <section className="w-full bg-surface-container-lowest">
                 <div className="relative w-full aspect-video md:h-[90vh] overflow-hidden reveal">
-                    <img 
-                        className="w-full h-full object-cover" 
+                    <img
+                        className="w-full h-full object-cover"
                         alt="Metroid Perspective View 01"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkgS082M3pycZc7BEwU2LJPcjRvjh-B-88CGQc5PMy_jDTkuuw8XsBilubhuEDMHyxL16c4a_V2qbQ7qaJAV5EvFlv4q0aO5Ov9kw0cp691lE9jdS94TwUdEnXQDTqnqXvzdi6G7k48CqgBGx8Eoi-KGrxr99NVQP5DKvOWR9FiF24glRE1pOdVd7sUSHxaJFIkZSAFkIKIjEpug0BYwKi2b__A5LGf2OfAjh7jS5X_Uc8LFFONHnNDyBLA-VKDMvCUwKN1wSBjKhH"
                     />
@@ -87,15 +87,15 @@ export default function MetroidDetail() {
             <section className="bg-[#f5f5f5] py-section-v px-element-lg">
                 <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-component-int">
                     <div className="aspect-square bg-[#ffffff] flex items-center justify-center p-card-pad border border-ash/10 reveal">
-                        <img 
-                            className="w-full h-full object-contain mix-blend-multiply" 
+                        <img
+                            className="w-full h-full object-contain mix-blend-multiply"
                             alt="Metroid Product Detail 01"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdYhz1G9dyzlx6UDXN4z604SFSHhUG2bwUZZIN_rAzNmH06Ii5dXltlDWQ7Gsk1UmF5U8lnK8z8TnSoALBSV9WcXSpol9aX8pc9Hie5bPASI6FNTM32Z6UNv8PocIlNyzoFbUV9f2Snjrrl5J9YBSXHUs1OiQmGND1H2E0vg2YsMqCrI-auL4AHaCOWjDjx2Xrg-M01-41pq_wYMJu2CL8eB8epvqD-zDzRDPIKHJiyMRS3NsvlJxEzGgnJtzQ_v-v8vVxGwvi2sGB"
                         />
                     </div>
                     <div className="aspect-square bg-[#ffffff] flex items-center justify-center p-card-pad border border-ash/10 reveal">
-                        <img 
-                            className="w-full h-full object-contain mix-blend-multiply" 
+                        <img
+                            className="w-full h-full object-contain mix-blend-multiply"
                             alt="Metroid Product Detail 02"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuChUnIO_A1u2x3OTav4-HQ9PUc41rAq11MhlHivO13-TXlTSMQndG3ARHSByTyYn1grZonKqNvXvrOMnMDLzw4g53SUop-WPxXfVxMjeLK8wfZCoDoqCbcSVKMVCYRjoGkdehRBcjPsBWkL0yTL-xQORVnC4Do1RQ64e1-bQesYRBnWJEtZrzRTLKiYwWp-DZMCQ9UQJMwLsXEPauM-_bweudWgKm4md26YM0FeTaGk_I50Dnmo5LD4lLYvaiWWUL9nbXpgRMfLVOFM"
                         />

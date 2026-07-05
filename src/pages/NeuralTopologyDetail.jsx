@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function NeuralTopologyDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full flex items-center justify-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 z-0">
 <img className="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFBOJLHnF68pUz841_f2s7OAuY4SbnYW4CCd8-PEv9yo-n9bALZYiYZ3Ola-U4fcN7Vwe9XQb4GpSdNnkp-GUgG-LhMpyU3BPWC6OW0ymUXHAEvy7z4iam2v0UP3lkIf-vUNA-AZV5MiGM7Ax4fjXI7lf5sdMfXKpdKKOIKNzqwCVnIZJUeMFAJRYAicY58FKg9gwLO3Ndz9ZolQfDSLTdKRceqISkSf1Vbfg9asxu5t9oWRNDdovAlWqtgmbUfOcLCIznwKi71m9S" />
 <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background opacity-80"></div>
@@ -47,11 +34,11 @@ export default function NeuralTopologyDetail() {
 <div className="absolute bottom-12 right-margin-mobile md:right-margin-desktop z-10 hidden md:block text-right">
 <p className="font-micro text-micro text-ash uppercase tracking-widest">©2024 MU_LABS_001</p>
 </div>
-</section>
+</motion.section>
 
 <div className="h-[120px] md:h-gap-vertical-lg bg-background"></div>
 
-<section className="bg-paper text-ink py-gap-vertical-md md:py-gap-vertical-lg">
+<motion.section className="bg-paper text-ink py-gap-vertical-md md:py-gap-vertical-lg" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="px-margin-mobile md:px-margin-desktop max-w-screen-xl mx-auto">
 <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
 <div className="md:col-span-5 mb-12 md:mb-0">
@@ -78,9 +65,9 @@ export default function NeuralTopologyDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-background text-primary py-gap-vertical-md md:py-gap-vertical-lg border-t border-ash">
+<motion.section className="bg-background text-primary py-gap-vertical-md md:py-gap-vertical-lg border-t border-ash" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="px-margin-mobile md:px-margin-desktop max-w-screen-xl mx-auto">
 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 border-b border-ash pb-12 mb-24">
 <h2 className="font-display-mobile text-display-mobile md:text-heading-lg font-light leading-none">
@@ -111,9 +98,9 @@ export default function NeuralTopologyDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-carbon group cursor-pointer py-32 transition-colors duration-700 hover:bg-background overflow-hidden relative">
+<motion.section className="bg-carbon group cursor-pointer py-32 transition-colors duration-700 hover:bg-background overflow-hidden relative" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="px-margin-mobile md:px-margin-desktop flex flex-col items-center justify-center text-center">
 <p className="font-micro text-micro text-ash uppercase tracking-[0.5em] mb-8">NEXT CASE STUDY</p>
 <div className="flex items-center gap-8">
@@ -121,11 +108,11 @@ export default function NeuralTopologyDetail() {
 <span className="material-symbols-outlined text-4xl md:text-6xl text-primary opacity-40 group-hover:translate-x-4 transition-all duration-700 group-hover:opacity-100">arrow_forward</span>
 </div>
 </div>
-</section>
+</motion.section>
 
 
 <footer className="w-full relative mt-gap-vertical-lg bg-background dark:bg-background border-t border-ash dark:border-ash flex flex-col items-center px-margin-desktop pb-12 pt-gap-vertical-md">
-<div className="font-hero text-hero text-primary dark:text-primary opacity-10 absolute -top-24 select-none pointer-events-none">MU</div>
+
 <div className="flex flex-col md:flex-row justify-between w-full max-w-screen-xl gap-12 items-center md:items-start z-10">
 <div className="text-center md:text-left">
 <p className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-primary mb-2">©2024 MU ARCHITECTURE.</p>
@@ -142,6 +129,6 @@ export default function NeuralTopologyDetail() {
         </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

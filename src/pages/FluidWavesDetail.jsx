@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function FluidWavesDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-background">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-background" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 
 <div className="absolute inset-0 z-0">
 <div className="w-full h-full bg-cover bg-center opacity-60" data-alt="A highly cinematic macro photograph of thick obsidian liquid waves rippling in deep shadows. The lighting is dramatic and low-key, capturing crisp metallic reflections on the viscous black surface. The composition is abstract and focused on the rhythmic, organic curves of the liquid. The aesthetic is hard minimalist and prestige editorial, with an extreme contrast between the dark matter and sharp highlights." style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuD6GeW0yUvPwXjcy9g7oPdvBbvvqXFFQdDvzPgarY1CIu_WzVErxR6XeA9DjwmcTw9fxZOPirNUY_3IlqCljeQ8QfJ-sy6H55Juu6kt-ejyxQWe9KbF-XSEnAbYL5TmhU4XBBHh_0ywemv0B1vadRrJoCwdbVIRr9jZvBFY-v4qVEEzr8dYwbxroCufIO3kVALS6fJ1fshx7yk5a1f14QIhBCfx2B4xU0JJjsF2G4RWEUbmBAmGa7dXpEuydRU51bU-Z-OtfkEOpOId')" }}></div>
@@ -46,9 +33,9 @@ export default function FluidWavesDetail() {
 <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40">
 <div className="w-[1px] h-12 bg-on-surface animate-bounce"></div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper py-gap-vertical-lg px-margin-mobile">
+<motion.section className="bg-paper py-gap-vertical-lg px-margin-mobile" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
 <div className="md:col-span-8 md:col-start-3">
 <h2 className="font-display-mobile text-[45px] leading-tight font-[300] text-ink uppercase mb-8">
@@ -63,9 +50,9 @@ export default function FluidWavesDetail() {
                 </p>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-background py-gap-vertical-md px-margin-mobile md:px-margin-desktop">
+<motion.section className="bg-background py-gap-vertical-md px-margin-mobile md:px-margin-desktop" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="grid grid-cols-2 gap-2 md:gap-4 max-w-[1440px] mx-auto">
 
 <div className="aspect-[4/5] bg-surface-container overflow-hidden group">
@@ -84,9 +71,9 @@ export default function FluidWavesDetail() {
 <div className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A detail shot showing the intersection of two liquid flows. One is smooth, the other turbulent, creating a high-contrast clash of textures. The scene is illuminated by high-key, surgical lighting that defines every droplet. The palette is purely achromatic, reflecting a prestige gallery installation feel." style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCWH6VxCN8i21STF6kHrTXRvK5AW1BFVNKv7RkMgfiuO2VLy5osCrIoNuZHB5217LgCk5amwZb-c4n8TlxiM2aqQAHEHFQOYjOT6avZRqSYXdKrnQQcjrU0IHxqiaBSuOfh0UYESVS65YLJir3WGudU672v18iopkuV1YRZkSvVbNlLSBok53vP4dUSHrcRHXCEVEnBVQVuFNj_4YKn0dqtWEauQIiejWUjLJ7dDjAiGeEqgSkt5v_Tz7B77IRe5o6TsSYBPkrHFsZg')" }}></div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-background border-t border-surface-container py-12 px-margin-mobile">
+<motion.section className="bg-background border-t border-surface-container py-12 px-margin-mobile" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="flex flex-wrap justify-between gap-8 max-w-[1440px] mx-auto">
 <div>
 <span className="font-micro text-micro text-smoke uppercase tracking-widest block mb-2">Category</span>
@@ -105,9 +92,9 @@ export default function FluidWavesDetail() {
 <span className="font-ui-nav text-ui-nav text-on-surface uppercase">Houdini, Redshift</span>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="relative bg-ink py-40 px-margin-mobile text-center cursor-pointer group overflow-hidden">
+<motion.section className="relative bg-ink py-40 px-margin-mobile text-center cursor-pointer group overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 bg-paper/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 <span className="font-ui-nav text-ui-nav text-smoke uppercase tracking-[0.4em] mb-4 block">Next Project</span>
 <h3 className="font-hero text-[64px] md:text-hero text-on-surface uppercase leading-none transition-transform duration-500 group-hover:scale-95">
@@ -116,12 +103,10 @@ export default function FluidWavesDetail() {
 <div className="mt-12 flex justify-center">
 <span className="material-symbols-outlined text-[64px] text-on-surface transition-transform duration-500 group-hover:translate-x-4">arrow_right_alt</span>
 </div>
-</section>
+</motion.section>
 
 <footer className="bg-background border-t border-ash flex flex-col items-center pt-24 pb-12 px-margin-mobile w-full">
-<div className="font-hero text-display-mobile md:text-hero uppercase tracking-[-0.04em] text-on-surface leading-none mb-12 opacity-10">
-            MANAS
-        </div>
+
 <div className="w-full flex flex-col md:flex-row justify-between items-center gap-8">
 <div className="flex gap-6 font-ui-nav text-ui-nav text-smoke uppercase">
 <a className="hover:text-on-surface transition-colors" href="">Instagram</a>
@@ -135,6 +120,6 @@ export default function FluidWavesDetail() {
 </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

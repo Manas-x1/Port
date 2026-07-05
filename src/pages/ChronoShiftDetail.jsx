@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function ChronoShiftDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full flex items-center justify-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 z-0">
 <img alt="CHRONO SHIFT Cinematic visual with film reels" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAElz6JdmEtgHQsWLlrdCf6wR2_SkWZ8HgOXa8suS652tEmHsm__nJrAckwTl6vPT5ZFyRsVlQW652-bBOq1Bt99UsmiUp0R42Z_KIsECX6ZBZyceeRZzfLrvJmRkFQBHUVMUSeFUu_i__HMskpQyMPRWlvGFdObG0y9FB4fB6xlg1Qlw3wO_Xz231GlJlEopJS6rQH2_3wU_ruS7Vuml2-pMfOdvWxlt42TvL1guYJsObQnFxj9RMhAQhYeVntwRt-XRm1_5R4wUxB" />
 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50"></div>
@@ -44,9 +31,9 @@ export default function ChronoShiftDetail() {
 <span className="font-micro text-micro uppercase tracking-widest">Scroll to explore</span>
 <div className="w-[1px] h-12 bg-primary"></div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile md:px-margin-desktop min-h-screen flex flex-col justify-center">
+<motion.section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile md:px-margin-desktop min-h-screen flex flex-col justify-center" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-4xl mx-auto">
 <span className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-ash mb-8 block reveal-up">Module 01 / Edit</span>
 <h2 className="font-display text-display-mobile md:text-display text-ink mb-16 leading-tight reveal-up">
@@ -71,17 +58,17 @@ export default function ChronoShiftDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="w-full h-[80vh] relative overflow-hidden bg-background">
+<motion.section className="w-full h-[80vh] relative overflow-hidden bg-background" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <img alt="Black and white contact sheet style motion frames" className="w-full h-full object-cover opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA83Khg-ixcuWqjKqmBMO35mhTZDpc1S2p0_ZzU5GCqh9SGAl07KHNUBl5hEYYQ-FoyaRXII78dBBBtWmsNVSCnCfnPtcnZLHV3wE7DM8-QcZGC-Nd1oeg8ncE6fu-7PVIWYhM76Ey_IWTlNmcjq7Bp4i8qK4Z0xwrgay-cJ-40u6rTnKfCNjmQ43HuHcYHB4OT5YOioUbFpIY-YKfW00yd5XJUhjOqb6bpZ4YRmLP7lIU3JbfiaeTbRo_U0A3MPo5NrMvC55ZEGDG6" />
 <div className="absolute inset-0 bg-background/20 backdrop-grayscale-[0.5]"></div>
 <div className="absolute bottom-margin-mobile left-margin-mobile md:left-margin-desktop">
 <span className="font-micro text-micro uppercase tracking-widest border border-ash px-3 py-1 text-primary">Contact Sheet Reference 012</span>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-background text-primary py-gap-vertical-lg px-margin-mobile md:px-margin-desktop">
+<motion.section className="bg-background text-primary py-gap-vertical-lg px-margin-mobile md:px-margin-desktop" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-6xl mx-auto">
 <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-32">
 <h2 className="font-display text-display-mobile md:text-heading-lg reveal-up">METRICS OF<br />MOTION</h2>
@@ -130,9 +117,9 @@ export default function ChronoShiftDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-carbon py-gap-vertical-lg px-margin-mobile text-center">
+<motion.section className="bg-carbon py-gap-vertical-lg px-margin-mobile text-center" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <span className="font-ui-nav text-ui-nav uppercase tracking-[0.4em] text-smoke mb-12 block">Continuing the Sequence</span>
 <Link className="group relative inline-block" to="/spectral-cut">
 <h2 className="font-display text-display-mobile md:text-display text-primary uppercase transition-all duration-700 group-hover:scale-105">
@@ -142,12 +129,12 @@ export default function ChronoShiftDetail() {
 <span className="material-symbols-outlined text-4xl font-light">arrow_forward</span>
 </div>
 </Link>
-</section>
+</motion.section>
 
 
 <footer className="w-full relative bg-background px-margin-mobile md:px-margin-desktop pb-12 pt-gap-vertical-md border-t border-ash flex flex-col items-center">
 <div className="absolute top-12 left-1/2 -translate-x-1/2 pointer-events-none">
-<span className="font-hero text-hero text-primary opacity-5 whitespace-nowrap">MU ARCHITECTURE</span>
+
 </div>
 <div className="z-10 flex flex-col items-center">
 <div className="flex gap-12 mb-16">
@@ -161,6 +148,6 @@ export default function ChronoShiftDetail() {
 </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

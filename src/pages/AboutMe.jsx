@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function AboutMe() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full flex items-center justify-center overflow-hidden pt-24">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full flex items-center justify-center overflow-hidden pt-24" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 z-0">
 <img alt="Portrait of Manas Upadhyay" className="w-full h-full object-cover grayscale brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA82n26Az12WByK8kdQKBrGmU8kOZX4zt9cZ89-YReH9gZyyavLpUroR3obw-bRP7lsJeduYKreEpLHPPGRj_HaQcFnNTtgVifVvXc5Y5Bdq_B9vHxShyZhh72EW9wcQgvjS3LuqgjtbyE-U-hOMLQQ60bCfMguQGxxZ3DTpSGRa7qJ0qiRE05V0SMwiHhiJJn_Rg8EVgbRBdzdfYnmmVxvjzfbXni15MESKSVxSpawhVay0ePHN2R5v6_2sqpFRh--FsqT8yksHRUa" />
 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
@@ -50,9 +37,9 @@ export default function AboutMe() {
 <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
 <span className="material-symbols-outlined text-smoke">keyboard_double_arrow_down</span>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper text-ink py-gap-vertical-lg px-6 md:px-margin-desktop relative">
+<motion.section className="bg-paper text-ink py-gap-vertical-lg px-6 md:px-margin-desktop relative" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-7xl mx-auto">
 <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
 <div className="md:col-span-8 md:col-start-3">
@@ -68,9 +55,9 @@ export default function AboutMe() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="py-gap-vertical-lg px-6 md:px-margin-desktop border-t border-ash/20">
+<motion.section className="py-gap-vertical-lg px-6 md:px-margin-desktop border-t border-ash/20" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-[1440px] mx-auto">
 <div className="flex items-center justify-between mb-16">
 <span className="font-micro text-micro uppercase tracking-widest text-smoke">Expertise</span>
@@ -104,9 +91,9 @@ export default function AboutMe() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="relative min-h-screen py-gap-vertical-lg overflow-hidden">
+<motion.section className="relative min-h-screen py-gap-vertical-lg overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 z-0">
 <img alt="Abstract texture background" className="w-full h-full object-cover opacity-30 grayscale contrast-125" src="https://lh3.googleusercontent.com/aida/AP1WRLsGKUl8IBnjldM2wbQLn9fHTcn_4HabWPOcjSim6l2BCkAWrEvGhccXCVFkjV5v4E4OseDI6eNeNWdPHNSZR8tFpliCdjh5z9mDCU--757sj9P4warHbgulN06oxFWSG2quezVw69gKwGv9hV6_Yl7z3T3IAL_XGeTElWTiZET6sclgNQk9t5gu5nbTENsHACOxM5jWwucPg8J3TVSTTLWxk1ZF0-Kb9vMQRtMm4gWfn2EVBHHYd2fp0gbi" />
 <div className="absolute inset-0 bg-background/80 mix-blend-multiply"></div>
@@ -149,11 +136,11 @@ export default function AboutMe() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
 <footer className="flex flex-col items-center pt-gap-vertical-md pb-12 px-6 md:px-margin-desktop w-full border-t border-ash/30">
 <div className="w-full max-w-[1440px] flex flex-col items-center">
-<div className="font-hero text-display-mobile md:text-hero uppercase tracking-[-0.04em] text-on-surface leading-none mb-12 text-center">MANAS</div>
+
 <div className="grid grid-cols-2 md:flex md:flex-row gap-12 mb-20">
 <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-all duration-500" href="">Instagram</a>
 <a className="font-body-md text-body-md text-smoke hover:text-on-surface transition-all duration-500" href="">LinkedIn</a>
@@ -167,6 +154,6 @@ export default function AboutMe() {
 </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

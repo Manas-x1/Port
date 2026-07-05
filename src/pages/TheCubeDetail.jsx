@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function TheCubeDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full bg-ink flex flex-col justify-center items-center overflow-hidden">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full bg-ink flex flex-col justify-center items-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 z-0 scale-110">
 <img className="w-full h-full object-cover opacity-80 mix-blend-screen" data-alt="A cinematic, low-key lighting architectural rendering of a massive, multi-layered obsidian and glass cube suspended in a dark, brutalist museum space. The cube exhibits intricate light refraction and sharp geometric reflections against deep charcoal concrete walls. The mood is mysterious and monumentally sculptural, using a palette of deep blacks, subtle grays, and piercing white highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsTVg5505UUDy9nbo5TkC7UCssDF5e3T5I7OQBqCiN4gTzMJ1z0DIN5BS5E2m32q6IlonATddiNdG0gen-0IOkspqNYG8nzdX018Cryoc0L3e2aXmad-4GNmSwOa5meqFH9slje3VNcQxI1sHNWK3fmycRIXoHovDnNebdR2DI74STHOY2q602zUb9yaaPZraF-NpsJ63JPmboj9viusOKc_tjpUWssDy7IqGjwR2jSwmBXCKreVJEWaR56SQwcBJZt3zNZZhVDHez" />
 </div>
@@ -43,9 +30,9 @@ export default function TheCubeDetail() {
 <span className="font-ui-nav text-[9px] uppercase tracking-[0.3em] text-primary opacity-60">SCROLL TO EXPLORE</span>
 <span className="material-symbols-outlined text-primary animate-bounce text-[14px]" data-icon="expand_more">expand_more</span>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper py-gap-vertical-lg px-margin-mobile md:px-margin-desktop overflow-hidden">
+<motion.section className="bg-paper py-gap-vertical-lg px-margin-mobile md:px-margin-desktop overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-4xl mx-auto">
 <div className="mb-12">
 <span className="font-micro text-micro uppercase text-ink/40 tracking-[0.2em] block mb-4">VOLUME 01</span>
@@ -67,9 +54,9 @@ export default function TheCubeDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="relative h-[80vh] w-full bg-ink flex items-center justify-center overflow-hidden">
+<motion.section className="relative h-[80vh] w-full bg-ink flex items-center justify-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0">
 <div className="absolute inset-0 bg-gradient-to-b from-paper via-transparent to-ink h-40 z-10"></div>
 <img className="w-full h-full object-cover grayscale opacity-60" data-alt="A close-up architectural detail shot focusing on the razor-sharp edges and inner crystalline structures of a dark geometric installation. Volumetric light rays pierce through layers of smoked glass, creating a high-contrast play of shadow and brilliance in a minimalist achromatic setting. The aesthetic is hard-minimalist with extreme textural clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsTVg5505UUDy9nbo5TkC7UCssDF5e3T5I7OQBqCiN4gTzMJ1z0DIN5BS5E2m32q6IlonATddiNdG0gen-0IOkspqNYG8nzdX018Cryoc0L3e2aXmad-4GNmSwOa5meqFH9slje3VNcQxI1sHNWK3fmycRIXoHovDnNebdR2DI74STHOY2q602zUb9yaaPZraF-NpsJ63JPmboj9viusOKc_tjpUWssDy7IqGjwR2jSwmBXCKreVJEWaR56SQwcBJZt3zNZZhVDHez" />
@@ -78,9 +65,9 @@ export default function TheCubeDetail() {
 <div className="relative z-20 text-center">
 <span className="material-symbols-outlined text-primary text-[64px] font-light opacity-40" data-icon="filter_center_focus">filter_center_focus</span>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper py-gap-vertical-lg px-margin-mobile md:px-margin-desktop">
+<motion.section className="bg-paper py-gap-vertical-lg px-margin-mobile md:px-margin-desktop" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-gutter">
 <div className="md:w-1/3">
 <h2 className="font-subheading text-subheading text-ink uppercase tracking-tight sticky top-32">VIRTUAL SPACES</h2>
@@ -98,7 +85,7 @@ export default function TheCubeDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
 <footer className="bg-background py-gap-vertical-lg px-margin-mobile relative overflow-hidden">
 <div className="max-w-4xl mx-auto text-center md:text-left">
@@ -119,13 +106,11 @@ export default function TheCubeDetail() {
 <a className="hover:text-primary transition-colors duration-500" href="">LINKEDIN</a>
 <a className="hover:text-primary transition-colors duration-500" href="">EMAIL</a>
 </div>
-<div className="font-hero text-[120px] leading-none text-primary opacity-5 select-none pointer-events-none">
-                MU
-            </div>
+
 <p className="font-micro text-micro text-smoke opacity-60 tracking-[0.1em]">©2024 MU ARCHITECTURE. ALL RIGHTS RESERVED.</p>
 </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

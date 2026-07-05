@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function LatentSpacesDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full flex flex-col justify-end items-center overflow-hidden">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full flex flex-col justify-end items-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 z-0">
 <img alt="Latent Spaces Hero" className="w-full h-full object-cover brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArvjDeZfjoSOg287hEzFBsQqNVWwpT3kX0d1xU6xfhcL_aBOGU38X1nAZC_ye8EWyqQ-KOhGb2TsSx7Or7VirSm357Em-khBrZM7K7iZKLPHG2X0obkgmXqg5QvRL41jOXXKAwqY32ANdaBaY5uRAl9z_UAx0b-_-J6WOwxFglbTZWSNqQUuOw8XaYfTNHtfxuTP8qmAspYiECEqXnyPNwXpQ5JYkf9GZ51LH3nHN2mq3beE9tIWyafPpnidV9uFdGLgZO3jXbd-2d" />
 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
@@ -43,9 +30,9 @@ export default function LatentSpacesDetail() {
 <div className="w-px h-16 bg-gradient-to-b from-primary to-transparent animate-pulse"></div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="w-full px-margin-mobile md:px-margin-desktop pt-gap-vertical-md pb-gap-vertical-md">
+<motion.section className="w-full px-margin-mobile md:px-margin-desktop pt-gap-vertical-md pb-gap-vertical-md" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-ash pt-12">
 <div className="flex flex-col gap-2">
 <span className="font-micro text-micro text-smoke uppercase tracking-widest">Category</span>
@@ -60,9 +47,9 @@ export default function LatentSpacesDetail() {
 <span className="font-subheading text-primary uppercase">Latent Analysis</span>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper text-ink w-full px-margin-mobile md:px-margin-desktop py-gap-vertical-lg">
+<motion.section className="bg-paper text-ink w-full px-margin-mobile md:px-margin-desktop py-gap-vertical-lg" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-4xl mx-auto flex flex-col gap-12">
 <h2 className="font-heading-lg text-4xl md:text-heading-lg uppercase leading-none tracking-tight">
                     VECTOR INTERPOLATION
@@ -76,9 +63,9 @@ export default function LatentSpacesDetail() {
                     </p>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="w-full h-[80vh] relative overflow-hidden bg-carbon">
+<motion.section className="w-full h-[80vh] relative overflow-hidden bg-carbon" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 opacity-40">
 <div className="w-full h-full bg-cover bg-center grayscale mix-blend-luminosity" data-alt="A macro cinematic close-up of complex neural network textures, featuring flowing iridescent obsidian surfaces and glowing fiber-optic like filaments. The lighting is high-contrast, moody, and achromatic with subtle amber light rays piercing through dark smoke. The aesthetic is hard minimalist and technologically advanced." style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAU5_SSZjAuPXMFZ0SWI18e8_qKcyKYWVFfLCegJ8Y9dA5KQalgI7vMnWUCPgnEh2zARaI2odZy9rqzocBOebFTcKHpE9M6R7YCYDMXxmUbqm4NwCdMx-mG0QgCw9yBKqkLyRsBC1H-AYdQKJWR8jvTjrO4FnTbDx7znbBgJ8kzWV_cO-c9y2c8E2Qpear66W_YNre0WKWyVrUXvjBBmW_rfveEqLgZ4E6o-hoIcV1Ss1905ka-Izi0cgpFsEamI3y6ISvmARuK1Zr5')" }}></div>
 </div>
@@ -88,9 +75,9 @@ export default function LatentSpacesDetail() {
 <h3 className="font-subheading text-subheading uppercase text-primary">Mapping the unmappable through volumetric synthesis and weight-based topography.</h3>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="w-full px-margin-mobile md:px-margin-desktop py-gap-vertical-lg">
+<motion.section className="w-full px-margin-mobile md:px-margin-desktop py-gap-vertical-lg" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
 <div className="border border-ash p-8 flex flex-col gap-16 group hover:bg-carbon transition-colors duration-500">
 <span className="font-heading-lg text-4xl text-smoke/30">01</span>
@@ -114,9 +101,9 @@ export default function LatentSpacesDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="w-full border-t border-ash py-gap-vertical-md px-margin-mobile md:px-margin-desktop">
+<motion.section className="w-full border-t border-ash py-gap-vertical-md px-margin-mobile md:px-margin-desktop" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <Link className="group flex flex-col items-center gap-8 text-center transition-all duration-700 hover:opacity-60" to="/chrono-shift">
 <span className="font-micro text-micro uppercase tracking-[0.4em] text-smoke">Up Next</span>
 <div className="flex items-center gap-6">
@@ -124,12 +111,12 @@ export default function LatentSpacesDetail() {
 <span className="material-symbols-outlined text-4xl transform group-hover:translate-x-4 transition-transform duration-500">arrow_forward</span>
 </div>
 </Link>
-</section>
+</motion.section>
 
 
 <footer className="w-full relative mt-gap-vertical-lg border-t border-ash pt-gap-vertical-md pb-12 bg-background">
 <div className="px-margin-mobile md:px-margin-desktop flex flex-col items-center gap-16">
-<div className="font-hero text-hero text-primary opacity-5 select-none pointer-events-none">MU</div>
+
 <div className="flex flex-col md:flex-row justify-between w-full items-center gap-12">
 <div className="flex gap-12 font-ui-nav text-ui-nav uppercase tracking-[0.2em]">
 <a className="text-smoke hover:text-primary transition-colors duration-500" href="">INSTAGRAM</a>
@@ -143,6 +130,6 @@ export default function LatentSpacesDetail() {
 </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

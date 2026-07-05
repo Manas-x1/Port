@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function NeoNoirDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 z-0">
 <img alt="Cinematic night street view" className="w-full h-full object-cover grayscale brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk3miTfxnydxR2dMXs0T-OyToph2PsxblkhqfSzuz9sheq_4XmBYrxPiPHLIOX5LrkwdEQl9uYvEPa0jJ_mkQnUvQu3_GaJZbhi4VZy1c__J3wTvrZ_nB33tECpvGviiSfoYd5NuHY1m-imCzG83rQULiYLsVnnp-kiGWPBBw9fsdlK9HBnyDxv9X8OV7dSz5us2ytoM8wRWap0x9DVgG2kq6RPiFOAC7irqsgRVdjv9NfRLNnP_ZGniEQYMagGQdQFmj-8HmmbhCt" />
 </div>
@@ -41,9 +28,9 @@ export default function NeoNoirDetail() {
 <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
 <span className="material-symbols-outlined text-primary opacity-40">expand_more</span>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile">
+<motion.section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-screen-xl mx-auto">
 <div className="mb-12">
 <span className="font-micro text-micro uppercase tracking-[0.3em] opacity-40">SECTION 01 / VISUALS</span>
@@ -72,9 +59,9 @@ export default function NeoNoirDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-ink py-gap-vertical-md overflow-hidden">
+<motion.section className="bg-ink py-gap-vertical-md overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="w-full relative px-4">
 <div className="aspect-[4/3] w-full overflow-hidden mb-12">
 <img alt="Production stills and color grading process" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpU7ojiitV6wkpmjWlsHrGVKgjOTIhruN5ajUpu1TLjNjrYW5wF_DLJXhkhXvs6rWiqbMGvgbqJmSeE24cvrq-aQCHlL-0BjfRMrKS9Yyzv0xOco_ycGw0xstG_ivxZf_MVdtQxD5KRbxrORpkUv82mRLprFhAYm1y4FeDa2BAPI5HtGH7czNCmAWFxc9OTlVDUOWKKkKQtQo-vEik-YIdNODOkAC-yEaQluxb0h_I3NzO6etCsUu7b3amIWD5A0fpf9r5b7MKEi6X" />
@@ -86,9 +73,9 @@ export default function NeoNoirDetail() {
                 </p>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-background py-gap-vertical-lg px-margin-mobile border-t border-ash/10">
+<motion.section className="bg-background py-gap-vertical-lg px-margin-mobile border-t border-ash/10" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="flex flex-col items-center text-center">
 <span className="font-ui-nav text-ui-nav uppercase kerning-loose text-smoke mb-8">UP NEXT</span>
 <Link className="group flex flex-col items-center gap-6" to="/about-me">
@@ -98,10 +85,10 @@ export default function NeoNoirDetail() {
 </div>
 </Link>
 </div>
-</section>
+</motion.section>
 
 <footer className="w-full relative mt-gap-vertical-lg flex flex-col items-center px-margin-mobile pb-12 pt-gap-vertical-md border-t border-ash dark:border-ash bg-background">
-<div className="font-hero text-hero text-primary dark:text-primary opacity-10 leading-none mb-12 select-none">MU</div>
+
 <nav className="flex gap-12 mb-12">
 <a className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-smoke hover:text-primary transition-colors duration-500" href="">INSTAGRAM</a>
 <a className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-smoke hover:text-primary transition-colors duration-500" href="">LINKEDIN</a>
@@ -112,6 +99,6 @@ export default function NeoNoirDetail() {
         </p>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }

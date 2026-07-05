@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function SpectralCutDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
-
-        // Intersection Observer for scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
-
-        return () => revealObserver.disconnect();
     }, []);
 
     return (
-        <div className="w-full text-on-surface animate-fade-in">
-            <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full text-on-surface"
+        >
+            <motion.section className="relative h-screen w-full flex items-center justify-center overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0 z-0">
 <img alt="Hero cinematic frame" className="w-full h-full object-cover opacity-80 scale-105 animate-[pulse_8s_infinite_alternate]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgVwfLrUvoKF_4l9pXWK0b6iQAdhxqtRsiEPxXdSErcpednoubglYqmM4akqFD_e8iYIR2WHUIISteKY7EscUOUNlGi5K6iop3IT4Issgy21_Fl-ScITprOHlZGVo12aaCXNiGfIkafk3B2HSa6PxEOqgU-4J9wkFAfV1_EgmqGL9dcU_aiJsZfYYyt_Wa_41WBEwyqx-mqCEHeIUPXFXRtDuDeoJPRm8JjTjYx9aU2RqTLf6yaBH6SHto0wYhRI_L9X-KEK-kKK1u" />
 <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-transparent to-ink/90"></div>
@@ -48,9 +35,9 @@ export default function SpectralCutDetail() {
 <span className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-ash">SCROLL TO EXPLORE</span>
 <div className="w-[1px] h-12 bg-ash animate-bounce"></div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile md:px-margin-desktop relative">
+<motion.section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile md:px-margin-desktop relative" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
 <div className="md:col-span-8">
 <span className="font-micro text-micro uppercase tracking-[0.3em] text-ash mb-8 block">01 / ARCHITECTURE</span>
@@ -81,18 +68,18 @@ export default function SpectralCutDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="relative w-full h-[80vh] overflow-hidden">
+<motion.section className="relative w-full h-[80vh] overflow-hidden" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="absolute inset-0" data-alt="A macro close-up of a high-end film editing interface in a dark studio. The screen glows with neon color-grading waveforms in vibrant greens, reds, and blues against a deep black background. In the foreground, professional control knobs and a backlit mechanical keyboard are partially in focus, creating a professional, cinematic workspace atmosphere. The lighting is moody and clinical, typical of a prestige post-production house." style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBS38q5RKhXsg2rCxK9mpwBMBQNaQGv0hKGEqcAB9mHd5Mg-v0qC7qDqiwQQqhYACuWEiV_QkzNbnLt_6fHnZfm88ck41oRhTQn9d-ucaEwAjPmdfr7piYS3uGg2lmkiYRRGXYvwlTLuU7ieL62TVVqcsSJQlISmdT8FQ53zVKOyHQGhesiIe_MUDC7pm4UxeBa30z0XT2oT10C74og8sPHezIEvw9M0Wkrj5Ib1gzYZ3GZX4hMnUMwPN8DnSUoELLYMzwuxp7je0hK')" }}>
 <div className="absolute inset-0 bg-ink/20"></div>
 </div>
 <div className="absolute bottom-12 right-margin-desktop text-right hidden md:block">
 <p className="font-micro text-micro uppercase tracking-[0.2em] text-paper">PHASE II: GRADING ANALYSIS</p>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-background text-paper py-gap-vertical-lg px-margin-mobile md:px-margin-desktop border-t border-ash/10">
+<motion.section className="bg-background text-paper py-gap-vertical-lg px-margin-mobile md:px-margin-desktop border-t border-ash/10" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-screen-xl mx-auto">
 <div className="flex flex-col md:flex-row gap-24 items-start">
 <div className="w-full md:w-1/2">
@@ -124,9 +111,9 @@ export default function SpectralCutDetail() {
 </div>
 </div>
 </div>
-</section>
+</motion.section>
 
-<section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile md:px-margin-desktop overflow-hidden border-t border-ash/10">
+<motion.section className="bg-paper text-ink py-gap-vertical-lg px-margin-mobile md:px-margin-desktop overflow-hidden border-t border-ash/10" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
 <div className="max-w-screen-xl mx-auto flex flex-col items-center text-center">
 <p className="font-micro text-micro uppercase tracking-[0.5em] text-ash mb-8">NEXT SEQUENCE</p>
 <a className="group inline-flex flex-col items-center" href="">
@@ -136,11 +123,11 @@ export default function SpectralCutDetail() {
 </div>
 </a>
 </div>
-</section>
+</motion.section>
 
 <footer className="bg-background text-primary border-t border-ash px-margin-mobile md:px-margin-desktop pt-gap-vertical-md pb-12 w-full relative">
 <div className="flex flex-col items-center w-full">
-<h2 className="font-hero text-[120px] md:text-hero text-primary opacity-10 leading-none mb-12">MU</h2>
+
 <div className="flex flex-wrap justify-center gap-8 md:gap-24 mb-16">
 <a className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-smoke hover:text-primary transition-colors duration-500" href="">INSTAGRAM</a>
 <a className="font-ui-nav text-ui-nav uppercase tracking-[0.2em] text-smoke hover:text-primary transition-colors duration-500" href="">LINKEDIN</a>
@@ -152,6 +139,6 @@ export default function SpectralCutDetail() {
 </div>
 </footer>
             <ScrollToTop />
-        </div>
+        </motion.div>
     );
 }
