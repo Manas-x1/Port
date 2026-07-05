@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function AlternateContent() {
     return (
@@ -22,7 +23,7 @@ export default function AlternateContent() {
                 {/* AI Project Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-element-lg">
                     {/* Project 1 */}
-                    <div className="group cursor-pointer reveal">
+                    <Link to="/synthesized-echoes" className="block group cursor-pointer reveal">
                         <div className="overflow-hidden mb-component-int border border-white/10 bg-surface-container">
                             <img 
                                 className="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out opacity-75"
@@ -34,10 +35,10 @@ export default function AlternateContent() {
                             <h3 className="font-heading-sm text-[28px] text-paper uppercase">Synthesized Echoes</h3>
                             <span className="font-ui-nav text-ui-nav text-smoke uppercase">01 / Neural Art</span>
                         </div>
-                    </div>
+                    </Link>
 
                     {/* Project 2 */}
-                    <div className="group cursor-pointer reveal">
+                    <Link to="/neural-topology" className="block group cursor-pointer reveal">
                         <div className="overflow-hidden mb-component-int border border-white/10 bg-surface-container">
                             <img 
                                 className="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out opacity-75"
@@ -46,13 +47,13 @@ export default function AlternateContent() {
                             />
                         </div>
                         <div className="flex justify-between items-baseline border-b border-white/20 pb-4">
-                            <h3 className="font-heading-sm text-[28px] text-paper uppercase">Neural Topography</h3>
+                            <h3 className="font-heading-sm text-[28px] text-paper uppercase">Neural Topology</h3>
                             <span className="font-ui-nav text-ui-nav text-smoke uppercase">02 / Landscape</span>
                         </div>
-                    </div>
+                    </Link>
 
                     {/* Project 3 */}
-                    <div className="group cursor-pointer reveal">
+                    <Link to="/latent-spaces" className="block group cursor-pointer reveal">
                         <div className="overflow-hidden mb-component-int border border-white/10 bg-surface-container">
                             <img 
                                 className="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out opacity-75"
@@ -64,9 +65,10 @@ export default function AlternateContent() {
                             <h3 className="font-heading-sm text-[28px] text-paper uppercase">Latent Spaces</h3>
                             <span className="font-ui-nav text-ui-nav text-smoke uppercase">03 / Simulation</span>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </section>
     );
 }
+

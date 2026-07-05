@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function About() {
     return (
@@ -20,14 +21,14 @@ export default function About() {
                         <p className="font-heading-md text-heading-md text-paper leading-tight">
                             Crafting digital narratives that breathe through silence. I specialize in cinematic interfaces where every pixel serves a purpose.
                         </p>
-                        <div className="mt-element-lg flex items-center gap-micro cursor-pointer group">
+                        <Link to="/about-me" className="mt-element-lg flex items-center gap-micro cursor-pointer group no-underline">
                             <span className="font-body-md text-body-md text-paper border-b border-paper transition-all group-hover:text-ash group-hover:border-ash">
                                 Read Full Biography
                             </span>
                             <span className="material-symbols-outlined text-paper group-hover:translate-x-2 transition-transform">
                                 arrow_forward
                             </span>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </section>

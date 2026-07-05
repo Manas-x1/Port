@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function VideoAugmentation() {
     return (
@@ -22,7 +23,7 @@ export default function VideoAugmentation() {
                 {/* Video Projects Editorial List */}
                 <div className="space-y-0 border-t border-ash/30 reveal animate-fade-in">
                     {/* Row 1 */}
-                    <div className="group flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-ash/30 hover:bg-black/5 px-4 transition-all duration-300 cursor-pointer">
+                    <Link to="/chrono-shift" className="group flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-ash/30 hover:bg-black/5 px-4 transition-all duration-300 cursor-pointer text-ink">
                         <div className="flex items-center gap-element-md">
                             <span className="font-ui-nav text-ui-nav text-ash">01</span>
                             <h3 className="font-heading-sm text-[36px] text-ink uppercase group-hover:text-primary transition-colors">
@@ -35,10 +36,10 @@ export default function VideoAugmentation() {
                                 arrow_forward
                             </span>
                         </div>
-                    </div>
+                    </Link>
 
                     {/* Row 2 */}
-                    <div className="group flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-ash/30 hover:bg-black/5 px-4 transition-all duration-300 cursor-pointer">
+                    <Link to="/spectral-cut" className="group flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-ash/30 hover:bg-black/5 px-4 transition-all duration-300 cursor-pointer text-ink">
                         <div className="flex items-center gap-element-md">
                             <span className="font-ui-nav text-ui-nav text-ash">02</span>
                             <h3 className="font-heading-sm text-[36px] text-ink uppercase group-hover:text-primary transition-colors">
@@ -51,10 +52,10 @@ export default function VideoAugmentation() {
                                 arrow_forward
                             </span>
                         </div>
-                    </div>
+                    </Link>
 
                     {/* Row 3 */}
-                    <div className="group flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-ash/30 hover:bg-black/5 px-4 transition-all duration-300 cursor-pointer">
+                    <Link to="/neo-noir" className="group flex flex-col md:flex-row justify-between items-start md:items-center py-8 border-b border-ash/30 hover:bg-black/5 px-4 transition-all duration-300 cursor-pointer text-ink">
                         <div className="flex items-center gap-element-md">
                             <span className="font-ui-nav text-ui-nav text-ash">03</span>
                             <h3 className="font-heading-sm text-[36px] text-ink uppercase group-hover:text-primary transition-colors">
@@ -67,7 +68,7 @@ export default function VideoAugmentation() {
                                 arrow_forward
                             </span>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </section>

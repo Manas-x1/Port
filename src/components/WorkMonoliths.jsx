@@ -59,7 +59,7 @@ export default function WorkMonoliths() {
                     </Link>
 
                     {/* Project 2 - Identity */}
-                    <div className="group cursor-pointer md:mt-offset-lg reveal">
+                    <Link to="/identity" className="block group cursor-pointer md:mt-offset-lg reveal">
                         <div className="overflow-hidden mb-component-int border border-ash/20 bg-surface-dim">
                             <img 
                                 className="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
@@ -68,14 +68,14 @@ export default function WorkMonoliths() {
                             />
                         </div>
                         <div className="flex justify-between items-baseline border-b border-ash pb-4">
-                            <h3 class="font-heading-sm text-heading-sm text-ink uppercase">Identity</h3>
+                            <h3 className="font-heading-sm text-heading-sm text-ink uppercase">Identity</h3>
                             <span className="font-ui-nav text-ui-nav text-ash uppercase">02 / Product</span>
                         </div>
-                    </div>
+                    </Link>
 
                     {/* Project 3 - Fluid Waves */}
-                    <div className="group cursor-pointer reveal">
-                        <div class="overflow-hidden mb-component-int border border-ash/20 bg-surface-dim">
+                    <Link to="/fluid-waves" className="block group cursor-pointer reveal">
+                        <div className="overflow-hidden mb-component-int border border-ash/20 bg-surface-dim">
                             <img 
                                 className="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
                                 alt="Fluid obsidian waves"
@@ -86,10 +86,10 @@ export default function WorkMonoliths() {
                             <h3 className="font-heading-sm text-heading-sm text-ink uppercase">fluid waves</h3>
                             <span className="font-ui-nav text-ui-nav text-ash uppercase">03 / Product</span>
                         </div>
-                    </div>
+                    </Link>
 
                     {/* Project 4 - The Cube */}
-                    <div className="group cursor-pointer md:mt-offset-lg reveal">
+                    <Link to="/the-cube" className="block group cursor-pointer md:mt-offset-lg reveal">
                         <div className="overflow-hidden mb-component-int border border-ash/20 bg-surface-dim">
                             <img 
                                 className="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
@@ -101,7 +101,7 @@ export default function WorkMonoliths() {
                             <h3 className="font-heading-sm text-heading-sm text-ink uppercase">The cube</h3>
                             <span className="font-ui-nav text-ui-nav text-ash uppercase">04 / Experience</span>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </section>
