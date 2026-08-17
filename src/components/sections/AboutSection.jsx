@@ -1,0 +1,68 @@
+/**
+ * AboutSection.jsx — About / Bio section
+ * 
+ * Simple placeholder layout: split text section.
+ * Left side: section label + intro heading.
+ * Right side: placeholder paragraph text.
+ * User will update content later.
+ */
+import React from 'react';
+import SectionHeader from '../ui/SectionHeader';
+
+export default function AboutSection() {
+  return (
+    <section
+      className="w-full py-20 md:py-32 px-6 md:px-10 snap-section"
+      id="about"
+      style={{ backgroundColor: 'var(--color-void-black)' }}
+    >
+      <div className="max-w-[1280px] mx-auto">
+        <SectionHeader title="About" number="02" />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+          {/* Left — Heading */}
+          <div>
+            <h3
+              className="text-bone-white uppercase mb-6"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(28px, 4vw, 48px)',
+                fontWeight: 300,
+                lineHeight: 1.1,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Crafting digital<br />narratives that<br />
+              <span style={{ color: 'var(--color-ember-orange)' }}>ignite</span>
+            </h3>
+          </div>
+
+          {/* Right — Body text placeholder */}
+          <div className="md:pt-4">
+            <p
+              className="mb-6"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '18px',
+                lineHeight: 1.6,
+                color: 'var(--color-fog-light)',
+              }}
+            >
+              I am a multidisciplinary creative working at the intersection of AI, 3D design, filmmaking, and visual storytelling. With experience across Blender, Substance Painter, Adobe Creative Suite, and generative AI tools, I build immersive digital experiences that push creative boundaries.
+            </p>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '16px',
+                lineHeight: 1.6,
+                color: 'var(--color-steel-mid)',
+              }}
+            >
+              This section will be updated with a full bio and experience timeline. Check back soon for the complete story.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

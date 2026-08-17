@@ -1,285 +1,509 @@
+/* =============================================================================
+ * index.css — Global Styles & Ori "Radiant" Design System
+ * =============================================================================
+ * Design Reference: New.md (Ori Style Reference)
+ * Theme: Dark infrastructure — black void, white light, one ignited switch.
+ * Palette: Void Black (#000000), Ember Orange (#ff4f2b), Bone White (#f5f5f5)
+ * Fonts: Inter (body), Outfit (display/headings), Chivo Mono (labels/nav)
+ * =========================================================================== */
+
 @import "tailwindcss";
 
+/* =============================================================================
+ * SECTION 1: Design Tokens (@theme for Tailwind v4)
+ * =========================================================================== */
 @theme {
-  --color-on-primary: #303030;
-  --color-secondary: #c6c6c7;
-  --color-on-surface: #e2e2e2;
-  --color-surface-dim: #131313;
-  --color-on-tertiary-container: #757575;
-  --color-secondary-fixed: #e2e2e2;
-  --color-outline-variant: #4c4546;
-  --color-carbon: #181818;
-  --color-on-tertiary-fixed-variant: #474747;
-  --color-on-secondary-fixed: #1a1c1c;
-  --color-secondary-container: #454747;
-  --color-primary-container: #000000;
-  --color-surface-variant: #353535;
-  --color-inverse-surface: #e2e2e2;
-  --color-on-surface-variant: #cfc4c5;
-  --color-ash: #6d6d6d;
-  --color-primary: #c6c6c6;
-  --color-surface-container-highest: #353535;
-  --color-surface-bright: #393939;
-  --color-on-primary-fixed: #1b1b1b;
-  --color-on-secondary: #2f3131;
-  --color-tertiary-fixed-dim: #c6c6c6;
-  --color-on-background: #e2e2e2;
-  --color-smoke: #9a9a9a;
-  --color-on-primary-container: #757575;
-  --color-surface-container-lowest: #0e0e0e;
-  --color-on-primary-fixed-variant: #474747;
-  --color-surface-container: #1f1f1f;
-  --color-secondary-fixed-dim: #c6c6c7;
-  --color-on-secondary-fixed-variant: #454747;
-  --color-surface-container-low: #1b1b1b;
-  --color-error: #ffb4ab;
-  --color-inverse-on-surface: #303030;
-  --color-tertiary: #c6c6c6;
-  --color-on-tertiary-fixed: #1b1b1b;
-  --color-error-container: #93000a;
-  --color-pewter: #808080;
-  --color-on-secondary-container: #b4b5b5;
-  --color-on-error-container: #ffdad6;
-  --color-tertiary-container: #000000;
-  --color-primary-fixed-dim: #c6c6c6;
-  --color-background: #131313;
-  --color-on-tertiary: #303030;
-  --color-surface-container-high: #2a2a2a;
-  --color-surface: #131313;
-  --color-graphite: #636363;
-  --color-outline: #988e90;
-  --color-surface-tint: #c6c6c6;
-  --color-inverse-primary: #5e5e5e;
-  --color-primary-fixed: #e2e2e2;
-  --color-tertiary-fixed: #e2e2e2;
-  --color-on-error: #690005;
-  --color-paper: #ffffff;
-  --color-ink: #000000;
+  /* --- Colors: Ori Palette --- */
+  --color-ember-orange: #ff4f2b;
+  --color-void-black: #000000;
+  --color-carbon: #1a1a1a;
+  --color-graphite-border: #3c3c3c;
+  --color-steel-mid: #737373;
+  --color-fog-light: #bfbfbf;
+  --color-bone-white: #f5f5f5;
 
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-full: 9999px;
+  /* --- Typography: Font Families --- */
+  /* Outfit substitutes for TWK Everett (display/headings — weight 300 signature) */
+  --font-display: 'Outfit', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Inter substitutes for Switzer (body text) */
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Chivo Mono for terminal/label texture */
+  --font-mono: 'Chivo Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --spacing-offset-lg: 152px;
-  --spacing-card-pad: 40px;
-  --spacing-component-int: 28px;
-  --spacing-section-v: 100px;
-  --spacing-element-lg: 64px;
-  --spacing-nav-gap: 12px;
-  --spacing-micro: 8px;
-  --spacing-element-md: 48px;
+  /* --- Typography: Scale --- */
+  --text-caption: 14px;
+  --text-caption--line-height: 1.2;
 
-  --font-heading-sm: "Hanken Grotesk", sans-serif;
-  --font-micro: "Inter", sans-serif;
-  --font-hero: "Hanken Grotesk", sans-serif;
-  --font-body-md: "Inter", sans-serif;
-  --font-heading-md: "Hanken Grotesk", sans-serif;
-  --font-display: "Hanken Grotesk", sans-serif;
-  --font-heading-lg: "Hanken Grotesk", sans-serif;
-  --font-ui-nav: "Inter", sans-serif;
-  --font-body-lg: "Inter", sans-serif;
-  --font-subheading: "Hanken Grotesk", sans-serif;
-  --font-hero-mobile: "Hanken Grotesk", sans-serif;
-
-  --text-heading-sm: 45px;
-  --text-heading-sm--line-height: 55px;
-  --text-heading-sm--font-weight: 300;
-
-  --text-micro: 9px;
-  --text-micro--line-height: 12px;
-  --text-micro--font-weight: 400;
-
-  --text-hero: 225px;
-  --text-hero--line-height: 171px;
-  --text-hero--letter-spacing: -0.04em;
-  --text-hero--font-weight: 300;
-
-  --text-body-md: 16px;
-  --text-body-md--line-height: 22px;
-  --text-body-md--font-weight: 400;
-
-  --text-heading-md: 54px;
-  --text-heading-md--line-height: 65px;
-  --text-heading-md--font-weight: 300;
-
-  --text-display: 94px;
-  --text-display--line-height: 103px;
-  --text-display--font-weight: 300;
-
-  --text-heading-lg: 78px;
-  --text-heading-lg--line-height: 90px;
-  --text-heading-lg--font-weight: 300;
-
-  --text-ui-nav: 11px;
-  --text-ui-nav--letter-spacing: 0.1em;
-  --text-ui-nav--font-weight: 400;
+  --text-body: 16px;
+  --text-body--line-height: 1.4;
+  --text-body--font-weight: 400;
 
   --text-body-lg: 18px;
-  --text-body-lg--line-height: 24px;
+  --text-body-lg--line-height: 1.4;
   --text-body-lg--font-weight: 400;
 
-  --text-subheading: 30px;
-  --text-subheading--line-height: 38px;
-  --text-subheading--font-weight: 300;
+  --text-heading-sm: 24px;
+  --text-heading-sm--line-height: 1.3;
+  --text-heading-sm--letter-spacing: -0.26px;
+  --text-heading-sm--font-weight: 300;
 
-  --text-hero-mobile: 80px;
-  --text-hero-mobile--line-height: 72px;
-  --text-hero-mobile--font-weight: 300;
+  --text-heading: 36px;
+  --text-heading--line-height: 1.2;
+  --text-heading--letter-spacing: -0.4px;
+  --text-heading--font-weight: 300;
 
-  /* Custom Stitch Page Spacings */
-  --spacing-margin-mobile: 24px;
-  --spacing-margin-desktop: 64px;
-  --spacing-gap-vertical-md: 80px;
-  --spacing-gap-vertical-lg: 150px;
-  --spacing-gutter: 24px;
-  --spacing-stack-xl: 64px;
-  --spacing-stack-md: 32px;
-  --spacing-stack-sm: 16px;
-  --spacing-margin-edge: 40px;
-  --spacing-section-v-padding: 120px;
-  --spacing-section-v-padding-sm: 80px;
+  --text-heading-lg: 48px;
+  --text-heading-lg--line-height: 1.1;
+  --text-heading-lg--letter-spacing: -0.53px;
+  --text-heading-lg--font-weight: 300;
 
-  /* Custom Stitch Page Colors */
-  --color-paper-white: #ffffff;
-  --color-ink-black: #000000;
-  --color-graphite: #333333;
-  --color-pewter: #e2e2e2;
+  --text-display: 72px;
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.79px;
+  --text-display--font-weight: 300;
 
-  /* Custom Stitch Page Font Sizes */
-  --text-headline-xl: 120px;
-  --text-headline-xl--line-height: 108px;
-  --text-headline-xl--font-weight: 300;
-  --text-headline-xl--letter-spacing: -0.03em;
+  --text-display-lg: 96px;
+  --text-display-lg--line-height: 0.95;
+  --text-display-lg--letter-spacing: -1.06px;
+  --text-display-lg--font-weight: 300;
 
-  --text-headline-xl-mobile: 48px;
-  --text-headline-xl-mobile--line-height: 48px;
-  --text-headline-xl-mobile--font-weight: 300;
+  /* Mobile display scale */
+  --text-display-mobile: 48px;
+  --text-display-mobile--line-height: 1;
+  --text-display-mobile--letter-spacing: -0.53px;
+  --text-display-mobile--font-weight: 300;
 
-  --text-headline-lg: 64px;
-  --text-headline-lg--line-height: 70px;
-  --text-headline-lg--font-weight: 300;
-  --text-headline-lg--letter-spacing: -0.02em;
+  /* Monospaced label style */
+  --text-label: 14px;
+  --text-label--line-height: 1;
+  --text-label--font-weight: 400;
 
-  --text-display-hero-mobile: 80px;
-  --text-display-hero-mobile--line-height: 68px;
-  --text-display-hero-mobile--font-weight: 300;
-  --text-display-hero-mobile--letter-spacing: -0.04em;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 1;
+  --text-label-sm--font-weight: 400;
+
+  /* --- Spacing: 4px base unit --- */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-92: 92px;
+  --spacing-120: 120px;
+  --spacing-180: 180px;
+
+  /* --- Border Radius: 0px everywhere (architectural language) --- */
+  --radius-none: 0px;
 }
 
-/* Base Styles & Core Theme Variables */
-:root {
-    --bg-dark: #131313;
-    --bg-darker: #0e0e0e;
-    --text-primary: #e2e2e2;
-    --text-secondary: #9a9a9a;
-    --accent: #c6c6c6;
-    --accent-dark: #4c4546;
-    --paper: #ffffff;
-    --ink: #000000;
-}
-
+/* =============================================================================
+ * SECTION 2: Base Styles
+ * =========================================================================== */
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
 }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+  background-color: var(--color-void-black);
+  color: var(--color-bone-white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-/* Custom Scrollbar */
+/* Remove default focus ring — use orange border on focus instead */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-ember-orange);
+  outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-ember-orange);
+  color: var(--color-void-black);
+}
+
+/* =============================================================================
+ * SECTION 3: Custom Scrollbar (Ori Palette)
+ * =========================================================================== */
 ::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-darker);
+  background: var(--color-void-black);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #333333;
-    border-radius: 3px;
+  background: var(--color-graphite-border);
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #555555;
+  background: var(--color-steel-mid);
 }
 
-/* Helper Utility Classes */
-.text-paper { color: var(--paper); }
-.bg-paper { background-color: var(--paper); }
-.bg-ink { background-color: var(--ink); }
-.text-ink { color: var(--ink); }
-
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-graphite-border) var(--color-void-black);
 }
 
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* =============================================================================
+ * SECTION 4: Typography Utility Classes
+ * =========================================================================== */
 
-/* Masking & Glows */
-.hero-mask {
-    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+/* Display headings — Outfit weight 300 (TWK Everett substitute) */
+.text-display-lg {
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  line-height: var(--text-display-lg--line-height);
+  letter-spacing: var(--text-display-lg--letter-spacing);
+  font-weight: 300;
 }
 
-/* Animations */
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+.text-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--text-display--line-height);
+  letter-spacing: var(--text-display--letter-spacing);
+  font-weight: 300;
 }
 
-.animate-marquee {
-    animation: scroll 30s linear infinite;
+.text-heading-lg {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-lg);
+  line-height: var(--text-heading-lg--line-height);
+  letter-spacing: var(--text-heading-lg--letter-spacing);
+  font-weight: 300;
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+.text-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  line-height: var(--text-heading--line-height);
+  letter-spacing: var(--text-heading--letter-spacing);
+  font-weight: 300;
 }
 
-.circular-text {
-    animation: rotate 12s linear infinite;
+.text-heading-sm {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  line-height: var(--text-heading-sm--line-height);
+  letter-spacing: var(--text-heading-sm--letter-spacing);
+  font-weight: 300;
 }
 
-/* Smooth Fade-in Animations for Scroll Triggering */
+/* Body text — Inter (Switzer substitute) */
+.text-body-lg {
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  line-height: var(--text-body-lg--line-height);
+  font-weight: 400;
+}
+
+.text-body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  font-weight: 400;
+}
+
+/* Monospaced labels — Chivo Mono (terminal/control-panel texture) */
+.text-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.text-label-sm {
+  font-family: var(--font-mono);
+  font-size: var(--text-label-sm);
+  line-height: var(--text-label-sm--line-height);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* =============================================================================
+ * SECTION 5: Scroll-Snap (Book/Adventure Page Model)
+ * =========================================================================== */
+.snap-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* =============================================================================
+ * SECTION 6: Skeleton Loading Animations
+ * =========================================================================== */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-carbon) 25%,
+    var(--color-graphite-border) 50%,
+    var(--color-carbon) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 0;
+}
+
+.skeleton-text {
+  height: 16px;
+  margin-bottom: 8px;
+}
+
+.skeleton-heading {
+  height: 48px;
+  margin-bottom: 16px;
+  width: 60%;
+}
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.skeleton-card {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+/* =============================================================================
+ * SECTION 7: Aurora Background Animation
+ * =========================================================================== */
+@keyframes aurora-drift {
+  0%, 100% {
+    transform: translate(0%, 0%) rotate(0deg) scale(1);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translate(5%, -3%) rotate(45deg) scale(1.1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-3%, 5%) rotate(90deg) scale(0.95);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translate(2%, 2%) rotate(135deg) scale(1.05);
+    opacity: 0.5;
+  }
+}
+
+@keyframes aurora-drift-alt {
+  0%, 100% {
+    transform: translate(0%, 0%) rotate(0deg) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(-4%, 3%) rotate(-60deg) scale(1.15);
+    opacity: 0.5;
+  }
+  66% {
+    transform: translate(3%, -4%) rotate(-120deg) scale(0.9);
+    opacity: 0.35;
+  }
+}
+
+/* =============================================================================
+ * SECTION 8: Scroll Reveal Animations
+ * =========================================================================== */
 .reveal {
-    position: relative;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================================================
+ * SECTION 9: Page Transition
+ * =========================================================================== */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
+  }
 }
 
-/* Contact Modal Styles */
-.modal-overlay {
-    backdrop-filter: blur(12px);
-    background-color: rgba(0, 0, 0, 0.75);
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+/* =============================================================================
+ * SECTION 10: Marquee / Infinite Scroll Animation
+ * =========================================================================== */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
+.animate-marquee {
+  animation: marquee-scroll 30s linear infinite;
+}
+
+/* =============================================================================
+ * SECTION 11: Hover Reveal Menu Styles (ported from toggleSupply)
+ * =========================================================================== */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: var(--color-void-black);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-item {
+  display: block;
+  overflow: hidden;
+}
+
+.menu-item-inner {
+  transform: translateY(110%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.menu-overlay.is-open .menu-item-inner {
+  transform: translateY(0%);
+}
+
+/* Staggered reveal — each item delayed */
+.menu-item:nth-child(1) .menu-item-inner { transition-delay: 0.05s; }
+.menu-item:nth-child(2) .menu-item-inner { transition-delay: 0.1s; }
+.menu-item:nth-child(3) .menu-item-inner { transition-delay: 0.15s; }
+.menu-item:nth-child(4) .menu-item-inner { transition-delay: 0.2s; }
+.menu-item:nth-child(5) .menu-item-inner { transition-delay: 0.25s; }
+.menu-item:nth-child(6) .menu-item-inner { transition-delay: 0.3s; }
+
+/* Menu item hover — orange accent */
+.menu-link {
+  color: var(--color-bone-white);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: -0.79px;
+  text-transform: uppercase;
+  display: inline-block;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.menu-link:hover {
+  color: var(--color-ember-orange);
+}
+
+/* Menu counter labels */
+.menu-counter {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-steel-mid);
+  text-transform: uppercase;
+}
+
+/* =============================================================================
+ * SECTION 12: Input Fields (Ori Dark Style)
+ * =========================================================================== */
+input, textarea {
+  background: var(--color-carbon);
+  border: 1px solid var(--color-graphite-border);
+  border-radius: 0;
+  color: var(--color-bone-white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  padding: 12px 16px;
+  transition: border-color 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-steel-mid);
+}
+
+input:focus, textarea:focus {
+  border-color: var(--color-ember-orange);
+  outline: none;
+}
+
+/* Autofill override */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover, 
+textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
-    -webkit-text-fill-color: #ffffff;
-    -webkit-box-shadow: 0 0 0px 1000px #181818 inset;
-    transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: var(--color-bone-white);
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-carbon) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
-#contactModal {
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+/* =============================================================================
+ * SECTION 13: Utility: No Scrollbar
+ * =========================================================================== */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* =============================================================================
+ * SECTION 14: Responsive Breakpoint Helpers
+ * Devices: phone (<640px), tablet (640-1024px), laptop (1024-1440px), desktop (>1440px)
+ * =========================================================================== */
+@media (max-width: 639px) {
+  .menu-link {
+    font-size: 36px;
+    letter-spacing: -0.4px;
+  }
 }
-#modalContainer {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .menu-link {
+    font-size: 56px;
+    letter-spacing: -0.6px;
+  }
 }
