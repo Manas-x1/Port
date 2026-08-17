@@ -1,16 +1,5 @@
 /**
  * HoverRevealMenu.jsx — Full-screen hover reveal navigation menu
- * 
- * Ported from toggleSupply's hoverRevealMenu (CSS-first pattern).
- * Adapted to React with framer-motion for the overlay animation.
- * Menu items use CSS staggered transitions (defined in index.css).
- * 
- * Ori palette: Void Black overlay, Bone White text, Ember Orange on hover.
- * 
- * Props:
- *   isOpen: boolean — Whether the menu is visible
- *   onClose: function — Called when menu should close
- *   onNavigate: function — Called with path when a menu item is clicked
  */
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -24,10 +13,20 @@ const MENU_ITEMS = [
   { label: 'Contact', path: '/#contact', counter: '05' },
 ];
 
+const SOCIAL_LINKS = [
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/someone_on.the_internet?igsh=ZHR0Znh6cGF3Z3kx',
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/manas-u-33245a288?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+  },
+];
+
 export default function HoverRevealMenu({ isOpen, onClose }) {
   const navigate = useNavigate();
 
-  /* Close on Escape key */
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape' && isOpen) {
@@ -39,7 +38,6 @@ export default function HoverRevealMenu({ isOpen, onClose }) {
     return () => window.removeEventListener('keydown', handleEsc);
   }, [isOpen, onClose]);
 
-  /* Lock body scroll when open */
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -52,17 +50,14 @@ export default function HoverRevealMenu({ isOpen, onClose }) {
     };
   }, [isOpen]);
 
-  /* Handle menu item click — navigate and close */
   const handleItemClick = (e, path) => {
     e.preventDefault();
     onClose();
 
-    /* Handle hash links on home page */
     if (path.startsWith('/#')) {
-      const hash = path.substring(1); // e.g., "#projects"
+      const hash = path.substring(1);
       if (window.location.pathname !== '/') {
         navigate('/');
-        /* Wait for route change, then scroll to section */
         setTimeout(() => {
           const el = document.querySelector(hash);
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -81,7 +76,7 @@ export default function HoverRevealMenu({ isOpen, onClose }) {
       className={`menu-overlay ${isOpen ? 'is-open' : ''}`}
       aria-hidden={!isOpen}
     >
-      {/* Close button — top right */}
+      {/* Close button */}
       <button
         onClick={onClose}
         className="absolute top-8 right-10 z-10 cursor-pointer group"
@@ -101,16 +96,13 @@ export default function HoverRevealMenu({ isOpen, onClose }) {
         </span>
       </button>
 
-      {/* Menu items container — centered vertically */}
+      {/* Menu items container */}
       <nav className="h-full flex flex-col justify-center px-10 md:px-20 lg:px-32">
         <ul className="list-none m-0 p-0 space-y-4 md:space-y-6">
           {MENU_ITEMS.map((item) => (
             <li key={item.path} className="menu-item">
               <div className="menu-item-inner flex items-baseline gap-6">
-                {/* Counter label */}
                 <span className="menu-counter">{item.counter}</span>
-
-                {/* Menu link */}
                 <a
                   href={item.path}
                   onClick={(e) => handleItemClick(e, item.path)}
@@ -123,13 +115,15 @@ export default function HoverRevealMenu({ isOpen, onClose }) {
           ))}
         </ul>
 
-        {/* Bottom info — social links */}
+        {/* Social links — Instagram & LinkedIn only */}
         <div className="menu-item mt-16 md:mt-24">
           <div className="menu-item-inner flex gap-8">
-            {['Instagram', 'LinkedIn', 'Twitter', 'Dribbble'].map((social) => (
+            {SOCIAL_LINKS.map((social) => (
               <a
-                key={social}
-                href="#"
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="transition-colors duration-300 hover:text-ember-orange"
                 style={{
                   fontFamily: 'var(--font-mono)',
@@ -139,7 +133,7 @@ export default function HoverRevealMenu({ isOpen, onClose }) {
                   textTransform: 'uppercase',
                 }}
               >
-                {social}
+                {social.label} ↗
               </a>
             ))}
           </div>
