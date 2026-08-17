@@ -1,21 +1,75 @@
 /**
- * LoadingScreen.jsx — Initial entry loading screen + route transition loader
+ * LoadingScreen.jsx — Initial entry loading screen with Mechanical Scramble Audio
  * 
- * Two modes:
- * 1. Initial entry: Full-screen scramble text "Welcome" → click to enter
- * 2. Route transitions: Brief skeleton-based transition overlay
- * 
- * Ori palette: Void Black bg, Bone White text, Ember Orange accents.
- * Kept the existing scramble text effect — it's excellent.
+ * Audio:
+ * - Unlocks AudioContext on first mouse move / touch / key press.
+ * - Plays mechanical keyboard click sound during letter scramble animation.
  */
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-/* --- Scramble text effect (kept from original — great effect) --- */
 const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
 
-function ScrambleText({ text, start = false, delay = 0 }) {
+// Shared AudioContext instance
+let globalAudioCtx = null;
+
+function getAudioContext() {
+  if (!globalAudioCtx && typeof window !== 'undefined') {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtx) {
+      globalAudioCtx = new AudioCtx();
+    }
+  }
+  if (globalAudioCtx && globalAudioCtx.state === 'suspended') {
+    globalAudioCtx.resume().catch(() => {});
+  }
+  return globalAudioCtx;
+}
+
+/* Synthesized Mechanical Keyclick Sound */
+function playScrambleClickSound() {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx || ctx.state !== 'running') return;
+
+    const now = ctx.currentTime;
+
+    // High frequency click (mechanical switch trigger)
+    const oscHigh = ctx.createOscillator();
+    const gainHigh = ctx.createGain();
+    oscHigh.type = 'sine';
+    oscHigh.frequency.setValueAtTime(800 + Math.random() * 1200, now);
+    oscHigh.frequency.exponentialRampToValueAtTime(150, now + 0.03);
+
+    gainHigh.gain.setValueAtTime(0.12, now);
+    gainHigh.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+
+    oscHigh.connect(gainHigh);
+    gainHigh.connect(ctx.destination);
+    oscHigh.start(now);
+    oscHigh.stop(now + 0.03);
+
+    // Low mechanical body thump
+    const oscLow = ctx.createOscillator();
+    const gainLow = ctx.createGain();
+    oscLow.type = 'triangle';
+    oscLow.frequency.setValueAtTime(180 + Math.random() * 80, now);
+    oscLow.frequency.exponentialRampToValueAtTime(40, now + 0.04);
+
+    gainLow.gain.setValueAtTime(0.08, now);
+    gainLow.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+
+    oscLow.connect(gainLow);
+    gainLow.connect(ctx.destination);
+    oscLow.start(now);
+    oscLow.stop(now + 0.04);
+  } catch (e) {
+    // Graceful fallback
+  }
+}
+
+function ScrambleText({ text, start = false, delay = 0, playAudio = false }) {
   const [displayText, setDisplayText] = useState('');
 
   useEffect(() => {
@@ -29,6 +83,10 @@ function ScrambleText({ text, start = false, delay = 0 }) {
     const run = () => {
       interval = setInterval(() => {
         if (!isMounted) return;
+
+        if (playAudio && iteration < text.length) {
+          playScrambleClickSound();
+        }
 
         setDisplayText(
           text
@@ -46,7 +104,7 @@ function ScrambleText({ text, start = false, delay = 0 }) {
         }
 
         iteration += 1 / 3;
-      }, 30);
+      }, 35);
     };
 
     if (delay > 0) {
@@ -60,7 +118,7 @@ function ScrambleText({ text, start = false, delay = 0 }) {
       if (timeoutId) clearTimeout(timeoutId);
       isMounted = false;
     };
-  }, [text, start, delay]);
+  }, [text, start, delay, playAudio]);
 
   return <span>{displayText}</span>;
 }
@@ -68,18 +126,36 @@ function ScrambleText({ text, start = false, delay = 0 }) {
 export default function LoadingScreen() {
   const location = useLocation();
 
-  /* --- Entry state (persisted per session) --- */
   const [hasEntered, setHasEntered] = useState(() => {
     return sessionStorage.getItem('portfolio_entered') === 'true';
   });
   const [isInitialLoading, setIsInitialLoading] = useState(!hasEntered);
   const [scrambleStart, setScrambleStart] = useState(false);
 
-  /* --- Route transition state --- */
   const [isTransitionLoading, setIsTransitionLoading] = useState(false);
   const isFirstEntry = useRef(true);
 
-  /* Start scramble animation on mount if not entered yet */
+  // Unlock AudioContext on first mouse move / touch / click anywhere
+  useEffect(() => {
+    if (!isInitialLoading) return;
+
+    const unlockAudio = () => {
+      getAudioContext();
+    };
+
+    window.addEventListener('mousemove', unlockAudio, { once: true });
+    window.addEventListener('pointerdown', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
+    window.addEventListener('touchstart', unlockAudio, { once: true });
+
+    return () => {
+      window.removeEventListener('mousemove', unlockAudio);
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
+    };
+  }, [isInitialLoading]);
+
   useEffect(() => {
     if (!hasEntered) {
       const timer = setTimeout(() => setScrambleStart(true), 400);
@@ -87,7 +163,6 @@ export default function LoadingScreen() {
     }
   }, [hasEntered]);
 
-  /* Handle route change transitions */
   useEffect(() => {
     if (!hasEntered) return;
 
@@ -111,8 +186,8 @@ export default function LoadingScreen() {
     };
   }, [location.pathname, hasEntered]);
 
-  /* Click to enter the site */
   const handleEnterSite = () => {
+    getAudioContext();
     setHasEntered(true);
     sessionStorage.setItem('portfolio_entered', 'true');
     setIsInitialLoading(false);
@@ -120,10 +195,6 @@ export default function LoadingScreen() {
 
   return (
     <>
-      {/* ================================================================
-       * 1. INITIAL ENTRY LOADING SCREEN
-       * Void Black bg, scramble text, click to continue
-       * ============================================================== */}
       <AnimatePresence mode="wait">
         {isInitialLoading && (
           <motion.div
@@ -133,7 +204,6 @@ export default function LoadingScreen() {
             onClick={handleEnterSite}
             className="fixed inset-0 z-[9999] bg-void-black flex flex-col items-center justify-center p-8 select-none cursor-pointer"
           >
-            {/* Subtle grid overlay */}
             <div
               className="absolute inset-0 pointer-events-none opacity-[0.04]"
               style={{
@@ -144,7 +214,6 @@ export default function LoadingScreen() {
 
             <div className="w-full max-w-4xl relative z-10 flex flex-col items-center justify-center px-4">
               <div className="flex flex-col items-center w-full space-y-6">
-                {/* Main scramble heading */}
                 <h1
                   className="text-center select-none uppercase"
                   style={{
@@ -156,10 +225,9 @@ export default function LoadingScreen() {
                     color: 'var(--color-bone-white)',
                   }}
                 >
-                  <ScrambleText text="Welcome to the portfolio" start={scrambleStart} />
+                  <ScrambleText text="Welcome to the portfolio" start={scrambleStart} playAudio={true} />
                 </h1>
 
-                {/* Name subtitle */}
                 <div
                   className="select-none self-center md:self-end md:mr-16 min-h-[30px] opacity-80"
                   style={{
@@ -170,11 +238,10 @@ export default function LoadingScreen() {
                     color: 'var(--color-steel-mid)',
                   }}
                 >
-                  <ScrambleText text="— manas upadhyay" start={scrambleStart} delay={1200} />
+                  <ScrambleText text="— manas upadhyay" start={scrambleStart} delay={1200} playAudio={true} />
                 </div>
               </div>
 
-              {/* Click to continue prompt */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 0.4, y: 0 }}
@@ -195,10 +262,6 @@ export default function LoadingScreen() {
         )}
       </AnimatePresence>
 
-      {/* ================================================================
-       * 2. ROUTE TRANSITION LOADER
-       * Brief overlay with skeleton shimmer during page changes
-       * ============================================================== */}
       <AnimatePresence>
         {isTransitionLoading && (
           <motion.div
@@ -209,7 +272,6 @@ export default function LoadingScreen() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[9998] bg-void-black flex flex-col items-center justify-center pointer-events-auto"
           >
-            {/* Grid overlay */}
             <div
               className="absolute inset-0 pointer-events-none opacity-[0.03]"
               style={{
@@ -219,7 +281,6 @@ export default function LoadingScreen() {
             />
 
             <div className="relative z-10 flex flex-col items-center space-y-6">
-              {/* Loading label */}
               <span
                 className="animate-pulse"
                 style={{
@@ -233,14 +294,12 @@ export default function LoadingScreen() {
                 Loading Context
               </span>
 
-              {/* Progress bar */}
               <div className="w-48 h-[1px] bg-graphite-border overflow-hidden relative">
                 <motion.div
                   initial={{ left: '-100%' }}
                   animate={{ left: '100%' }}
                   transition={{ duration: 1.2, ease: 'easeInOut', repeat: 0 }}
                   className="absolute top-0 bottom-0 w-24 bg-ember-orange"
-                  style={{ position: 'absolute' }}
                 />
               </div>
             </div>

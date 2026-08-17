@@ -1,24 +1,78 @@
 /**
- * ProfileCard.jsx — React Bits styled 3D Profile Card
+ * ProfileCard.jsx — 3D Tilt Profile Card with Mobile Accelerometer Integration
  * 
  * Features:
- * - 100% permanent Black & White portrait image (/Potrait1.jpeg).
- * - Increased 3D tilt & dynamic mouse angle interactivity.
- * - Subtle dark iridescent shimmer sheen overlay.
+ * - 3D Tilt driven by built-in Phone Accelerometer (DeviceOrientation API) on mobile devices.
+ * - Mouse cursor 3D Tilt fallback on PC/Desktop environments.
+ * - Permanent 100% Black & White portrait image (/Potrait1.jpeg).
+ * - Dark Iridescent shimmer sheen overlay.
  * - ONLY 3 items: Photo, Email (manasx1upadhyay@gmail.com), Phone (+91 761732-5347).
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Phone, Sparkles } from 'lucide-react';
 
 export default function ProfileCard() {
   const [tilt, setTilt] = useState({ x: 0, y: 0, shineX: 50, shineY: 50 });
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
 
+  /* Mobile Accelerometer / Gyroscope Integration */
+  useEffect(() => {
+    // Check if coarse pointer (mobile/tablet touch screen)
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    setIsMobileDevice(isTouch);
+
+    if (!isTouch || !window.DeviceOrientationEvent) return;
+
+    const handleOrientation = (event) => {
+      // event.gamma: left-to-right tilt in degrees [-90, 90]
+      // event.beta: front-to-back tilt in degrees [-180, 180]
+      const gamma = event.gamma || 0; // Y tilt
+      const beta = event.beta || 0;   // X tilt
+
+      // Clamp angles for smooth response
+      const clampedGamma = Math.max(-30, Math.min(30, gamma));
+      const clampedBeta = Math.max(-30, Math.min(30, beta - 45)); // 45deg neutral holding position
+
+      const tiltX = (clampedGamma / 30) * 25;
+      const tiltY = -(clampedBeta / 30) * 25;
+
+      const shineX = ((clampedGamma + 30) / 60) * 100;
+      const shineY = ((clampedBeta + 30) / 60) * 100;
+
+      setTilt({
+        x: tiltX,
+        y: tiltY,
+        shineX,
+        shineY,
+      });
+    };
+
+    // Request permission on iOS 13+ if required
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then((state) => {
+          if (state === 'granted') {
+            window.addEventListener('deviceorientation', handleOrientation);
+          }
+        })
+        .catch(() => {});
+    } else {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+    };
+  }, []);
+
+  /* Desktop Mouse Tilt Handler */
   const handleMouseMove = (e) => {
+    if (isMobileDevice) return; // Do not override accelerometer on mobile
+
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    // Increased 3D tilt sensitivity
     setTilt({
       x: x * 25,
       y: -y * 25,
@@ -28,6 +82,7 @@ export default function ProfileCard() {
   };
 
   const handleMouseLeave = () => {
+    if (isMobileDevice) return;
     setTilt({ x: 0, y: 0, shineX: 50, shineY: 50 });
   };
 
