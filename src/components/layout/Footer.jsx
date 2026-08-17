@@ -64,10 +64,10 @@ export default function Footer() {
             </p>
             <div className="pt-2">
               <a
-                href="mailto:hello@manasupadhyay.com"
+                href="mailto:hello@manasxz.qzz.io"
                 className="inline-flex items-center gap-2 font-mono text-sm uppercase text-ember-orange hover:underline tracking-wider"
               >
-                <span>hello@manasupadhyay.com</span>
+                <span>hello@manasxz.qzz.io</span>
                 <span>→</span>
               </a>
             </div>

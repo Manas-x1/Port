@@ -1,14 +1,15 @@
 /**
- * Navbar.jsx — Top navigation bar with official logo and contact links
+ * Navbar.jsx — Top navigation bar with official logo & floating ContactModal
  */
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import HoverRevealMenu from './HoverRevealMenu';
-import FilledButton from '../ui/FilledButton';
 import Logo from '../ui/Logo';
+import ContactModal from '../ui/ContactModal';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogoClick = (e) => {
@@ -39,23 +40,18 @@ export default function Navbar() {
             className="flex items-center gap-3 no-underline cursor-pointer group"
             aria-label="Home"
           >
-            <Logo className="w-6 h-7 md:w-7 md:h-8 text-bone-white group-hover:text-ember-orange transition-colors" />
-            <span
-              className="font-mono text-sm md:text-base font-bold tracking-widest text-bone-white group-hover:text-ember-orange transition-colors uppercase"
-            >
-              Manas
-            </span>
+            <Logo className="w-6 h-7 md:w-7 md:h-8" />
           </a>
 
-          {/* Right: Mailto CTA & Menu trigger */}
+          {/* Right: Floating Contact Trigger & Menu */}
           <div className="flex items-center gap-3 md:gap-6">
-            {/* Direct Mailto CTA */}
-            <a
-              href="mailto:hello@manasupadhyay.com"
-              className="hidden sm:inline-flex items-center justify-center bg-ember-orange text-void-black font-mono text-xs md:text-sm uppercase tracking-wider px-4 py-2 hover:brightness-110 active:scale-95 transition-all select-none no-underline font-medium"
+            {/* Open Floating Contact Dialog */}
+            <button
+              onClick={() => setIsContactOpen(true)}
+              className="inline-flex items-center justify-center bg-ember-orange text-void-black font-mono text-xs md:text-sm uppercase tracking-wider px-4 py-2 hover:brightness-110 active:scale-95 transition-all select-none cursor-pointer font-medium"
             >
               Email Me
-            </a>
+            </button>
 
             {/* Menu trigger button */}
             <button
@@ -67,7 +63,7 @@ export default function Navbar() {
                 <div className="w-5 h-[1.5px] bg-bone-white group-hover:bg-ember-orange transition-colors" />
                 <div className="w-3.5 h-[1.5px] bg-bone-white group-hover:bg-ember-orange transition-colors" />
               </div>
-              <span className="font-mono text-xs md:text-sm uppercase tracking-wider text-bone-white group-hover:text-ember-orange transition-colors">
+              <span className="hidden md:inline-block font-mono text-xs md:text-sm uppercase tracking-wider text-bone-white group-hover:text-ember-orange transition-colors">
                 Menu
               </span>
             </button>
@@ -79,6 +75,12 @@ export default function Navbar() {
       <HoverRevealMenu
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
+      />
+
+      {/* Floating Contact Modal */}
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
       />
     </>
   );

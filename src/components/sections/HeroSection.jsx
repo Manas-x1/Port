@@ -37,7 +37,7 @@ export default function HeroSection() {
       <div className="relative z-10 text-center select-none px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center">
         {/* Official MU Monogram Logo */}
         <div className="mb-6 md:mb-8 transform hover:scale-105 transition-transform">
-          <Logo className="w-14 h-16 md:w-20 md:h-24 text-bone-white drop-shadow-[0_0_20px_rgba(255,79,43,0.3)]" />
+          <Logo className="w-16 h-16 md:w-24 md:h-24 drop-shadow-[0_0_20px_rgba(255,79,43,0.3)]" />
         </div>
 
         {/* Name — Outfit light 300 signature typography */}
