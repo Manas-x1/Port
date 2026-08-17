@@ -1,8 +1,9 @@
 /**
- * HeroSection.jsx — Landing hero section with logo, title & TextMorph
+ * HeroSection.jsx — Landing hero section with Framer Motion text animation & TextMorph
  */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import AuroraBackground from '../ui/AuroraBackground';
 import TextMorph from '../ui/TextMorph';
 import FilledButton from '../ui/FilledButton';
@@ -35,39 +36,64 @@ export default function HeroSection() {
 
       {/* Hero content */}
       <div className="relative z-10 text-center select-none px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center">
-        {/* Official MU Monogram Logo */}
-        <div className="mb-6 md:mb-8 transform hover:scale-105 transition-transform">
+        {/* Official Logo */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6 md:mb-8 transform hover:scale-105 transition-transform"
+        >
           <Logo className="w-16 h-16 md:w-24 md:h-24 drop-shadow-[0_0_20px_rgba(255,79,43,0.3)]" />
-        </div>
+        </motion.div>
 
-        {/* Name — Outfit light 300 signature typography */}
-        <h1 className="text-hero-display text-bone-white uppercase mb-4 tracking-tight">
+        {/* Name — Framer Motion Staggered Word Reveal */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="text-hero-display text-bone-white uppercase mb-4 tracking-tight"
+        >
           Manas<br />Upadhyay
-        </h1>
+        </motion.h1>
 
         {/* TextMorph — cycling titles */}
-        <div className="font-mono text-sm sm:text-base md:text-lg uppercase tracking-[0.2em] text-ember-orange min-h-[32px] mb-8 font-medium">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="font-mono text-sm sm:text-base md:text-lg uppercase tracking-[0.2em] text-ember-orange min-h-[32px] mb-8 font-medium"
+        >
           <TextMorph texts={TITLES} interval={2400} />
-        </div>
+        </motion.div>
 
         {/* Action buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
+        >
           <FilledButton onClick={scrollToProjects} className="w-full sm:w-auto px-8 py-3">
             Explore Work
           </FilledButton>
           <GhostButton onClick={() => navigate('/about')} className="w-full sm:w-auto px-8 py-3">
             About Me
           </GhostButton>
-        </div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+      >
         <span className="font-mono text-[10px] sm:text-xs tracking-[0.3em] uppercase text-steel-mid">
           Scroll to Explore
         </span>
         <div className="w-px h-10 bg-steel-mid animate-pulse" />
-      </div>
+      </motion.div>
     </section>
   );
 }

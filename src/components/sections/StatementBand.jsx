@@ -1,32 +1,23 @@
 /**
- * StatementBand.jsx — Full-bleed orange statement section
- * 
- * Ori design: Full-width #ff4f2b background, black text, no container max-width.
- * A bold visual interruption in the dark rhythm — "power-on indicator" effect.
- * 
- * Props:
- *   text: string — The statement text to display
+ * StatementBand.jsx — Full-bleed orange statement section with Framer Motion text animation
  */
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function StatementBand({ text = 'We Create The Future' }) {
   return (
     <section
-      className="w-full py-16 md:py-20 px-6 snap-section flex items-center justify-center min-h-[40vh]"
-      style={{ backgroundColor: 'var(--color-ember-orange)' }}
+      className="w-full py-16 md:py-20 px-6 snap-section flex items-center justify-center min-h-[40vh] bg-ember-orange overflow-hidden"
     >
-      <h2
-        className="text-center uppercase max-w-[1280px] mx-auto"
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(32px, 5vw, 48px)',
-          fontWeight: 400,
-          lineHeight: 1.2,
-          color: 'var(--color-void-black)',
-        }}
+      <motion.h2
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="text-center uppercase max-w-[1280px] mx-auto text-void-black font-display font-normal text-3xl sm:text-5xl md:text-6xl leading-tight"
       >
         {text}
-      </h2>
+      </motion.h2>
     </section>
   );
 }

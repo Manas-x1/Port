@@ -1,21 +1,16 @@
 /**
- * TextMorph.jsx — Cycling text morph animation
+ * TextMorph.jsx — High-end character-by-character animated text morph
  * 
- * Cycles through an array of strings with a smooth morph/fade transition.
- * Replaces the non-existent @componentry/text-morph package.
- * Uses framer-motion AnimatePresence for enter/exit transitions.
- * 
- * Props:
- *   texts: string[] — Array of strings to cycle through
- *   interval: number — Milliseconds between text changes (default: 3000)
- *   className: string — Additional CSS classes
+ * Features:
+ * - Staggered character entrance/exit with blur & vertical slide.
+ * - Continuous smooth cycling across titles.
  */
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function TextMorph({
   texts = [],
-  interval = 3000,
+  interval = 2800,
   className = '',
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -32,22 +27,66 @@ export default function TextMorph({
 
   if (texts.length === 0) return null;
 
+  const currentText = texts[currentIndex];
+
   return (
-    <div className={`relative inline-block overflow-hidden ${className}`}>
+    <div className={`relative inline-flex items-center justify-center overflow-hidden py-1 ${className}`}>
       <AnimatePresence mode="wait">
-        <motion.span
-          key={texts[currentIndex]}
-          initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, y: -20, filter: 'blur(4px)' }}
-          transition={{
-            duration: 0.5,
-            ease: [0.16, 1, 0.3, 1],
+        <motion.div
+          key={currentText}
+          className="inline-flex flex-wrap justify-center gap-[0.05em]"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.035,
+              },
+            },
+            exit: {
+              transition: {
+                staggerChildren: 0.02,
+                staggerDirection: -1,
+              },
+            },
           }}
-          className="inline-block"
         >
-          {texts[currentIndex]}
-        </motion.span>
+          {currentText.split('').map((char, index) => (
+            <motion.span
+              key={`${char}-${index}`}
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  y: 18,
+                  filter: 'blur(8px)',
+                },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: 'blur(0px)',
+                  transition: {
+                    duration: 0.45,
+                    ease: [0.16, 1, 0.3, 1],
+                  },
+                },
+                exit: {
+                  opacity: 0,
+                  y: -18,
+                  filter: 'blur(8px)',
+                  transition: {
+                    duration: 0.35,
+                    ease: [0.7, 0, 0.84, 0],
+                  },
+                },
+              }}
+              className="inline-block whitespace-pre"
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </motion.span>
+          ))}
+        </motion.div>
       </AnimatePresence>
     </div>
   );

@@ -1,27 +1,27 @@
 /**
- * AboutSection.jsx — About / Bio section
- * 
- * Simple placeholder layout: split text section.
- * Left side: section label + intro heading.
- * Right side: placeholder paragraph text.
- * User will update content later.
+ * AboutSection.jsx — About section with Framer Motion text animations
  */
 import React from 'react';
+import { motion } from 'framer-motion';
 import SectionHeader from '../ui/SectionHeader';
 
 export default function AboutSection() {
   return (
     <section
-      className="w-full py-20 md:py-32 px-6 md:px-10 snap-section"
+      className="w-full py-20 md:py-32 px-6 md:px-10 snap-section bg-void-black"
       id="about"
-      style={{ backgroundColor: 'var(--color-void-black)' }}
     >
       <div className="max-w-[1280px] mx-auto">
-        <SectionHeader title="About" number="02" />
+        <SectionHeader title="About" number="01" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {/* Left — Heading */}
-          <div>
+          {/* Left — Heading with Framer Motion */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
             <h3
               className="text-bone-white uppercase mb-6"
               style={{
@@ -35,10 +35,16 @@ export default function AboutSection() {
               Crafting digital<br />narratives that<br />
               <span style={{ color: 'var(--color-ember-orange)' }}>ignite</span>
             </h3>
-          </div>
+          </motion.div>
 
-          {/* Right — Body text placeholder */}
-          <div className="md:pt-4">
+          {/* Right — Body text with Framer Motion */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="md:pt-4"
+          >
             <p
               className="mb-6"
               style={{
@@ -60,7 +66,7 @@ export default function AboutSection() {
             >
               This section will be updated with a full bio and experience timeline. Check back soon for the complete story.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

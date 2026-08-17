@@ -16,7 +16,7 @@ export default function ProjectsShowcase() {
       id="projects"
     >
       <div className="max-w-[1280px] mx-auto">
-        <SectionHeader title="Selected Work" number="03" />
+        <SectionHeader title="Selected Work" number="02" />
 
         {/* Projects grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">

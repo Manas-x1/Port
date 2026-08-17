@@ -1,22 +1,19 @@
 /**
  * Home.jsx — Home page
  * 
- * Assembles all section components in order:
- * Hero → Statement Band → Projects → About → Skills → Contact
- * Full-page scroll-snap sections for the "book/adventure" feel.
- * Intersection Observer for scroll-reveal animations.
+ * Order of sections:
+ * Hero → Statement Band → About (01) → Selected Work (02) → Skills & Tools (03) → Contact (04)
  */
 import React, { useEffect } from 'react';
 import HeroSection from '../components/sections/HeroSection';
 import StatementBand from '../components/sections/StatementBand';
-import ProjectsShowcase from '../components/sections/ProjectsShowcase';
 import AboutSection from '../components/sections/AboutSection';
+import ProjectsShowcase from '../components/sections/ProjectsShowcase';
 import SkillsSection from '../components/sections/SkillsSection';
 import ContactSection from '../components/sections/ContactSection';
 import Footer from '../components/layout/Footer';
 
 export default function Home() {
-  /* Intersection Observer for scroll reveal animations */
   useEffect(() => {
     const revealElements = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(
@@ -39,8 +36,8 @@ export default function Home() {
     <div className="w-full">
       <HeroSection />
       <StatementBand text="Crafting The Future Through AI & Film" />
-      <ProjectsShowcase />
       <AboutSection />
+      <ProjectsShowcase />
       <SkillsSection />
       <ContactSection />
       <Footer />

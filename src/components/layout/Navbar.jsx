@@ -50,7 +50,7 @@ export default function Navbar() {
               onClick={() => setIsContactOpen(true)}
               className="inline-flex items-center justify-center bg-ember-orange text-void-black font-mono text-xs md:text-sm uppercase tracking-wider px-4 py-2 hover:brightness-110 active:scale-95 transition-all select-none cursor-pointer font-medium"
             >
-              Email Me
+              Reach Out
             </button>
 
             {/* Menu trigger button */}

@@ -1,20 +1,18 @@
 /**
- * SectionHeader.jsx — Numbered section header
- * 
- * Left-aligned title in display font weight 300.
- * Optional right-aligned numeric counter ("01", "02") in Chivo Mono.
- * Follows Ori design: clean separation with generous vertical spacing.
- * 
- * Props:
- *   title: string — Section title
- *   number: string — Section number ("01", "02", etc.)
- *   className: string — Additional classes
+ * SectionHeader.jsx — Framer Motion Animated Section Header
  */
 import React from 'react';
+import { motion } from 'framer-motion';
 
 export default function SectionHeader({ title, number, className = '' }) {
   return (
-    <div className={`flex items-baseline justify-between mb-12 md:mb-16 ${className}`}>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className={`flex items-baseline justify-between mb-12 md:mb-16 ${className}`}
+    >
       {/* Section title — display font, weight 300, uppercase */}
       <h2
         className="text-bone-white uppercase"
@@ -32,7 +30,7 @@ export default function SectionHeader({ title, number, className = '' }) {
       {/* Section counter — monospaced label */}
       {number && (
         <span
-          className="text-bone-white hidden md:block"
+          className="text-steel-mid hidden md:block"
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '16px',
@@ -42,6 +40,6 @@ export default function SectionHeader({ title, number, className = '' }) {
           {number}
         </span>
       )}
-    </div>
+    </motion.div>
   );
 }
