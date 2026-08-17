@@ -1,12 +1,5 @@
 /**
- * projects.js — Centralized project data
- * 
- * All project information lives here. Pages and components read from this array
- * rather than having hardcoded content in individual JSX files.
- * Content themed around AI Image/Video creation and Filmmaking.
- * 
- * Each project has: slug, title, category, description, bullets, skills, 
- * thumbnail, images, and videoUrl.
+ * projects.js — Centralized project data with curated dark cinematic imagery
  */
 
 export const projects = [
@@ -25,12 +18,12 @@ export const projects = [
     ],
     skills: ['RunwayML', 'ComfyUI', 'DaVinci Resolve', 'After Effects', 'Python'],
     thumbnail:
-      'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
     images: [
-      'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80',
+      'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1600&q=80',
     ],
-    videoUrl: null, // Placeholder — user will add
+    videoUrl: null,
   },
   {
     slug: 'synthetic-visions',
@@ -47,10 +40,10 @@ export const projects = [
     ],
     skills: ['Midjourney', 'Stable Diffusion', 'Photoshop', 'Lightroom', 'ComfyUI'],
     thumbnail:
-      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=80',
     images: [
-      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1600&q=80',
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80',
     ],
     videoUrl: null,
   },
@@ -69,17 +62,17 @@ export const projects = [
     ],
     skills: ['Premiere Pro', 'DaVinci Resolve', 'After Effects', 'Blender', 'Audition'],
     thumbnail:
-      'https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1200&q=80',
     images: [
-      'https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=1600&q=80',
+      'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=80',
     ],
     videoUrl: null,
   },
   {
     slug: 'digital-canvas',
     title: 'Digital Canvas',
-    category: 'Motion',
+    category: 'Motion & 3D',
     description:
       'A motion graphics and VFX reel showcasing procedural animation, particle systems, and 3D-integrated compositing. Built primarily in Blender and After Effects, this collection demonstrates the intersection of generative art and deliberate creative direction — where code meets craft.',
     bullets: [
@@ -91,10 +84,10 @@ export const projects = [
     ],
     skills: ['Blender', 'After Effects', 'Substance Painter', 'Cinema 4D', 'Premiere Pro'],
     thumbnail:
-      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
     images: [
-      'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80',
     ],
     videoUrl: null,
   },

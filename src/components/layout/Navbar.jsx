@@ -1,109 +1,73 @@
 /**
- * Navbar.jsx — Top navigation bar
- * 
- * Ori design: Transparent/black background, Chivo Mono labels.
- * Left: "MANAS" wordmark. Right: Menu trigger + Contact CTA.
- * Triggers the HoverRevealMenu overlay when menu button is clicked.
- * Fixed position, z-50 — always visible on scroll.
+ * Navbar.jsx — Top navigation bar with official logo and contact links
  */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import HoverRevealMenu from './HoverRevealMenu';
 import FilledButton from '../ui/FilledButton';
+import Logo from '../ui/Logo';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  /* Scroll to contact section or navigate to home first */
-  const handleContactClick = () => {
+  const handleLogoClick = (e) => {
+    e.preventDefault();
     if (window.location.pathname !== '/') {
       navigate('/');
-      setTimeout(() => {
-        const el = document.querySelector('#contact');
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 600);
     } else {
-      const el = document.querySelector('#contact');
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   return (
     <>
-      {/* ---- Fixed navigation bar ---- */}
       <nav
         className="fixed top-0 left-0 w-full z-50 transition-all duration-500"
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
           borderBottom: '1px solid var(--color-graphite-border)',
         }}
       >
-        <div className="w-full max-w-[1280px] mx-auto flex justify-between items-center px-6 md:px-10 py-4">
-          {/* Left: Wordmark */}
+        <div className="w-full max-w-[1280px] mx-auto flex justify-between items-center px-4 sm:px-6 md:px-10 py-3 md:py-4">
+          {/* Left: Official MU Logo */}
           <a
             href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="no-underline cursor-pointer"
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '16px',
-              fontWeight: 400,
-              color: 'var(--color-bone-white)',
-              textDecoration: 'none',
-              letterSpacing: '0.05em',
-            }}
+            onClick={handleLogoClick}
+            className="flex items-center gap-3 no-underline cursor-pointer group"
+            aria-label="Home"
           >
-            MANAS
+            <Logo className="w-6 h-7 md:w-7 md:h-8 text-bone-white group-hover:text-ember-orange transition-colors" />
+            <span
+              className="font-mono text-sm md:text-base font-bold tracking-widest text-bone-white group-hover:text-ember-orange transition-colors uppercase"
+            >
+              Manas
+            </span>
           </a>
 
-          {/* Right: Menu button + Contact CTA */}
-          <div className="flex items-center gap-4 md:gap-6">
-            {/* Contact CTA — only on larger screens */}
-            <div className="hidden md:block">
-              <FilledButton onClick={handleContactClick}>
-                Contact
-              </FilledButton>
-            </div>
+          {/* Right: Mailto CTA & Menu trigger */}
+          <div className="flex items-center gap-3 md:gap-6">
+            {/* Direct Mailto CTA */}
+            <a
+              href="mailto:hello@manasupadhyay.com"
+              className="hidden sm:inline-flex items-center justify-center bg-ember-orange text-void-black font-mono text-xs md:text-sm uppercase tracking-wider px-4 py-2 hover:brightness-110 active:scale-95 transition-all select-none no-underline font-medium"
+            >
+              Email Me
+            </a>
 
             {/* Menu trigger button */}
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="cursor-pointer group flex items-center gap-2"
-              aria-label="Open navigation menu"
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: '8px 0',
-              }}
+              className="cursor-pointer group flex items-center gap-2 px-2 py-1.5 border border-graphite-border hover:border-ember-orange transition-colors"
+              aria-label="Open menu"
             >
-              {/* Hamburger icon — two horizontal lines */}
-              <div className="flex flex-col gap-[5px]">
-                <div
-                  className="w-6 h-[1.5px] transition-all duration-300 group-hover:w-5"
-                  style={{ backgroundColor: 'var(--color-bone-white)' }}
-                />
-                <div
-                  className="w-4 h-[1.5px] transition-all duration-300 group-hover:w-6"
-                  style={{ backgroundColor: 'var(--color-bone-white)' }}
-                />
+              <div className="flex flex-col gap-[4px]">
+                <div className="w-5 h-[1.5px] bg-bone-white group-hover:bg-ember-orange transition-colors" />
+                <div className="w-3.5 h-[1.5px] bg-bone-white group-hover:bg-ember-orange transition-colors" />
               </div>
-
-              <span
-                className="hidden md:inline-block transition-colors duration-300 group-hover:text-ember-orange"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '14px',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-bone-white)',
-                }}
-              >
+              <span className="font-mono text-xs md:text-sm uppercase tracking-wider text-bone-white group-hover:text-ember-orange transition-colors">
                 Menu
               </span>
             </button>
@@ -111,7 +75,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ---- Full-screen menu overlay ---- */}
+      {/* Fullscreen menu overlay */}
       <HoverRevealMenu
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}

@@ -1,113 +1,107 @@
 /**
- * Footer.jsx — Shared site footer
- * 
- * Ori design: Void Black background, Chivo Mono columns.
- * Flat text columns — no dividers, no boxes.
- * Social links + copyright.
+ * Footer.jsx — Shared site footer with official logo and direct mailto
  */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../ui/Logo';
 
 export default function Footer() {
   const navigate = useNavigate();
 
-  /* Quick nav links */
   const navLinks = [
     { label: 'Home', path: '/' },
     { label: 'About', path: '/about' },
     { label: 'Projects', path: '/#projects' },
+    { label: 'Skills', path: '/#skills' },
     { label: 'Contact', path: '/#contact' },
   ];
 
-  /* Social links (placeholders) */
   const socialLinks = [
-    { label: 'Instagram', href: '#' },
-    { label: 'LinkedIn', href: '#' },
-    { label: 'Twitter', href: '#' },
-    { label: 'Dribbble', href: '#' },
+    { label: 'Instagram', href: 'https://www.instagram.com/someone_on.the_internet?igsh=ZHR0Znh6cGF3Z3kx' },
+    { label: 'LinkedIn', href: 'https://linkedin.com' }
   ];
 
   const handleNavClick = (e, path) => {
-    e.preventDefault();
     if (path.startsWith('/#')) {
+      e.preventDefault();
       if (window.location.pathname !== '/') {
         navigate('/');
         setTimeout(() => {
           const el = document.querySelector(path.substring(1));
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 600);
+        }, 500);
       } else {
         const el = document.querySelector(path.substring(1));
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    } else {
-      navigate(path);
     }
   };
 
   return (
     <footer
-      className="w-full py-16 md:py-24 px-6 md:px-10"
-      style={{
-        backgroundColor: 'var(--color-void-black)',
-        borderTop: '1px solid var(--color-graphite-border)',
-      }}
+      className="w-full py-16 md:py-24 px-6 md:px-10 bg-void-black border-t border-graphite-border relative overflow-hidden"
     >
       <div className="max-w-[1280px] mx-auto">
-        {/* Top: Wordmark + Nav + Social */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16">
-          {/* Wordmark */}
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 mb-16">
+          {/* Col 1: Logo & Name */}
+          <div className="md:col-span-2 space-y-4">
             <a
               href="/"
-              onClick={(e) => handleNavClick(e, '/')}
-              className="no-underline"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '16px',
-                color: 'var(--color-bone-white)',
-                textDecoration: 'none',
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
+              className="inline-flex items-center gap-3 no-underline group"
             >
-              MANAS UPADHYAY
+              <Logo className="w-8 h-9 text-bone-white group-hover:text-ember-orange transition-colors" />
+              <span className="font-display font-light text-2xl tracking-tight text-bone-white uppercase">
+                Manas Upadhyay
+              </span>
             </a>
+            <p className="font-body text-sm text-steel-mid max-w-sm">
+              AI Content Creator, 3D Artist, Video Editor & Filmmaker crafting immersive digital stories.
+            </p>
+            <div className="pt-2">
+              <a
+                href="mailto:hello@manasupadhyay.com"
+                className="inline-flex items-center gap-2 font-mono text-sm uppercase text-ember-orange hover:underline tracking-wider"
+              >
+                <span>hello@manasupadhyay.com</span>
+                <span>→</span>
+              </a>
+            </div>
           </div>
 
-          {/* Navigation */}
-          <div className="flex flex-col gap-3">
+          {/* Col 2: Navigation */}
+          <div className="space-y-3">
+            <span className="block font-mono text-xs uppercase tracking-widest text-steel-mid mb-4">
+              Navigation
+            </span>
             {navLinks.map((link) => (
               <a
                 key={link.path}
                 href={link.path}
                 onClick={(e) => handleNavClick(e, link.path)}
-                className="transition-colors duration-300 hover:text-bone-white no-underline"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '14px',
-                  color: 'var(--color-steel-mid)',
-                  textDecoration: 'none',
-                  textTransform: 'uppercase',
-                }}
+                className="block font-mono text-sm text-fog-light hover:text-ember-orange transition-colors no-underline uppercase tracking-wider"
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          {/* Social */}
-          <div className="flex flex-col gap-3">
+          {/* Col 3: Social */}
+          <div className="space-y-3">
+            <span className="block font-mono text-xs uppercase tracking-widest text-steel-mid mb-4">
+              Connect
+            </span>
             {socialLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="transition-colors duration-300 hover:text-bone-white no-underline"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '14px',
-                  color: 'var(--color-steel-mid)',
-                  textDecoration: 'none',
-                  textTransform: 'uppercase',
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block font-mono text-sm text-fog-light hover:text-ember-orange transition-colors no-underline uppercase tracking-wider"
               >
                 {link.label}
               </a>
@@ -115,20 +109,13 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom: Copyright */}
-        <div
-          className="pt-8"
-          style={{ borderTop: '1px solid var(--color-graphite-border)' }}
-        >
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '14px',
-              color: 'var(--color-steel-mid)',
-              textTransform: 'uppercase',
-            }}
-          >
-            © 2026 Manas Upadhyay. All rights reserved.
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-graphite-border flex flex-col sm:flex-row justify-between items-center gap-4">
+          <span className="font-mono text-xs uppercase text-steel-mid tracking-wider">
+            © 2026 MANAS UPADHYAY. ALL RIGHTS RESERVED.
+          </span>
+          <span className="font-mono text-xs uppercase text-steel-mid tracking-wider">
+            DESIGNED & BUILT WITH PRECISION
           </span>
         </div>
       </div>

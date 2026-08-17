@@ -1,10 +1,5 @@
 /**
- * HeroSection.jsx — Landing hero section
- * 
- * Full-viewport Void Black canvas with AuroraBackground.
- * "MANAS UPADHYAY" in display weight 300 at 72-96px.
- * TextMorph cycling through creative titles.
- * Dual CTA: Filled orange "View Work" + Ghost "About Me".
+ * HeroSection.jsx — Landing hero section with logo, title & TextMorph
  */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +7,8 @@ import AuroraBackground from '../ui/AuroraBackground';
 import TextMorph from '../ui/TextMorph';
 import FilledButton from '../ui/FilledButton';
 import GhostButton from '../ui/GhostButton';
+import Logo from '../ui/Logo';
 
-/* Titles to cycle through in the TextMorph */
 const TITLES = [
   'AI Content Creator',
   'Graphic Designer',
@@ -33,71 +28,45 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative w-full h-screen flex items-center justify-center overflow-hidden snap-section"
-      style={{ backgroundColor: 'var(--color-void-black)' }}
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden snap-section bg-void-black"
     >
-      {/* Aurora gradient background */}
+      {/* Background ambient lighting */}
       <AuroraBackground />
 
-      {/* Main content — centered */}
-      <div className="relative z-10 text-center select-none px-6 max-w-4xl mx-auto">
-        {/* Name — large display heading */}
-        <h1
-          className="text-bone-white uppercase mb-6"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(48px, 10vw, 96px)',
-            fontWeight: 300,
-            lineHeight: 0.95,
-            letterSpacing: '-0.02em',
-          }}
-        >
+      {/* Hero content */}
+      <div className="relative z-10 text-center select-none px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center">
+        {/* Official MU Monogram Logo */}
+        <div className="mb-6 md:mb-8 transform hover:scale-105 transition-transform">
+          <Logo className="w-14 h-16 md:w-20 md:h-24 text-bone-white drop-shadow-[0_0_20px_rgba(255,79,43,0.3)]" />
+        </div>
+
+        {/* Name — Outfit light 300 signature typography */}
+        <h1 className="text-hero-display text-bone-white uppercase mb-4 tracking-tight">
           Manas<br />Upadhyay
         </h1>
 
         {/* TextMorph — cycling titles */}
-        <div
-          className="mb-10"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'clamp(14px, 2vw, 18px)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.15em',
-            color: 'var(--color-ember-orange)',
-            minHeight: '28px',
-          }}
-        >
-          <TextMorph texts={TITLES} interval={2500} />
+        <div className="font-mono text-sm sm:text-base md:text-lg uppercase tracking-[0.2em] text-ember-orange min-h-[32px] mb-8 font-medium">
+          <TextMorph texts={TITLES} interval={2400} />
         </div>
 
-        {/* Dual CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <FilledButton onClick={scrollToProjects}>
-            View Work
+        {/* Action buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+          <FilledButton onClick={scrollToProjects} className="w-full sm:w-auto px-8 py-3">
+            Explore Work
           </FilledButton>
-          <GhostButton onClick={() => navigate('/about')}>
+          <GhostButton onClick={() => navigate('/about')} className="w-full sm:w-auto px-8 py-3">
             About Me
           </GhostButton>
         </div>
       </div>
 
-      {/* Scroll indicator — bottom center */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-        <span
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            color: 'var(--color-steel-mid)',
-          }}
-        >
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
+        <span className="font-mono text-[10px] sm:text-xs tracking-[0.3em] uppercase text-steel-mid">
           Scroll to Explore
         </span>
-        <div
-          className="w-px h-12 animate-pulse"
-          style={{ backgroundColor: 'var(--color-steel-mid)' }}
-        />
+        <div className="w-px h-10 bg-steel-mid animate-pulse" />
       </div>
     </section>
   );

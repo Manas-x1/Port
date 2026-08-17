@@ -4,119 +4,64 @@
  * Design Reference: New.md (Ori Style Reference)
  * Theme: Dark infrastructure — black void, white light, one ignited switch.
  * Palette: Void Black (#000000), Ember Orange (#ff4f2b), Bone White (#f5f5f5)
- * Fonts: Inter (body), Outfit (display/headings), Chivo Mono (labels/nav)
+ * Fonts: Outfit (display), Inter (body), Chivo Mono (labels)
  * =========================================================================== */
 
 @import "tailwindcss";
 
 /* =============================================================================
- * SECTION 1: Design Tokens (@theme for Tailwind v4)
+ * SECTION 1: Tailwind v4 Theme Tokens
+ * Maps CSS custom properties to Tailwind utility classes.
+ * e.g., --color-ember-orange → bg-ember-orange, text-ember-orange
  * =========================================================================== */
 @theme {
-  /* --- Colors: Ori Palette --- */
+  /* --- Ori Color Palette --- */
   --color-ember-orange: #ff4f2b;
-  --color-void-black: #000000;
-  --color-carbon: #1a1a1a;
+  --color-void-black:   #000000;
+  --color-carbon:       #1a1a1a;
   --color-graphite-border: #3c3c3c;
-  --color-steel-mid: #737373;
-  --color-fog-light: #bfbfbf;
-  --color-bone-white: #f5f5f5;
+  --color-steel-mid:    #737373;
+  --color-fog-light:    #bfbfbf;
+  --color-bone-white:   #f5f5f5;
 
-  /* --- Typography: Font Families --- */
-  /* Outfit substitutes for TWK Everett (display/headings — weight 300 signature) */
-  --font-display: 'Outfit', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  /* Inter substitutes for Switzer (body text) */
-  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  /* Chivo Mono for terminal/label texture */
-  --font-mono: 'Chivo Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-
-  /* --- Typography: Scale --- */
-  --text-caption: 14px;
-  --text-caption--line-height: 1.2;
-
-  --text-body: 16px;
-  --text-body--line-height: 1.4;
-  --text-body--font-weight: 400;
-
-  --text-body-lg: 18px;
-  --text-body-lg--line-height: 1.4;
-  --text-body-lg--font-weight: 400;
-
-  --text-heading-sm: 24px;
-  --text-heading-sm--line-height: 1.3;
-  --text-heading-sm--letter-spacing: -0.26px;
-  --text-heading-sm--font-weight: 300;
-
-  --text-heading: 36px;
-  --text-heading--line-height: 1.2;
-  --text-heading--letter-spacing: -0.4px;
-  --text-heading--font-weight: 300;
-
-  --text-heading-lg: 48px;
-  --text-heading-lg--line-height: 1.1;
-  --text-heading-lg--letter-spacing: -0.53px;
-  --text-heading-lg--font-weight: 300;
-
-  --text-display: 72px;
-  --text-display--line-height: 1;
-  --text-display--letter-spacing: -0.79px;
-  --text-display--font-weight: 300;
-
-  --text-display-lg: 96px;
-  --text-display-lg--line-height: 0.95;
-  --text-display-lg--letter-spacing: -1.06px;
-  --text-display-lg--font-weight: 300;
-
-  /* Mobile display scale */
-  --text-display-mobile: 48px;
-  --text-display-mobile--line-height: 1;
-  --text-display-mobile--letter-spacing: -0.53px;
-  --text-display-mobile--font-weight: 300;
-
-  /* Monospaced label style */
-  --text-label: 14px;
-  --text-label--line-height: 1;
-  --text-label--font-weight: 400;
-
-  --text-label-sm: 11px;
-  --text-label-sm--line-height: 1;
-  --text-label-sm--font-weight: 400;
-
-  /* --- Spacing: 4px base unit --- */
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-32: 32px;
-  --spacing-40: 40px;
-  --spacing-48: 48px;
-  --spacing-56: 56px;
-  --spacing-64: 64px;
-  --spacing-80: 80px;
-  --spacing-92: 92px;
-  --spacing-120: 120px;
-  --spacing-180: 180px;
-
-  /* --- Border Radius: 0px everywhere (architectural language) --- */
-  --radius-none: 0px;
+  /* --- Font Families --- */
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
 }
 
 /* =============================================================================
- * SECTION 2: Base Styles
+ * SECTION 2: CSS Custom Properties (available everywhere via var())
+ * These mirror the @theme tokens for use in inline styles.
+ * =========================================================================== */
+:root {
+  /* Colors */
+  --color-ember-orange:    #ff4f2b;
+  --color-void-black:      #000000;
+  --color-carbon:          #1a1a1a;
+  --color-graphite-border: #3c3c3c;
+  --color-steel-mid:       #737373;
+  --color-fog-light:       #bfbfbf;
+  --color-bone-white:      #f5f5f5;
+
+  /* Font families */
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* =============================================================================
+ * SECTION 3: Base & Reset
  * =========================================================================== */
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
+  font-size: 16px;
 }
 
 body {
-  background-color: var(--color-void-black);
-  color: var(--color-bone-white);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.4;
+  background-color: #000000;
+  color: #f5f5f5;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -124,225 +69,277 @@ body {
   padding: 0;
 }
 
-/* Remove default focus ring — use orange border on focus instead */
-*:focus {
-  outline: none;
-}
-
+/* Remove default focus ring — use orange border instead */
+*:focus { outline: none; }
 *:focus-visible {
-  outline: 2px solid var(--color-ember-orange);
+  outline: 2px solid #ff4f2b;
   outline-offset: 2px;
 }
 
-/* Selection color */
+/* Selection highlight */
 ::selection {
-  background-color: var(--color-ember-orange);
-  color: var(--color-void-black);
+  background-color: #ff4f2b;
+  color: #000000;
 }
 
 /* =============================================================================
- * SECTION 3: Custom Scrollbar (Ori Palette)
+ * SECTION 4: Custom Scrollbar
  * =========================================================================== */
-::-webkit-scrollbar {
-  width: 6px;
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #3c3c3c; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #737373; }
 
-::-webkit-scrollbar-track {
-  background: var(--color-void-black);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-graphite-border);
-  border-radius: 0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-steel-mid);
-}
-
-/* Firefox scrollbar */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-graphite-border) var(--color-void-black);
+  scrollbar-color: #3c3c3c #000000;
 }
 
 /* =============================================================================
- * SECTION 4: Typography Utility Classes
+ * SECTION 5: Typography Utilities
+ * Display headings use Outfit weight 300 — the Ori design signature.
+ * Body text uses Inter weight 400.
+ * Labels use Chivo Mono uppercase — terminal control-panel texture.
  * =========================================================================== */
 
-/* Display headings — Outfit weight 300 (TWK Everett substitute) */
-.text-display-lg {
-  font-family: var(--font-display);
-  font-size: var(--text-display-lg);
-  line-height: var(--text-display-lg--line-height);
-  letter-spacing: var(--text-display-lg--letter-spacing);
+/* Display heading — Outfit 300, large cinematic scale */
+.font-display-heading {
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
 }
 
-.text-display {
-  font-family: var(--font-display);
-  font-size: var(--text-display);
-  line-height: var(--text-display--line-height);
-  letter-spacing: var(--text-display--letter-spacing);
+/* Section heading — Outfit 300, medium scale */
+.font-section-heading {
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
   font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 
-.text-heading-lg {
-  font-family: var(--font-display);
-  font-size: var(--text-heading-lg);
-  line-height: var(--text-heading-lg--line-height);
-  letter-spacing: var(--text-heading-lg--letter-spacing);
-  font-weight: 300;
-}
-
-.text-heading {
-  font-family: var(--font-display);
-  font-size: var(--text-heading);
-  line-height: var(--text-heading--line-height);
-  letter-spacing: var(--text-heading--letter-spacing);
-  font-weight: 300;
-}
-
-.text-heading-sm {
-  font-family: var(--font-display);
-  font-size: var(--text-heading-sm);
-  line-height: var(--text-heading-sm--line-height);
-  letter-spacing: var(--text-heading-sm--letter-spacing);
-  font-weight: 300;
-}
-
-/* Body text — Inter (Switzer substitute) */
-.text-body-lg {
-  font-family: var(--font-body);
-  font-size: var(--text-body-lg);
-  line-height: var(--text-body-lg--line-height);
+/* Body text — Inter 400 */
+.font-body-text {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   font-weight: 400;
+  line-height: 1.6;
 }
 
-.text-body {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  line-height: var(--text-body--line-height);
-  font-weight: 400;
-}
-
-/* Monospaced labels — Chivo Mono (terminal/control-panel texture) */
-.text-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  line-height: var(--text-label--line-height);
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.text-label-sm {
-  font-family: var(--font-mono);
-  font-size: var(--text-label-sm);
-  line-height: var(--text-label-sm--line-height);
+/* Mono label — Chivo Mono 400, uppercase, wide tracking */
+.font-label {
+  font-family: 'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 /* =============================================================================
- * SECTION 5: Scroll-Snap (Book/Adventure Page Model)
+ * SECTION 6: Responsive Typography Scale
+ * clamp(min, preferred, max) for fluid scaling across all devices.
+ * phone (<640px) → tablet (640-1024px) → laptop (1024-1440px) → desktop (>1440px)
  * =========================================================================== */
-.snap-section {
-  scroll-snap-align: start;
-  min-height: 100vh;
-  min-height: 100dvh;
+
+/* Hero display — 48px mobile → 96px desktop */
+.text-hero-display {
+  font-size: clamp(44px, 9vw, 96px);
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+/* Section display — 36px mobile → 72px desktop */
+.text-section-display {
+  font-size: clamp(32px, 6vw, 72px);
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Heading — 28px mobile → 48px desktop */
+.text-heading {
+  font-size: clamp(24px, 4vw, 48px);
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* Subheading — 20px mobile → 36px desktop */
+.text-subheading {
+  font-size: clamp(18px, 3vw, 36px);
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Body large — consistent 18px */
+.text-body-large {
+  font-size: 18px;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* Body — consistent 16px */
+.text-body-reg {
+  font-size: 16px;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Label large — mono 14px */
+.text-label-lg {
+  font-size: 14px;
+  font-family: 'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Label small — mono 11px, tight tracking */
+.text-label-sm {
+  font-size: 11px;
+  font-family: 'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
 }
 
 /* =============================================================================
- * SECTION 6: Skeleton Loading Animations
+ * SECTION 7: HoverRevealMenu Styles (ported from toggleSupply)
+ * CSS-first staggered reveal pattern.
+ * =========================================================================== */
+
+/* Full-screen overlay — hidden by default */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: #000000;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+/* Open state */
+.menu-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Individual menu item container — clips the inner slide */
+.menu-item {
+  display: block;
+  overflow: hidden;
+  line-height: 1;
+}
+
+/* Inner element slides up from below */
+.menu-item-inner {
+  transform: translateY(110%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide in when open */
+.menu-overlay.is-open .menu-item-inner {
+  transform: translateY(0%);
+}
+
+/* Staggered timing — each item slightly later */
+.menu-item:nth-child(1) .menu-item-inner { transition-delay: 0.06s; }
+.menu-item:nth-child(2) .menu-item-inner { transition-delay: 0.12s; }
+.menu-item:nth-child(3) .menu-item-inner { transition-delay: 0.18s; }
+.menu-item:nth-child(4) .menu-item-inner { transition-delay: 0.24s; }
+.menu-item:nth-child(5) .menu-item-inner { transition-delay: 0.30s; }
+.menu-item:nth-child(6) .menu-item-inner { transition-delay: 0.36s; }
+
+/* Menu link style */
+.menu-link {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  display: inline-block;
+  transition: color 0.25s ease;
+  cursor: pointer;
+  /* Responsive font size */
+  font-size: clamp(36px, 7vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.menu-link:hover {
+  color: #ff4f2b;
+}
+
+/* Menu counter labels */
+.menu-counter {
+  font-family: 'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  width: 32px;
+}
+
+/* =============================================================================
+ * SECTION 8: Skeleton Loading
  * =========================================================================== */
 @keyframes skeleton-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }
 
 .skeleton {
   background: linear-gradient(
     90deg,
-    var(--color-carbon) 25%,
-    var(--color-graphite-border) 50%,
-    var(--color-carbon) 75%
+    #1a1a1a 25%,
+    #3c3c3c 50%,
+    #1a1a1a 75%
   );
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
-  border-radius: 0;
 }
 
-.skeleton-text {
-  height: 16px;
-  margin-bottom: 8px;
-}
-
-.skeleton-heading {
-  height: 48px;
-  margin-bottom: 16px;
-  width: 60%;
-}
-
-.skeleton-image {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-}
-
-.skeleton-card {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-}
+.skeleton-text    { height: 16px; margin-bottom: 8px; }
+.skeleton-heading { height: 48px; margin-bottom: 16px; width: 60%; }
+.skeleton-image   { width: 100%; aspect-ratio: 16 / 9; }
+.skeleton-card    { width: 100%; aspect-ratio: 4 / 5; }
 
 /* =============================================================================
- * SECTION 7: Aurora Background Animation
+ * SECTION 9: Aurora Background Animation
  * =========================================================================== */
 @keyframes aurora-drift {
-  0%, 100% {
-    transform: translate(0%, 0%) rotate(0deg) scale(1);
-    opacity: 0.4;
-  }
-  25% {
-    transform: translate(5%, -3%) rotate(45deg) scale(1.1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(-3%, 5%) rotate(90deg) scale(0.95);
-    opacity: 0.3;
-  }
-  75% {
-    transform: translate(2%, 2%) rotate(135deg) scale(1.05);
-    opacity: 0.5;
-  }
+  0%, 100% { transform: translate(0%, 0%) rotate(0deg) scale(1); opacity: 0.35; }
+  25%       { transform: translate(4%, -3%) rotate(45deg) scale(1.1); opacity: 0.55; }
+  50%       { transform: translate(-3%, 5%) rotate(90deg) scale(0.95); opacity: 0.28; }
+  75%       { transform: translate(2%, 2%) rotate(135deg) scale(1.05); opacity: 0.45; }
 }
 
 @keyframes aurora-drift-alt {
-  0%, 100% {
-    transform: translate(0%, 0%) rotate(0deg) scale(1);
-    opacity: 0.3;
-  }
-  33% {
-    transform: translate(-4%, 3%) rotate(-60deg) scale(1.15);
-    opacity: 0.5;
-  }
-  66% {
-    transform: translate(3%, -4%) rotate(-120deg) scale(0.9);
-    opacity: 0.35;
-  }
+  0%, 100% { transform: translate(0%, 0%) rotate(0deg) scale(1); opacity: 0.25; }
+  33%       { transform: translate(-4%, 3%) rotate(-60deg) scale(1.15); opacity: 0.45; }
+  66%       { transform: translate(3%, -4%) rotate(-120deg) scale(0.9); opacity: 0.30; }
 }
 
 /* =============================================================================
- * SECTION 8: Scroll Reveal Animations
+ * SECTION 10: Scroll Reveal
  * =========================================================================== */
 .reveal {
-  position: relative;
   opacity: 0;
   transform: translateY(40px);
-  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.active {
@@ -351,159 +348,55 @@ html {
 }
 
 /* =============================================================================
- * SECTION 9: Page Transition
- * =========================================================================== */
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =============================================================================
- * SECTION 10: Marquee / Infinite Scroll Animation
+ * SECTION 11: Marquee
  * =========================================================================== */
 @keyframes marquee-scroll {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
-.animate-marquee {
-  animation: marquee-scroll 30s linear infinite;
-}
+.animate-marquee { animation: marquee-scroll 30s linear infinite; }
 
 /* =============================================================================
- * SECTION 11: Hover Reveal Menu Styles (ported from toggleSupply)
- * =========================================================================== */
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background-color: var(--color-void-black);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.menu-overlay.is-open {
-  opacity: 1;
-  visibility: visible;
-}
-
-.menu-item {
-  display: block;
-  overflow: hidden;
-}
-
-.menu-item-inner {
-  transform: translateY(110%);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.menu-overlay.is-open .menu-item-inner {
-  transform: translateY(0%);
-}
-
-/* Staggered reveal — each item delayed */
-.menu-item:nth-child(1) .menu-item-inner { transition-delay: 0.05s; }
-.menu-item:nth-child(2) .menu-item-inner { transition-delay: 0.1s; }
-.menu-item:nth-child(3) .menu-item-inner { transition-delay: 0.15s; }
-.menu-item:nth-child(4) .menu-item-inner { transition-delay: 0.2s; }
-.menu-item:nth-child(5) .menu-item-inner { transition-delay: 0.25s; }
-.menu-item:nth-child(6) .menu-item-inner { transition-delay: 0.3s; }
-
-/* Menu item hover — orange accent */
-.menu-link {
-  color: var(--color-bone-white);
-  text-decoration: none;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: 72px;
-  line-height: 1;
-  letter-spacing: -0.79px;
-  text-transform: uppercase;
-  display: inline-block;
-  transition: color 0.3s ease;
-  cursor: pointer;
-}
-
-.menu-link:hover {
-  color: var(--color-ember-orange);
-}
-
-/* Menu counter labels */
-.menu-counter {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--color-steel-mid);
-  text-transform: uppercase;
-}
-
-/* =============================================================================
- * SECTION 12: Input Fields (Ori Dark Style)
+ * SECTION 12: Input Fields
  * =========================================================================== */
 input, textarea {
-  background: var(--color-carbon);
-  border: 1px solid var(--color-graphite-border);
+  background: #1a1a1a;
+  border: 1px solid #3c3c3c;
   border-radius: 0;
-  color: var(--color-bone-white);
-  font-family: var(--font-body);
+  color: #f5f5f5;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
   padding: 12px 16px;
   transition: border-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
-
-input::placeholder, textarea::placeholder {
-  color: var(--color-steel-mid);
-}
-
-input:focus, textarea:focus {
-  border-color: var(--color-ember-orange);
-  outline: none;
-}
+input::placeholder, textarea::placeholder { color: #737373; }
+input:focus, textarea:focus { border-color: #ff4f2b; outline: none; }
 
 /* Autofill override */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--color-bone-white);
-  -webkit-box-shadow: 0 0 0px 1000px var(--color-carbon) inset;
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f5f5f5;
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 
 /* =============================================================================
- * SECTION 13: Utility: No Scrollbar
+ * SECTION 13: Utilities
  * =========================================================================== */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* =============================================================================
- * SECTION 14: Responsive Breakpoint Helpers
- * Devices: phone (<640px), tablet (640-1024px), laptop (1024-1440px), desktop (>1440px)
- * =========================================================================== */
-@media (max-width: 639px) {
-  .menu-link {
-    font-size: 36px;
-    letter-spacing: -0.4px;
-  }
+/* Snap sections for book-page navigation */
+.snap-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
-@media (min-width: 640px) and (max-width: 1023px) {
-  .menu-link {
-    font-size: 56px;
-    letter-spacing: -0.6px;
-  }
-}
+/* Hairline border utility */
+.border-hairline { border: 1px solid #3c3c3c; }
+.border-hairline-top { border-top: 1px solid #3c3c3c; }
+.border-hairline-bottom { border-bottom: 1px solid #3c3c3c; }

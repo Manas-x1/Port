@@ -1,106 +1,103 @@
 /**
- * ContactSection.jsx — Contact section (placeholder)
- * 
- * Simple "Get in Touch" section with email link and social row.
- * Placeholder for now — user will customize later.
+ * ContactSection.jsx — Interactive Contact Section with direct mailto & copy email
  */
-import React from 'react';
+import React, { useState } from 'react';
 import SectionHeader from '../ui/SectionHeader';
-import FilledButton from '../ui/FilledButton';
+import { Mail, Check, Copy } from 'lucide-react';
 
 export default function ContactSection() {
+  const [copied, setCopied] = useState(false);
+  const email = "hello@manasupadhyay.com";
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <section
-      className="w-full py-20 md:py-32 px-6 md:px-10 snap-section"
+      className="w-full py-20 md:py-32 px-6 md:px-10 snap-section bg-void-black relative border-t border-graphite-border"
       id="contact"
-      style={{ backgroundColor: 'var(--color-void-black)' }}
     >
       <div className="max-w-[1280px] mx-auto">
         <SectionHeader title="Get In Touch" number="05" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-          {/* Left — Large CTA heading */}
-          <div>
-            <h3
-              className="text-bone-white uppercase mb-8"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(36px, 6vw, 72px)',
-                fontWeight: 300,
-                lineHeight: 1,
-                letterSpacing: '-0.02em',
-              }}
-            >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          {/* Left — Statement & Mailto Actions */}
+          <div className="space-y-8">
+            <h3 className="font-display font-light text-4xl sm:text-6xl lg:text-7xl uppercase leading-none text-bone-white tracking-tight">
               Let's<br />
-              <span style={{ color: 'var(--color-ember-orange)' }}>Collaborate</span>
+              <span className="text-ember-orange font-normal">Collaborate</span>
             </h3>
 
-            <FilledButton href="mailto:hello@manasupadhyay.com">
-              Send Email
-            </FilledButton>
+            <p className="font-body text-base md:text-lg text-fog-light max-w-lg leading-relaxed">
+              Have a project in mind for AI video creation, 3D visual direction, VFX, or film production? Send an email or reach out directly.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              {/* Primary Mailto Link */}
+              <a
+                href={`mailto:${email}`}
+                className="inline-flex items-center gap-3 bg-ember-orange text-void-black font-mono text-sm uppercase font-semibold tracking-wider px-6 py-4 hover:brightness-110 active:scale-95 transition-all no-underline"
+              >
+                <Mail size={18} />
+                <span>Send Email directly</span>
+              </a>
+
+              {/* Copy Email Button */}
+              <button
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-3 bg-carbon text-bone-white border border-graphite-border hover:border-ember-orange font-mono text-sm uppercase tracking-wider px-6 py-4 active:scale-95 transition-all cursor-pointer"
+              >
+                {copied ? <Check size={18} className="text-emerald-400" /> : <Copy size={18} />}
+                <span>{copied ? 'Copied to Clipboard' : 'Copy Email Address'}</span>
+              </button>
+            </div>
           </div>
 
-          {/* Right — Info */}
-          <div className="flex flex-col justify-end">
-            <div className="space-y-6">
-              <div>
-                <span
-                  className="block mb-2"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '11px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    color: 'var(--color-steel-mid)',
-                  }}
-                >
-                  Email
-                </span>
-                <a
-                  href="mailto:hello@manasupadhyay.com"
-                  className="transition-colors duration-300 hover:text-ember-orange"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '18px',
-                    color: 'var(--color-bone-white)',
-                    textDecoration: 'none',
-                  }}
-                >
-                  hello@manasupadhyay.com
-                </a>
-              </div>
+          {/* Right — Contact Info Box */}
+          <div className="bg-carbon border border-graphite-border p-8 md:p-12 space-y-8">
+            <div>
+              <span className="block font-mono text-xs uppercase tracking-widest text-ember-orange mb-2">
+                Direct Contact
+              </span>
+              <a
+                href={`mailto:${email}`}
+                className="font-mono text-lg md:text-xl text-bone-white hover:text-ember-orange transition-colors break-all no-underline"
+              >
+                {email}
+              </a>
+            </div>
 
-              <div>
-                <span
-                  className="block mb-2"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '11px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    color: 'var(--color-steel-mid)',
-                  }}
-                >
-                  Social
-                </span>
-                <div className="flex gap-6">
-                  {['Instagram', 'LinkedIn', 'Twitter', 'Dribbble'].map((social) => (
-                    <a
-                      key={social}
-                      href="#"
-                      className="transition-colors duration-300 hover:text-ember-orange"
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '14px',
-                        color: 'var(--color-fog-light)',
-                        textDecoration: 'none',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      {social}
-                    </a>
-                  ))}
-                </div>
+            <div>
+              <span className="block font-mono text-xs uppercase tracking-widest text-steel-mid mb-2">
+                Location & Availability
+              </span>
+              <p className="font-body text-base text-fog-light">
+                Available for worldwide freelance projects, remote creative direction, and studio commissions.
+              </p>
+            </div>
+
+            <div>
+              <span className="block font-mono text-xs uppercase tracking-widest text-steel-mid mb-3">
+                Social Networks
+              </span>
+              <div className="flex flex-wrap gap-x-6 gap-y-2">
+                {[
+                  { name: 'Instagram', url: 'https://www.instagram.com/someone_on.the_internet?igsh=ZHR0Znh6cGF3Z3kx' },
+                  { name: 'LinkedIn', url: 'https://linkedin.com' }
+                ].map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-sm text-fog-light hover:text-ember-orange transition-colors uppercase tracking-wider no-underline"
+                  >
+                    {social.name} ↗
+                  </a>
+                ))}
               </div>
             </div>
           </div>

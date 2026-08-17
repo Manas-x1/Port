@@ -1,78 +1,53 @@
 /**
- * ProjectsShowcase.jsx — Featured projects grid (3-4 cards)
- * 
- * Displays project cards that link to individual project detail pages.
- * Full-bleed images, no border-radius, hover scale effect.
- * Projects themed around AI Image/Video creation and Filmmaking.
- * Reads project data from data/projects.js.
+ * ProjectsShowcase.jsx — Featured projects grid with dark editorial styling
  */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../ui/SectionHeader';
 import { projects } from '../../data/projects';
+import { ArrowUpRight } from 'lucide-react';
 
 export default function ProjectsShowcase() {
-  /* Show only the first 4 projects on home page */
   const featured = projects.slice(0, 4);
 
   return (
     <section
-      className="w-full py-20 md:py-32 px-6 md:px-10 snap-section"
+      className="w-full py-20 md:py-32 px-4 sm:px-6 md:px-10 snap-section bg-void-black"
       id="projects"
-      style={{ backgroundColor: 'var(--color-void-black)' }}
     >
       <div className="max-w-[1280px] mx-auto">
         <SectionHeader title="Selected Work" number="03" />
 
-        {/* Projects grid — 2 columns on desktop, staggered offset */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+        {/* Projects grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
           {featured.map((project, index) => (
             <Link
               key={project.slug}
               to={`/project/${project.slug}`}
-              className={`block group cursor-pointer ${
-                /* Stagger: offset every other item on desktop */
-                index % 2 === 1 ? 'md:mt-20' : ''
+              className={`block group cursor-pointer no-underline ${
+                index % 2 === 1 ? 'md:mt-16' : ''
               }`}
-              style={{ textDecoration: 'none' }}
             >
-              {/* Project image */}
-              <div
-                className="overflow-hidden mb-4"
-                style={{ border: '1px solid var(--color-graphite-border)' }}
-              >
+              {/* Project Card Image Container */}
+              <div className="relative overflow-hidden mb-5 border border-graphite-border bg-carbon aspect-[16/10] sm:aspect-[4/3]">
                 <img
                   src={project.thumbnail}
                   alt={project.title}
-                  className="w-full aspect-[4/5] object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-void-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                <div className="absolute top-4 right-4 bg-void-black/80 backdrop-blur-md p-2 border border-graphite-border opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ArrowUpRight size={20} className="text-ember-orange" />
+                </div>
               </div>
 
-              {/* Project info */}
-              <div
-                className="flex justify-between items-baseline pb-4"
-                style={{ borderBottom: '1px solid var(--color-graphite-border)' }}
-              >
-                <h3
-                  className="text-bone-white uppercase"
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(20px, 3vw, 28px)',
-                    fontWeight: 300,
-                    letterSpacing: '-0.01em',
-                  }}
-                >
+              {/* Title & Tag */}
+              <div className="flex justify-between items-baseline border-b border-graphite-border pb-4 group-hover:border-ember-orange transition-colors">
+                <h3 className="font-display font-light text-2xl sm:text-3xl text-bone-white uppercase tracking-tight group-hover:text-ember-orange transition-colors">
                   {project.title}
                 </h3>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '14px',
-                    color: 'var(--color-steel-mid)',
-                    textTransform: 'uppercase',
-                  }}
-                >
+                <span className="font-mono text-xs sm:text-sm text-steel-mid uppercase tracking-wider">
                   {String(index + 1).padStart(2, '0')} / {project.category}
                 </span>
               </div>
