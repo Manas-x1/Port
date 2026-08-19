@@ -1,10 +1,8 @@
 /**
- * ProjectDetail.jsx — Dynamic project detail page
+ * ProjectDetail.jsx — Dynamic project detail page router
  * 
  * Reads the project slug from URL params (/project/:slug).
- * Looks up project data from data/projects.js.
- * Renders using ProjectDetailLayout template.
- * Shows 404-style message if project not found.
+ * Resolves previous and next project parameters to allow circular navigation.
  */
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -16,7 +14,7 @@ export default function ProjectDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  /* Scroll to top on mount */
+  /* Scroll to top on slug change */
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
@@ -25,51 +23,28 @@ export default function ProjectDetail() {
   const projectIndex = projects.findIndex((p) => p.slug === slug);
   const project = projects[projectIndex];
 
-  /* Find next project (circular) */
-  const nextProject = projects[(projectIndex + 1) % projects.length];
+  /* Previous and Next circular pointers */
+  const previousIndex = (projectIndex - 1 + projects.length) % projects.length;
+  const nextIndex = (projectIndex + 1) % projects.length;
 
-  /* Project not found */
+  const previousProject = projects[previousIndex];
+  const nextProject = projects[nextIndex];
+
+  /* 404 fallback page */
   if (!project) {
     return (
-      <div
-        className="w-full h-screen flex flex-col items-center justify-center px-6"
-        style={{ backgroundColor: 'var(--color-void-black)' }}
-      >
-        <h1
-          className="text-bone-white uppercase mb-4"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '48px',
-            fontWeight: 300,
-          }}
-        >
+      <div className="w-full h-screen flex flex-col items-center justify-center px-6 bg-void-black text-bone-white">
+        <h1 className="font-display text-4xl md:text-6xl font-light uppercase tracking-tight mb-4">
           Project Not Found
         </h1>
-        <p
-          className="mb-8"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '14px',
-            color: 'var(--color-steel-mid)',
-            textTransform: 'uppercase',
-          }}
-        >
-          The project "{slug}" does not exist.
+        <p className="font-mono text-sm text-steel-mid uppercase tracking-widest mb-8">
+          The requested archive resource "{slug}" does not exist.
         </p>
         <button
           onClick={() => navigate('/')}
-          className="cursor-pointer px-4 py-2"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '14px',
-            textTransform: 'uppercase',
-            color: 'var(--color-void-black)',
-            backgroundColor: 'var(--color-ember-orange)',
-            border: 'none',
-            borderRadius: 0,
-          }}
+          className="cursor-pointer px-6 py-3 font-mono text-xs uppercase tracking-widest bg-ember-orange text-void-black hover:brightness-110 transition-all border-0"
         >
-          Back to Home
+          Return to Index
         </button>
       </div>
     );
@@ -79,6 +54,7 @@ export default function ProjectDetail() {
     <div className="w-full">
       <ProjectDetailLayout
         project={project}
+        previousProject={previousProject !== project ? previousProject : null}
         nextProject={nextProject !== project ? nextProject : null}
       />
       <Footer />

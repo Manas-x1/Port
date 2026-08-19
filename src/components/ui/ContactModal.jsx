@@ -19,7 +19,6 @@ export default function ContactModal({ isOpen, onClose }) {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
 
   /* Close on Escape key */
   useEffect(() => {
@@ -49,7 +48,6 @@ export default function ContactModal({ isOpen, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setErrorMsg('');
 
     try {
       /* Direct background API submission using Web3Forms / Formspree */
@@ -88,7 +86,7 @@ export default function ContactModal({ isOpen, onClose }) {
         });
         setIsSubmitted(true);
       }
-    } catch (err) {
+    } catch {
       /* Always mark success so user sees message sent animation without Gmail opening */
       setIsSubmitted(true);
     } finally {

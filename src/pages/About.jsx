@@ -1,18 +1,21 @@
 /**
- * About.jsx — About page (placeholder)
+ * About.jsx — Personal Story & Experience Page
  * 
- * Extended bio and experience timeline placeholder.
- * User will update content later.
+ * Structured chapters:
+ *   1. When I Started & Why (Origins in graphics & animation)
+ *   2. The Past (3D, visual design, digital production, TechXR)
+ *   3. The Present (AI Content Creator, Video Editor, AI Filmmaking)
+ *   4. The Potential Future (Intersection of AI, 3D, filmmaking & storytelling)
  */
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../components/layout/Footer';
 import FilledButton from '../components/ui/FilledButton';
-import { useNavigate } from 'react-router-dom';
+import GhostButton from '../components/ui/GhostButton';
 
 export default function About() {
   const navigate = useNavigate();
 
-  /* Scroll to top on mount + reveal observer */
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -34,153 +37,115 @@ export default function About() {
   }, []);
 
   return (
-    <div className="w-full">
-      {/* Hero-style header */}
-      <header
-        className="relative w-full h-[60vh] flex items-center overflow-hidden px-6 md:px-10"
-        style={{ backgroundColor: 'var(--color-void-black)' }}
-      >
-        <div className="max-w-[1280px] mx-auto w-full pt-24">
-          <span
-            className="block mb-4"
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--color-ember-orange)',
-            }}
-          >
-            About
+    <div className="w-full bg-void-black text-bone-white min-h-screen">
+      {/* Header */}
+      <header className="relative w-full pt-32 pb-16 px-6 md:px-10 border-b border-graphite-border">
+        <div className="max-w-[1280px] mx-auto">
+          <span className="font-mono text-xs uppercase tracking-[0.3em] text-ember-orange block mb-4">
+            BIOGRAPHY & JOURNEY // MANAS UPADHYAY
           </span>
-          <h1
-            className="text-bone-white uppercase"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(40px, 8vw, 80px)',
-              fontWeight: 300,
-              lineHeight: 1,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Manas<br />Upadhyay
+          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl font-light uppercase text-bone-white tracking-tight leading-[0.95] max-w-4xl">
+            Story & Vision
           </h1>
+          <p className="font-mono text-xs text-steel-mid uppercase tracking-widest mt-6">
+            AI CONTENT CREATOR · 3D ARTIST · VISUAL DESIGNER · VIDEO EDITOR
+          </p>
         </div>
       </header>
 
-      {/* Bio section */}
-      <section
-        className="py-20 md:py-32 px-6 md:px-10"
-        style={{
-          backgroundColor: 'var(--color-void-black)',
-          borderTop: '1px solid var(--color-graphite-border)',
-        }}
-      >
-        <div className="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 reveal">
-          <div>
-            <span
-              className="block mb-4"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: 'var(--color-steel-mid)',
-              }}
-            >
-              Biography
-            </span>
-            <h2
-              className="text-bone-white uppercase mb-8"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(28px, 4vw, 48px)',
-                fontWeight: 300,
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              The<br />
-              <span style={{ color: 'var(--color-ember-orange)' }}>Story</span>
-            </h2>
+      {/* Narrative Chapters */}
+      <section className="py-20 px-6 md:px-10 border-b border-graphite-border">
+        <div className="max-w-[1280px] mx-auto space-y-24">
+          
+          {/* Chapter 01 — When I Started & Why */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start reveal">
+            <div className="lg:col-span-4 font-mono text-xs uppercase tracking-widest text-steel-mid">
+              CHAPTER 01 // ORIGINS
+              <h2 className="font-display text-3xl md:text-4xl text-bone-white font-light uppercase mt-2">
+                When I Started & Why
+              </h2>
+            </div>
+            <div className="lg:col-span-8 space-y-4 font-sans text-base md:text-lg text-fog-light leading-relaxed">
+              <p>
+                My creative journey began with a deep fascination for visual storytelling and digital motion. From my earliest experiments in graphic composition and 2D animation, I realized that images are more than aesthetic decorations — they are emotional languages that convey atmosphere, weight, and narrative.
+              </p>
+              <p>
+                What began as curiosity quickly turned into an obsessive pursuit: understanding how lighting, camera angles, color grading, and timing transform raw ideas into striking cinematic moments.
+              </p>
+            </div>
           </div>
 
-          <div className="md:pt-4">
-            <p
-              className="mb-6"
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '18px',
-                lineHeight: 1.6,
-                color: 'var(--color-fog-light)',
-              }}
-            >
-              I am a multidisciplinary creative working at the intersection of artificial intelligence, 3D design, filmmaking, and visual storytelling. With years of experience across tools like Blender, Substance Painter, Adobe Creative Suite, and cutting-edge generative AI platforms, I build immersive digital experiences that push the boundaries of what's possible.
-            </p>
-            <p
-              className="mb-6"
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '16px',
-                lineHeight: 1.6,
-                color: 'var(--color-steel-mid)',
-              }}
-            >
-              My work spans AI-generated content creation, motion graphics, short film production, and interactive web experiences. I believe in the power of combining human creativity with machine intelligence to tell stories that wouldn't exist otherwise.
-            </p>
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '16px',
-                lineHeight: 1.6,
-                color: 'var(--color-steel-mid)',
-                fontStyle: 'italic',
-              }}
-            >
-              This section will be updated with the full biography and experience timeline. Check back soon.
-            </p>
+          {/* Chapter 02 — The Past */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start reveal">
+            <div className="lg:col-span-4 font-mono text-xs uppercase tracking-widest text-steel-mid">
+              CHAPTER 02 // EVOLUTION
+              <h2 className="font-display text-3xl md:text-4xl text-bone-white font-light uppercase mt-2">
+                The Foundation & 3D
+              </h2>
+            </div>
+            <div className="lg:col-span-8 space-y-4 font-sans text-base md:text-lg text-fog-light leading-relaxed">
+              <p>
+                As digital tools evolved, I expanded into 3D environment synthesis, texture painting, and video production. Working with Blender, Substance Painter, and the Adobe Creative Suite allowed me to construct complete virtual worlds from scratch.
+              </p>
+              <p>
+                During my professional engagements — including hands-on experience in visual design and extended reality workflows at TechXR — I refined my understanding of spatial geometry, asset optimization, and digital production pipelines. Every project reinforced the core belief that technical precision elevates creative vision.
+              </p>
+            </div>
           </div>
+
+          {/* Chapter 03 — The Present */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start reveal">
+            <div className="lg:col-span-4 font-mono text-xs uppercase tracking-widest text-steel-mid">
+              CHAPTER 03 // THE PRESENT
+              <h2 className="font-display text-3xl md:text-4xl text-ember-orange font-light uppercase mt-2">
+                AI Content & Filmmaking
+              </h2>
+            </div>
+            <div className="lg:col-span-8 space-y-4 font-sans text-base md:text-lg text-fog-light leading-relaxed">
+              <p>
+                Today, I operate as an <strong>AI Content Creator, Video Editor, and AI Filmmaker</strong>. I treat generative AI not as a shortcut, but as a high-powered creative amplifier within a structured production workflow.
+              </p>
+              <p>
+                By combining custom diffusion LoRA architectures (Midjourney, ComfyUI, Runway Gen-2) with 3D base geometry (Blender) and professional post-production (DaVinci Resolve & Premiere Pro), I produce cinematic short films and case studies such as <em>Kaliya Daman</em> and <em>Shiv Mahapuran</em> that push the visual boundaries of Indian mythology and sci-fi worldbuilding.
+              </p>
+            </div>
+          </div>
+
+          {/* Chapter 04 — The Potential Future */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start reveal">
+            <div className="lg:col-span-4 font-mono text-xs uppercase tracking-widest text-steel-mid">
+              CHAPTER 04 // THE HORIZON
+              <h2 className="font-display text-3xl md:text-4xl text-bone-white font-light uppercase mt-2">
+                The Potential Future
+              </h2>
+            </div>
+            <div className="lg:col-span-8 space-y-4 font-sans text-base md:text-lg text-fog-light leading-relaxed">
+              <p>
+                The future of visual media lies at the convergence of generative neural synthesis, real-time 3D engines, and human creative direction. My goal is to continue pioneering high-fidelity AI filmmaking and visual design — building immersive cinematic experiences, brand visual identities, and narrative projects that inspire.
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Experience placeholder */}
-      <section
-        className="py-16 md:py-24 px-6 md:px-10"
-        style={{
-          backgroundColor: 'var(--color-carbon)',
-          borderTop: '1px solid var(--color-graphite-border)',
-          borderBottom: '1px solid var(--color-graphite-border)',
-        }}
-      >
+      {/* CTA Section */}
+      <section className="py-20 px-6 md:px-10 bg-carbon border-b border-graphite-border text-center">
         <div className="max-w-[1280px] mx-auto reveal">
-          <span
-            className="block mb-8"
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--color-steel-mid)',
-            }}
-          >
-            Experience Timeline
-          </span>
-
-          <p
-            className="mb-8"
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '16px',
-              color: 'var(--color-steel-mid)',
-              fontStyle: 'italic',
-            }}
-          >
-            Experience entries will be added here. This section is a placeholder.
+          <h2 className="font-display text-4xl md:text-6xl uppercase font-light text-bone-white mb-6">
+            Ready to Collaborate?
+          </h2>
+          <p className="font-sans text-lg text-fog-light max-w-2xl mx-auto mb-8">
+            Whether you need cinematic AI video production, 3D visual design, or creative editing for your project, let's connect.
           </p>
-
-          <FilledButton onClick={() => navigate('/')}>
-            Back to Home
-          </FilledButton>
+          <div className="flex flex-wrap justify-center gap-4">
+            <FilledButton onClick={() => navigate('/work')} className="px-8 py-4">
+              Explore All Projects
+            </FilledButton>
+            <GhostButton onClick={() => navigate('/#contact')} className="px-8 py-4">
+              Contact Transmission
+            </GhostButton>
+          </div>
         </div>
       </section>
 

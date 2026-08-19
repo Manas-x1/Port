@@ -54,6 +54,17 @@ export default function ProjectsShowcase() {
             </Link>
           ))}
         </div>
+
+        {/* Link to full /work index */}
+        <div className="mt-16 text-center">
+          <Link
+            to="/work"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-carbon border border-graphite-border hover:border-ember-orange font-mono text-xs uppercase tracking-widest text-bone-white hover:text-ember-orange transition-all no-underline"
+          >
+            <span>Explore Complete Work Archive ({projects.length} Projects)</span>
+            <ArrowUpRight size={16} />
+          </Link>
+        </div>
       </div>
     </section>
   );

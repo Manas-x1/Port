@@ -1,18 +1,22 @@
 /**
- * ProjectDetailLayout.jsx — Reusable project detail template
+ * ProjectDetailLayout.jsx — Reusable project detail layout adhering to Ori (New.md) dark design
  * 
- * Used by ProjectDetail.jsx to render any project based on data from projects.js.
- * Structure: Hero → Description (bullets) → Skills → Images → Video → Next Project.
- * 
- * Props:
- *   project: object — Project data from projects.js
- *   nextProject: object|null — Next project for navigation link
+ * Features:
+ *   - 0px border-radius structural design
+ *   - Dark void canvas & Ember Orange ignition accents
+ *   - Full project overview, bullet points, software list, image gallery & video preview
+ *   - Circular project navigation (Previous / Next / Back to Portfolio) to guarantee no dead-ends
  */
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Home } from 'lucide-react';
+import FilledButton from '../ui/FilledButton';
+import GhostButton from '../ui/GhostButton';
+import ElasticUpNext from './ElasticUpNext';
 
 export default function ProjectDetailLayout({ project, nextProject }) {
+  const navigate = useNavigate();
+
   /* Scroll reveal observer */
   useEffect(() => {
     const revealElements = document.querySelectorAll('.reveal');
@@ -33,161 +37,129 @@ export default function ProjectDetailLayout({ project, nextProject }) {
   }, [project.slug]);
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-void-black text-bone-white min-h-screen">
       {/* ================================================================
-       * HERO — Full-viewport with project title
+       * HERO HEADER — Full-viewport with project title & breadcrumb
        * ============================================================== */}
-      <header
-        className="relative w-full h-screen overflow-hidden flex items-center justify-center"
-        style={{ backgroundColor: 'var(--color-void-black)' }}
-      >
-        {/* Background image */}
+      <header className="relative w-full min-h-[85vh] pt-24 pb-16 flex flex-col justify-between overflow-hidden border-b border-graphite-border">
+        {/* Background image overlay */}
         <div className="absolute inset-0 z-0">
           <img
             src={project.thumbnail}
             alt={`${project.title} hero`}
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-35 filter brightness-90"
             style={{
-              maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
             }}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-void-black via-void-black/60 to-transparent" />
         </div>
 
-        {/* Title */}
-        <div className="relative z-10 text-center select-none px-6">
+        {/* Top breadcrumb & back button */}
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 md:px-10 flex justify-between items-center">
+          <button
+            onClick={() => navigate('/')}
+            className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-steel-mid hover:text-ember-orange transition-colors cursor-pointer"
+          >
+            <ArrowLeft size={14} />
+            <span>Back to Index</span>
+          </button>
+
+          <span className="font-mono text-xs uppercase tracking-widest text-ember-orange px-3 py-1 bg-carbon border border-graphite-border">
+            {project.category}
+          </span>
+        </div>
+
+        {/* Main Title */}
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 md:px-10 my-auto text-left py-12">
+          <span className="font-mono text-xs tracking-[0.3em] uppercase text-steel-mid block mb-4">
+            PROJECT ARCHIVE // 0{project.slug === 'metroid-sci-fi' ? '1' : '02'}
+          </span>
           <h1
-            className="text-bone-white uppercase"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(48px, 10vw, 96px)',
-              fontWeight: 300,
-              lineHeight: 0.95,
-              letterSpacing: '-0.02em',
-            }}
+            className="text-bone-white uppercase font-light text-hero-display tracking-tight leading-[0.95] mb-6 max-w-4xl"
           >
             {project.title}
           </h1>
-          <div className="mt-6 flex flex-col items-center">
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                color: 'var(--color-steel-mid)',
-              }}
-            >
-              Scroll to Explore
-            </span>
-            <div
-              className="w-px h-12 mt-3 animate-pulse"
-              style={{ backgroundColor: 'var(--color-steel-mid)' }}
-            />
+
+          <div className="flex flex-wrap gap-4 mt-8">
+            <FilledButton onClick={() => navigate('/#contact')} className="px-6 py-3 text-xs">
+              Inquire Project
+            </FilledButton>
+            <GhostButton onClick={() => navigate('/')} className="px-6 py-3 text-xs">
+              Explore Portfolio
+            </GhostButton>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 md:px-10 flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-steel-mid">
+          <span>SPECIFICATIONS & BREIF</span>
+          <div className="flex items-center gap-2">
+            <span>SCROLL</span>
+            <div className="w-12 h-px bg-graphite-border" />
           </div>
         </div>
       </header>
 
       {/* ================================================================
-       * DESCRIPTION SECTION — Two-column: heading + body text with bullets
+       * OVERVIEW SECTION — Two column layout
        * ============================================================== */}
-      <section
-        className="py-20 md:py-32 px-6 md:px-10"
-        style={{ backgroundColor: 'var(--color-void-black)' }}
-      >
-        <div className="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start reveal">
-          {/* Left — Section heading */}
-          <div className="md:sticky md:top-24">
-            <h2
-              className="text-bone-white uppercase"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(36px, 5vw, 60px)',
-                fontWeight: 300,
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Project<br />Overview
+      <section className="py-20 md:py-28 px-6 md:px-10 border-b border-graphite-border bg-void-black">
+        <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start reveal">
+          {/* Left Column: Heading */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <div className="font-mono text-xs text-ember-orange tracking-widest uppercase mb-3">
+              01 // CONCEPT & PROCESS
+            </div>
+            <h2 className="text-3xl md:text-5xl font-light uppercase tracking-tight text-bone-white leading-tight">
+              Executive<br />Summary
             </h2>
           </div>
 
-          {/* Right — Description + bullets */}
-          <div className="md:pt-4">
-            <p
-              className="mb-8"
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '18px',
-                lineHeight: 1.6,
-                color: 'var(--color-fog-light)',
-              }}
-            >
+          {/* Right Column: Description & Key Highlights */}
+          <div className="lg:col-span-7 space-y-8">
+            <p className="font-sans text-lg md:text-xl text-fog-light leading-relaxed">
               {project.description}
             </p>
 
             {/* Bullet points */}
-            <ul className="list-none m-0 p-0 space-y-3">
-              {project.bullets.map((bullet, i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-3"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '16px',
-                    lineHeight: 1.5,
-                    color: 'var(--color-fog-light)',
-                  }}
-                >
-                  <span
-                    className="mt-2 block w-1.5 h-1.5 flex-shrink-0"
-                    style={{ backgroundColor: 'var(--color-ember-orange)' }}
-                  />
-                  {bullet}
-                </li>
-              ))}
-            </ul>
+            <div className="pt-6 border-t border-graphite-border">
+              <h3 className="font-mono text-xs uppercase tracking-widest text-steel-mid mb-6">
+                Technical Highlights & Scope
+              </h3>
+              <ul className="space-y-4 m-0 p-0 list-none">
+                {project.bullets.map((bullet, i) => (
+                  <li key={i} className="flex items-start gap-4 text-fog-light font-sans text-base leading-snug">
+                    <span className="w-2 h-2 mt-2 bg-ember-orange flex-shrink-0" />
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ================================================================
-       * SKILLS SECTION — Software & tools used
+       * TOOLS & SOFTWARE STACK
        * ============================================================== */}
-      <section
-        className="py-16 md:py-24 px-6 md:px-10"
-        style={{
-          backgroundColor: 'var(--color-carbon)',
-          borderTop: '1px solid var(--color-graphite-border)',
-          borderBottom: '1px solid var(--color-graphite-border)',
-        }}
-      >
+      <section className="py-16 px-6 md:px-10 bg-carbon border-b border-graphite-border">
         <div className="max-w-[1280px] mx-auto reveal">
-          <span
-            className="block mb-8"
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              color: 'var(--color-steel-mid)',
-            }}
-          >
-            Tools & Software
-          </span>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <span className="font-mono text-xs uppercase tracking-widest text-steel-mid">
+              02 // TECH & SOFTWARE SUITE
+            </span>
+            <span className="font-mono text-xs uppercase tracking-widest text-ember-orange">
+              {project.skills.length} MODULES APPLIED
+            </span>
+          </div>
 
           <div className="flex flex-wrap gap-3">
             {project.skills.map((skill) => (
               <span
                 key={skill}
-                className="px-4 py-2"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '14px',
-                  color: 'var(--color-bone-white)',
-                  border: '1px solid var(--color-graphite-border)',
-                  textTransform: 'uppercase',
-                }}
+                className="px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-bone-white bg-void-black border border-graphite-border hover:border-ember-orange transition-colors"
               >
                 {skill}
               </span>
@@ -197,26 +169,30 @@ export default function ProjectDetailLayout({ project, nextProject }) {
       </section>
 
       {/* ================================================================
-       * PROJECT IMAGES — Full-width gallery
+       * GALLERY SECTION — Cinematic Visuals
        * ============================================================== */}
-      <section
-        className="py-16 md:py-24 px-6 md:px-10"
-        style={{ backgroundColor: 'var(--color-void-black)' }}
-      >
-        <div className="max-w-[1280px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <section className="py-20 px-6 md:px-10 bg-void-black border-b border-graphite-border">
+        <div className="max-w-[1280px] mx-auto space-y-12 reveal">
+          <div className="font-mono text-xs uppercase tracking-widest text-steel-mid">
+            03 // VISUAL ASSETS & STILLS
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {project.images.map((img, i) => (
               <div
                 key={i}
-                className="overflow-hidden reveal"
-                style={{ border: '1px solid var(--color-graphite-border)' }}
+                className="group relative overflow-hidden bg-carbon border border-graphite-border hover:border-ember-orange transition-colors duration-300"
               >
                 <img
                   src={img}
-                  alt={`${project.title} — Image ${i + 1}`}
-                  className="w-full aspect-video object-cover"
+                  alt={`${project.title} frame ${i + 1}`}
+                  className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-700"
                   loading="lazy"
                 />
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-void-black/80 backdrop-blur-md border-t border-graphite-border flex justify-between items-center font-mono text-xs text-steel-mid">
+                  <span>FRAME // 0{i + 1}</span>
+                  <span className="text-ember-orange">4K DCI</span>
+                </div>
               </div>
             ))}
           </div>
@@ -224,36 +200,23 @@ export default function ProjectDetailLayout({ project, nextProject }) {
       </section>
 
       {/* ================================================================
-       * VIDEO SECTION (if available)
+       * VIDEO / DEMO PLAYER SECTION
        * ============================================================== */}
       {project.videoUrl && (
-        <section
-          className="py-16 md:py-24 px-6 md:px-10"
-          style={{ backgroundColor: 'var(--color-carbon)' }}
-        >
+        <section className="py-20 px-6 md:px-10 bg-carbon border-b border-graphite-border">
           <div className="max-w-[1280px] mx-auto reveal">
-            <span
-              className="block mb-8"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                color: 'var(--color-steel-mid)',
-              }}
-            >
-              Project Video
-            </span>
-            <div
-              className="aspect-video"
-              style={{ border: '1px solid var(--color-graphite-border)' }}
-            >
+            <div className="font-mono text-xs uppercase tracking-widest text-steel-mid mb-6 flex justify-between items-center">
+              <span>04 // CINEMATIC VIDEO PREVIEW</span>
+              <span className="text-ember-orange animate-pulse">● PLAYABLE PREVIEW</span>
+            </div>
+
+            <div className="relative aspect-video w-full bg-void-black border border-graphite-border overflow-hidden">
               <iframe
                 src={project.videoUrl}
-                className="w-full h-full"
-                allow="autoplay; fullscreen"
-                allowFullScreen
                 title={`${project.title} video`}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
               />
             </div>
           </div>
@@ -261,54 +224,29 @@ export default function ProjectDetailLayout({ project, nextProject }) {
       )}
 
       {/* ================================================================
-       * NEXT PROJECT — Navigation to next project
+       * ELASTIC PULL-DOWN UP NEXT NAVIGATION
        * ============================================================== */}
-      {nextProject && (
-        <section
-          className="relative w-full h-[60vh] group cursor-pointer overflow-hidden"
-          style={{ backgroundColor: 'var(--color-void-black)' }}
-        >
+      {nextProject && <ElasticUpNext nextProject={nextProject} />}
+
+      {/* Return to Index Footer Bar */}
+      <div className="py-8 px-6 md:px-10 bg-void-black border-t border-graphite-border">
+        <div className="max-w-[1280px] mx-auto flex justify-between items-center">
           <Link
-            to={`/project/${nextProject.slug}`}
-            className="absolute inset-0 flex flex-col items-center justify-center text-center no-underline"
+            to="/"
+            className="font-mono text-xs uppercase tracking-widest text-steel-mid hover:text-ember-orange transition-colors flex items-center gap-2 no-underline"
           >
-            <span
-              className="mb-4"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                letterSpacing: '0.4em',
-                textTransform: 'uppercase',
-                color: 'var(--color-steel-mid)',
-              }}
-            >
-              Up Next
-            </span>
-
-            <h3
-              className="text-bone-white uppercase mb-8 transition-colors duration-500 group-hover:text-ember-orange"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(36px, 6vw, 72px)',
-                fontWeight: 300,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              {nextProject.title}
-            </h3>
-
-            <div
-              className="w-14 h-14 flex items-center justify-center transition-all duration-500 group-hover:bg-ember-orange"
-              style={{ border: '1px solid var(--color-graphite-border)' }}
-            >
-              <ArrowRight
-                size={20}
-                className="text-bone-white group-hover:text-void-black transition-colors duration-500"
-              />
-            </div>
+            <Home size={14} />
+            <span>Return to Portfolio Main Index</span>
           </Link>
-        </section>
-      )}
+
+          <Link
+            to="/work"
+            className="font-mono text-xs uppercase tracking-widest text-steel-mid hover:text-ember-orange transition-colors flex items-center gap-2 no-underline"
+          >
+            <span>View All Works ↗</span>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import Navbar from './components/layout/Navbar';
 import LoadingScreen from './components/ui/LoadingScreen';
 import Home from './pages/Home';
 import About from './pages/About';
+import Work from './pages/Work';
 import ProjectDetail from './pages/ProjectDetail';
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/work" element={<Work />} />
           <Route path="/project/:slug" element={<ProjectDetail />} />
         </Routes>
       </main>

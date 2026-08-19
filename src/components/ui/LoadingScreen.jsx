@@ -64,7 +64,7 @@ function playScrambleClickSound() {
     gainLow.connect(ctx.destination);
     oscLow.start(now);
     oscLow.stop(now + 0.04);
-  } catch (e) {
+  } catch {
     // Graceful fallback
   }
 }
@@ -162,6 +162,39 @@ export default function LoadingScreen() {
       return () => clearTimeout(timer);
     }
   }, [hasEntered]);
+
+  /* Strict scroll locking while initial loading screen is active */
+  useEffect(() => {
+    if (!isInitialLoading) return;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const preventScroll = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    };
+
+    const keysToBlock = ['Space', 'PageUp', 'PageDown', 'End', 'Home', 'ArrowUp', 'ArrowDown'];
+    const preventKeyScroll = (e) => {
+      if (keysToBlock.includes(e.code)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll, { passive: false });
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
+    };
+  }, [isInitialLoading]);
 
   useEffect(() => {
     if (!hasEntered) return;
