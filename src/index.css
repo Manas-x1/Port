@@ -389,9 +389,8 @@ input:-webkit-autofill:focus {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Snap sections for book-page navigation */
+/* Section layout utility */
 .snap-section {
-  scroll-snap-align: start;
   min-height: 100vh;
   min-height: 100dvh;
 }

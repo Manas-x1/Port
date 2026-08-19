@@ -1,16 +1,17 @@
 /**
- * App.jsx — Root application component with Lenis Smooth Scroll
+ * App.jsx — Root application component with Lenis Smooth Scroll & Global ScrollToTop
  * 
  * Clean route structure:
  *   /                → Home (all sections)
  *   /about           → About page
+ *   /work            → Work archive page
  *   /project/:slug   → Dynamic project detail page
  * 
  * Shared layout: Navbar wraps all pages.
- * Lenis integration provides buttery smooth physics-based scrolling.
+ * Lenis integration provides buttery smooth physics-based scrolling with instant route scroll reset.
  */
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 
@@ -21,7 +22,40 @@ import About from './pages/About';
 import Work from './pages/Work';
 import ProjectDetail from './pages/ProjectDetail';
 
+/* Global ScrollToTop helper for Lenis & Window scroll */
+function ScrollToTop({ lenisRef }) {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const timer = setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(el);
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+
+    // Scroll to top immediately on route change
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+  }, [pathname, hash, lenisRef]);
+
+  return null;
+}
+
 function App() {
+  const lenisRef = useRef(null);
+
   /* Initialize Lenis smooth scroll */
   useEffect(() => {
     const lenis = new Lenis({
@@ -31,6 +65,8 @@ function App() {
       wheelMultiplier: 1.0,
       touchMultiplier: 1.5,
     });
+
+    lenisRef.current = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -46,6 +82,8 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop lenisRef={lenisRef} />
+
       {/* Entry animation & route transition loader */}
       <LoadingScreen />
 

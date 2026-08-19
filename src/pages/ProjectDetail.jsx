@@ -2,13 +2,13 @@
  * ProjectDetail.jsx — Dynamic project detail page router
  * 
  * Reads the project slug from URL params (/project/:slug).
- * Resolves previous and next project parameters to allow circular navigation.
+ * Resolves previous and next project parameters for circular navigation.
+ * Note: Footer is omitted on project pages per design specification so ElasticUpNext serves as the terminal boundary.
  */
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { projects } from '../data/projects';
 import ProjectDetailLayout from '../components/project/ProjectDetailLayout';
-import Footer from '../components/layout/Footer';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -23,11 +23,8 @@ export default function ProjectDetail() {
   const projectIndex = projects.findIndex((p) => p.slug === slug);
   const project = projects[projectIndex];
 
-  /* Previous and Next circular pointers */
-  const previousIndex = (projectIndex - 1 + projects.length) % projects.length;
+  /* Circular pointers for navigation */
   const nextIndex = (projectIndex + 1) % projects.length;
-
-  const previousProject = projects[previousIndex];
   const nextProject = projects[nextIndex];
 
   /* 404 fallback page */
@@ -51,13 +48,11 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-void-black text-bone-white min-h-screen">
       <ProjectDetailLayout
         project={project}
-        previousProject={previousProject !== project ? previousProject : null}
         nextProject={nextProject !== project ? nextProject : null}
       />
-      <Footer />
     </div>
   );
 }

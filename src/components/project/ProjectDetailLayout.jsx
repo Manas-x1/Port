@@ -8,8 +8,8 @@
  *   - Circular project navigation (Previous / Next / Back to Portfolio) to guarantee no dead-ends
  */
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Home } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import FilledButton from '../ui/FilledButton';
 import GhostButton from '../ui/GhostButton';
 import ElasticUpNext from './ElasticUpNext';
@@ -227,26 +227,6 @@ export default function ProjectDetailLayout({ project, nextProject }) {
        * ELASTIC PULL-DOWN UP NEXT NAVIGATION
        * ============================================================== */}
       {nextProject && <ElasticUpNext nextProject={nextProject} />}
-
-      {/* Return to Index Footer Bar */}
-      <div className="py-8 px-6 md:px-10 bg-void-black border-t border-graphite-border">
-        <div className="max-w-[1280px] mx-auto flex justify-between items-center">
-          <Link
-            to="/"
-            className="font-mono text-xs uppercase tracking-widest text-steel-mid hover:text-ember-orange transition-colors flex items-center gap-2 no-underline"
-          >
-            <Home size={14} />
-            <span>Return to Portfolio Main Index</span>
-          </Link>
-
-          <Link
-            to="/work"
-            className="font-mono text-xs uppercase tracking-widest text-steel-mid hover:text-ember-orange transition-colors flex items-center gap-2 no-underline"
-          >
-            <span>View All Works ↗</span>
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }

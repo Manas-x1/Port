@@ -1,8 +1,8 @@
 /**
- * Footer.jsx — Shared site footer with official logo & navigation
+ * Footer.jsx — Compact, high-precision site footer with dual-column links & brand lockup
  */
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Logo from '../ui/Logo';
 
 export default function Footer() {
@@ -11,7 +11,7 @@ export default function Footer() {
   const navLinks = [
     { label: 'Home', path: '/' },
     { label: 'About', path: '/about' },
-    { label: 'Projects', path: '/#projects' },
+    { label: 'Works', path: '/work' },
     { label: 'Skills', path: '/#skills' },
     { label: 'Contact', path: '/#contact' },
   ];
@@ -44,74 +44,84 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full py-16 md:py-24 px-6 md:px-10 bg-void-black border-t border-graphite-border relative overflow-hidden">
+    <footer className="w-full py-10 md:py-12 px-6 md:px-10 bg-void-black border-t border-graphite-border select-none">
       <div className="max-w-[1280px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 mb-16">
-          {/* Col 1: Logo & Name */}
-          <div className="md:col-span-2 space-y-4">
-            <a
-              href="/"
+        {/* Main Footer Layout — Left Brand Lockup + Right Dual Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
+          
+          {/* Left Column: Logo, Name & Tagline */}
+          <div className="md:col-span-7 space-y-3">
+            <Link
+              to="/"
               onClick={(e) => {
-                e.preventDefault();
-                navigate('/');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (window.location.pathname === '/') {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
               }}
               className="inline-flex items-center gap-3 no-underline group"
             >
-              <Logo className="w-8 h-8" />
-              <span className="font-display font-light text-2xl tracking-tight text-bone-white uppercase">
+              <Logo className="w-7 h-7" />
+              <span className="font-display font-light text-xl md:text-2xl tracking-tight text-bone-white uppercase group-hover:text-ember-orange transition-colors">
                 Manas Upadhyay
               </span>
-            </a>
-            <p className="font-body text-sm text-steel-mid max-w-sm">
-              AI Content Creator, 3D Artist, Video Editor & Filmmaker crafting immersive digital stories.
+            </Link>
+
+            <p className="font-sans text-xs md:text-sm text-steel-mid max-w-md leading-relaxed">
+              AI Content Creator, 3D Artist, Video Editor & Filmmaker crafting immersive digital stories and cinematic visual worlds.
             </p>
           </div>
 
-          {/* Col 2: Navigation */}
-          <div className="space-y-3">
-            <span className="block font-mono text-xs uppercase tracking-widest text-steel-mid mb-4">
-              Navigation
-            </span>
-            {navLinks.map((link) => (
-              <a
-                key={link.path}
-                href={link.path}
-                onClick={(e) => handleNavClick(e, link.path)}
-                className="block font-mono text-sm text-fog-light hover:text-ember-orange transition-colors no-underline uppercase tracking-wider"
-              >
-                {link.label}
-              </a>
-            ))}
+          {/* Right Column: Neatly Organized Navigation & Connect Columns */}
+          <div className="md:col-span-5 grid grid-cols-2 gap-6">
+            {/* Index Navigation */}
+            <div>
+              <span className="block font-mono text-[11px] uppercase tracking-[0.2em] text-steel-mid mb-3">
+                Index
+              </span>
+              <ul className="space-y-2 m-0 p-0 list-none font-mono text-xs uppercase tracking-wider">
+                {navLinks.map((link) => (
+                  <li key={link.path}>
+                    <Link
+                      to={link.path}
+                      onClick={(e) => handleNavClick(e, link.path)}
+                      className="text-fog-light hover:text-ember-orange transition-colors no-underline block"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Social Connect */}
+            <div>
+              <span className="block font-mono text-[11px] uppercase tracking-[0.2em] text-steel-mid mb-3">
+                Connect
+              </span>
+              <ul className="space-y-2 m-0 p-0 list-none font-mono text-xs uppercase tracking-wider">
+                {socialLinks.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-fog-light hover:text-ember-orange transition-colors no-underline block"
+                    >
+                      {link.label} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Col 3: Connect */}
-          <div className="space-y-3">
-            <span className="block font-mono text-xs uppercase tracking-widest text-steel-mid mb-4">
-              Connect
-            </span>
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block font-mono text-sm text-fog-light hover:text-ember-orange transition-colors no-underline uppercase tracking-wider"
-              >
-                {link.label} ↗
-              </a>
-            ))}
-          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 border-t border-graphite-border flex flex-col sm:flex-row justify-between items-center gap-4">
-          <span className="font-mono text-xs uppercase text-steel-mid tracking-wider">
-            © 2026 MANAS UPADHYAY. ALL RIGHTS RESERVED.
-          </span>
-          <span className="font-mono text-xs uppercase text-steel-mid tracking-wider">
-            DESIGNED & BUILT WITH PRECISION
-          </span>
+        {/* Bottom Copyright & Specification Bar */}
+        <div className="pt-6 border-t border-graphite-border flex flex-col sm:flex-row justify-between items-center gap-3 font-mono text-[11px] uppercase text-steel-mid tracking-widest">
+          <span>© 2026 MANAS UPADHYAY. ALL RIGHTS RESERVED.</span>
+          <span>DESIGNED & BUILT WITH PRECISION</span>
         </div>
       </div>
     </footer>
