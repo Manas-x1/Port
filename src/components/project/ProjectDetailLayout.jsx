@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import FilledButton from '../ui/FilledButton';
 import GhostButton from '../ui/GhostButton';
-import ElasticUpNext from './ElasticUpNext';
+import ProjectFootnoteBar from './ProjectFootnoteBar';
 
 export default function ProjectDetailLayout({ project, nextProject }) {
   const navigate = useNavigate();
@@ -224,9 +224,9 @@ export default function ProjectDetailLayout({ project, nextProject }) {
       )}
 
       {/* ================================================================
-       * ELASTIC PULL-DOWN UP NEXT NAVIGATION
+       * SLEEK 2-PART FOOTNOTE NAVIGATION BAR
        * ============================================================== */}
-      {nextProject && <ElasticUpNext nextProject={nextProject} />}
+      {nextProject && <ProjectFootnoteBar nextProject={nextProject} />}
     </div>
   );
 }

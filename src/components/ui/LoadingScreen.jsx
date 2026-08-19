@@ -1,9 +1,10 @@
 /**
- * LoadingScreen.jsx — Initial entry loading screen with Mechanical Scramble Audio
+ * LoadingScreen.jsx — Initial entry loading screen (Silent & Clean)
  * 
- * Audio:
- * - Unlocks AudioContext on first mouse move / touch / key press.
- * - Plays mechanical keyboard click sound during letter scramble animation.
+ * Features:
+ *   - Character letter scramble animation
+ *   - Strict scroll locking while active
+ *   - Click to continue unlock handler
  */
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -11,65 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
 
-// Shared AudioContext instance
-let globalAudioCtx = null;
-
-function getAudioContext() {
-  if (!globalAudioCtx && typeof window !== 'undefined') {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (AudioCtx) {
-      globalAudioCtx = new AudioCtx();
-    }
-  }
-  if (globalAudioCtx && globalAudioCtx.state === 'suspended') {
-    globalAudioCtx.resume().catch(() => {});
-  }
-  return globalAudioCtx;
-}
-
-/* Synthesized Mechanical Keyclick Sound */
-function playScrambleClickSound() {
-  try {
-    const ctx = getAudioContext();
-    if (!ctx || ctx.state !== 'running') return;
-
-    const now = ctx.currentTime;
-
-    // High frequency click (mechanical switch trigger)
-    const oscHigh = ctx.createOscillator();
-    const gainHigh = ctx.createGain();
-    oscHigh.type = 'sine';
-    oscHigh.frequency.setValueAtTime(800 + Math.random() * 1200, now);
-    oscHigh.frequency.exponentialRampToValueAtTime(150, now + 0.03);
-
-    gainHigh.gain.setValueAtTime(0.12, now);
-    gainHigh.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
-
-    oscHigh.connect(gainHigh);
-    gainHigh.connect(ctx.destination);
-    oscHigh.start(now);
-    oscHigh.stop(now + 0.03);
-
-    // Low mechanical body thump
-    const oscLow = ctx.createOscillator();
-    const gainLow = ctx.createGain();
-    oscLow.type = 'triangle';
-    oscLow.frequency.setValueAtTime(180 + Math.random() * 80, now);
-    oscLow.frequency.exponentialRampToValueAtTime(40, now + 0.04);
-
-    gainLow.gain.setValueAtTime(0.08, now);
-    gainLow.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-
-    oscLow.connect(gainLow);
-    gainLow.connect(ctx.destination);
-    oscLow.start(now);
-    oscLow.stop(now + 0.04);
-  } catch {
-    // Graceful fallback
-  }
-}
-
-function ScrambleText({ text, start = false, delay = 0, playAudio = false }) {
+function ScrambleText({ text, start = false, delay = 0 }) {
   const [displayText, setDisplayText] = useState('');
 
   useEffect(() => {
@@ -83,10 +26,6 @@ function ScrambleText({ text, start = false, delay = 0, playAudio = false }) {
     const run = () => {
       interval = setInterval(() => {
         if (!isMounted) return;
-
-        if (playAudio && iteration < text.length) {
-          playScrambleClickSound();
-        }
 
         setDisplayText(
           text
@@ -118,7 +57,7 @@ function ScrambleText({ text, start = false, delay = 0, playAudio = false }) {
       if (timeoutId) clearTimeout(timeoutId);
       isMounted = false;
     };
-  }, [text, start, delay, playAudio]);
+  }, [text, start, delay]);
 
   return <span>{displayText}</span>;
 }
@@ -134,27 +73,6 @@ export default function LoadingScreen() {
 
   const [isTransitionLoading, setIsTransitionLoading] = useState(false);
   const isFirstEntry = useRef(true);
-
-  // Unlock AudioContext on first mouse move / touch / click anywhere
-  useEffect(() => {
-    if (!isInitialLoading) return;
-
-    const unlockAudio = () => {
-      getAudioContext();
-    };
-
-    window.addEventListener('mousemove', unlockAudio, { once: true });
-    window.addEventListener('pointerdown', unlockAudio, { once: true });
-    window.addEventListener('keydown', unlockAudio, { once: true });
-    window.addEventListener('touchstart', unlockAudio, { once: true });
-
-    return () => {
-      window.removeEventListener('mousemove', unlockAudio);
-      window.removeEventListener('pointerdown', unlockAudio);
-      window.removeEventListener('keydown', unlockAudio);
-      window.removeEventListener('touchstart', unlockAudio);
-    };
-  }, [isInitialLoading]);
 
   useEffect(() => {
     if (!hasEntered) {
@@ -220,7 +138,6 @@ export default function LoadingScreen() {
   }, [location.pathname, hasEntered]);
 
   const handleEnterSite = () => {
-    getAudioContext();
     setHasEntered(true);
     sessionStorage.setItem('portfolio_entered', 'true');
     setIsInitialLoading(false);
@@ -258,7 +175,7 @@ export default function LoadingScreen() {
                     color: 'var(--color-bone-white)',
                   }}
                 >
-                  <ScrambleText text="Welcome to the portfolio" start={scrambleStart} playAudio={true} />
+                  <ScrambleText text="Welcome to the portfolio" start={scrambleStart} />
                 </h1>
 
                 <div
@@ -271,7 +188,7 @@ export default function LoadingScreen() {
                     color: 'var(--color-steel-mid)',
                   }}
                 >
-                  <ScrambleText text="— manas upadhyay" start={scrambleStart} delay={1200} playAudio={true} />
+                  <ScrambleText text="— manas upadhyay" start={scrambleStart} delay={1200} />
                 </div>
               </div>
 

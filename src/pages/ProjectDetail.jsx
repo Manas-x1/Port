@@ -3,7 +3,7 @@
  * 
  * Reads the project slug from URL params (/project/:slug).
  * Resolves previous and next project parameters for circular navigation.
- * Note: Footer is omitted on project pages per design specification so ElasticUpNext serves as the terminal boundary.
+ * Note: Footer is omitted on project pages per design specification so ProjectFootnoteBar serves as the terminal boundary.
  */
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
