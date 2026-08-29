@@ -1,395 +1,108 @@
-<!DOCTYPE html>
-<html class="dark" lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Manas Upadhyay | Portfolio</title>
-    
-    <!-- Tailwind CSS with custom plugins -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
-    <!-- Material Design Icons & Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    
-    <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Custom JavaScript -->
-    <script src="script.js" defer></script>
-    
-    <!-- Tailwind Custom Configuration -->
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-primary": "#303030",
-                        "secondary": "#c6c6c7",
-                        "on-surface": "#e2e2e2",
-                        "surface-dim": "#131313",
-                        "on-tertiary-container": "#757575",
-                        "secondary-fixed": "#e2e2e2",
-                        "outline-variant": "#4c4546",
-                        "carbon": "#181818",
-                        "on-tertiary-fixed-variant": "#474747",
-                        "on-secondary-fixed": "#1a1c1c",
-                        "secondary-container": "#454747",
-                        "primary-container": "#000000",
-                        "surface-variant": "#353535",
-                        "inverse-surface": "#e2e2e2",
-                        "on-surface-variant": "#cfc4c5",
-                        "ash": "#6d6d6d",
-                        "primary": "#c6c6c6",
-                        "surface-container-highest": "#353535",
-                        "surface-bright": "#393939",
-                        "on-primary-fixed": "#1b1b1b",
-                        "on-secondary": "#2f3131",
-                        "tertiary-fixed-dim": "#c6c6c6",
-                        "on-background": "#e2e2e2",
-                        "smoke": "#9a9a9a",
-                        "on-primary-container": "#757575",
-                        "surface-container-lowest": "#0e0e0e",
-                        "on-primary-fixed-variant": "#474747",
-                        "surface-container": "#1f1f1f",
-                        "secondary-fixed-dim": "#c6c6c7",
-                        "on-secondary-fixed-variant": "#454747",
-                        "surface-container-low": "#1b1b1b",
-                        "error": "#ffb4ab",
-                        "inverse-on-surface": "#303030",
-                        "tertiary": "#c6c6c6",
-                        "on-tertiary-fixed": "#1b1b1b",
-                        "error-container": "#93000a",
-                        "pewter": "#808080",
-                        "on-secondary-container": "#b4b5b5",
-                        "on-error-container": "#ffdad6",
-                        "tertiary-container": "#000000",
-                        "primary-fixed-dim": "#c6c6c6",
-                        "background": "#131313",
-                        "on-tertiary": "#303030",
-                        "surface-container-high": "#2a2a2a",
-                        "surface": "#131313",
-                        "graphite": "#636363",
-                        "outline": "#988e90",
-                        "surface-tint": "#c6c6c6",
-                        "inverse-primary": "#5e5e5e",
-                        "primary-fixed": "#e2e2e2",
-                        "tertiary-fixed": "#e2e2e2",
-                        "on-error": "#690005"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "offset-lg": "152px",
-                        "card-pad": "40px",
-                        "component-int": "28px",
-                        "section-v": "100px",
-                        "element-lg": "64px",
-                        "nav-gap": "12px",
-                        "micro": "8px",
-                        "element-md": "48px"
-                    },
-                    "fontFamily": {
-                        "heading-sm": ["Hanken Grotesk"],
-                        "micro": ["Inter"],
-                        "hero": ["Hanken Grotesk"],
-                        "body-md": ["Inter"],
-                        "heading-md": ["Hanken Grotesk"],
-                        "display": ["Hanken Grotesk"],
-                        "heading-lg": ["Hanken Grotesk"],
-                        "ui-nav": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "subheading": ["Hanken Grotesk"],
-                        "hero-mobile": ["Hanken Grotesk"]
-                    },
-                    "fontSize": {
-                        "heading-sm": ["45px", {"lineHeight": "55px", "fontWeight": "300"}],
-                        "micro": ["9px", {"lineHeight": "12px", "fontWeight": "400"}],
-                        "hero": ["225px", {"lineHeight": "171px", "letterSpacing": "-0.04em", "fontWeight": "300"}],
-                        "body-md": ["16px", {"lineHeight": "22px", "fontWeight": "400"}],
-                        "heading-md": ["54px", {"lineHeight": "65px", "fontWeight": "300"}],
-                        "display": ["94px", {"lineHeight": "103px", "fontWeight": "300"}],
-                        "heading-lg": ["78px", {"lineHeight": "90px", "fontWeight": "300"}],
-                        "ui-nav": ["11px", {"letterSpacing": "0.1em", "fontWeight": "400"}],
-                        "body-lg": ["18px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "subheading": ["30px", {"lineHeight": "38px", "fontWeight": "300"}],
-                        "hero-mobile": ["80px", {"lineHeight": "72px", "fontWeight": "300"}]
-                    }
-                }
-            }
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/p4.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Manas Upadhyay (manasxz) | AI Content Creator, 3D Artist &amp; Visual Designer</title>
+    <meta name="description" content="Official portfolio of Manas Upadhyay (also known as manasxz / Manasaxz) — AI Content Creator, 3D Artist, Visual Designer, and Video Editor specializing in AI filmmaking, 3D visual design, and cinematic storytelling." />
+    <meta name="keywords" content="Manas Upadhyay, manasxz, Manasaxz, manas upadhayay, Manas, AI Content Creator, AI Filmmaking, 3D Artist, Video Editor, Visual Designer, ComfyUI, RunwayML, Midjourney, Stable Diffusion, Blender 3D, DaVinci Resolve, Portfolio, manasxz.qzz.io" />
+    <meta name="author" content="Manas Upadhyay (manasxz)" />
+    <link rel="canonical" href="https://manasxz.qzz.io/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-main.xml" />
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:site_name" content="Manas Upadhyay (manasxz)" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https://manasxz.qzz.io/" />
+    <meta property="og:title" content="Manas Upadhyay (manasxz) | AI Content Creator, 3D Artist &amp; Visual Designer" />
+    <meta property="og:description" content="Official portfolio of Manas Upadhyay (manasxz / Manasaxz) — AI Content Creator, 3D Artist, Visual Designer, and Video Editor specializing in AI filmmaking." />
+    <meta property="og:image" content="https://manasxz.qzz.io/Potrait1.jpeg" />
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Manas Upadhyay (manasxz) | AI Content Creator &amp; 3D Artist" />
+    <meta name="twitter:description" content="Cinematic AI filmmaking, 3D visual design, and generative media portfolio by Manas Upadhyay (manasxz)." />
+    <meta name="twitter:image" content="https://manasxz.qzz.io/Potrait1.jpeg" />
+
+    <!-- Google Search Identity — JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://manasxz.qzz.io/#website",
+          "url": "https://manasxz.qzz.io/",
+          "name": "Manas Upadhyay Portfolio",
+          "alternateName": [
+            "manasxz",
+            "Manasaxz",
+            "Manas Upadhyay",
+            "Manas Upadhayay",
+            "manas_xz",
+            "Manas Upadhyay AI Filmmaking"
+          ],
+          "publisher": {
+            "@id": "https://manasxz.qzz.io/#person"
+          }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://manasxz.qzz.io/#profilepage",
+          "url": "https://manasxz.qzz.io/",
+          "name": "Manas Upadhyay (manasxz) Profile & Portfolio",
+          "mainEntity": {
+            "@id": "https://manasxz.qzz.io/#person"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://manasxz.qzz.io/#person",
+          "name": "Manas Upadhyay",
+          "alternateName": [
+            "manasxz",
+            "Manasaxz",
+            "Manas Upadhayay",
+            "manas_xz",
+            "Manas U",
+            "someone_on.the_internet"
+          ],
+          "url": "https://manasxz.qzz.io/",
+          "image": "https://manasxz.qzz.io/Potrait1.jpeg",
+          "jobTitle": "AI Content Creator, 3D Artist & Video Editor",
+          "description": "Manas Upadhyay (manasxz) is an AI Content Creator, 3D Artist, Visual Designer, and Video Editor specializing in generative AI filmmaking, 3D worldbuilding, and cinematic post-production.",
+          "knowsAbout": [
+            "AI Filmmaking",
+            "Generative AI",
+            "3D Design",
+            "3D Modeling",
+            "Video Editing",
+            "ComfyUI",
+            "Midjourney",
+            "RunwayML",
+            "Stable Diffusion",
+            "Premiere Pro",
+            "DaVinci Resolve",
+            "Blender",
+            "Visual Effects"
+          ],
+          "sameAs": [
+            "https://www.linkedin.com/in/manas-u-33245a288",
+            "https://www.instagram.com/someone_on.the_internet"
+          ]
         }
+      ]
+    }
     </script>
-</head>
-<body class="selection:bg-primary selection:text-ink">
 
-    <!-- Top Navigation -->
-    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-element-lg py-micro max-w-[1440px] mx-auto left-0 right-0 bg-transparent mix-blend-difference transition-all duration-300">
-        <div class="flex items-center gap-nav-gap">
-            <img alt="MU Logo" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLvBF1zfsW2s5kunNtrgHaSWlvsSkQfM7mik98qFWIg_MN1pFWrdioZawK5E0P2dJWrkHeNGWq5LNwFrGGDV0APWR4Wn9Ku7f79kFZNw5jnBGmq_eATdJ04QnmAGBcz5SsZqZeZsNtke3phpdHWOwZevSFFV5C2y5Enyqh-mNF_2zQw3hBTupzSIjJgEimeYc8HUTlhUfSTynbbJWtqSKAmAwULGgseHvO4xniFA2UoweEzgP-N-paHIw_fY">
-        </div>
-        <div class="hidden md:flex items-center gap-element-md font-ui-nav text-ui-nav uppercase tracking-widest text-on-background">
-            <a class="hover:text-primary border-b border-transparent hover:border-primary pb-1 transition-all" href="#work">Work</a>
-            <a class="text-ash hover:text-on-background transition-colors" href="#about">About</a>
-            <a class="text-ash hover:text-on-background transition-colors" href="#contact">Contact</a>
-        </div>
-        <button id="reachOutNavBtn" class="bg-paper text-ink px-element-md py-3 rounded-full font-ui-nav text-ui-nav uppercase tracking-widest scale-100 hover:scale-95 transition-transform text-center select-none cursor-pointer">
-            Reach out
-        </button>
-    </nav>
-
-    <!-- 1. Hero Section -->
-    <section class="relative h-screen w-full bg-ink flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img alt="Manas Portrait" class="w-full h-full object-cover object-center opacity-40 hero-mask" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrY_pt-x3hS2r92uhrk4osKXSnokcUtuIi0rLRhIHoXWmX26KwSeGkFr29wVgUWkQqu_e1E-X3Syj6pxOeoc-HQDDgZWqF_O4NUw0D5Zy8Svigndoe7hxlfUMr0uTEKj--Xw9sFCq_koFpXGfxo_26hBkppB9jHO79Nbo8rkPvMCC8y93BAgpa8P6YNF7usFp_f_6qQ3h6WdSiqJuo_scZESwLIk7QJu0SCSm3JzQsbLa3lT_c7rGfv3yo3RrUx5s4SmCV0SnlB6bmn34">
-        </div>
-        <div class="relative z-10 text-center select-none">
-            <h1 class="font-hero text-hero-mobile md:text-hero text-paper uppercase leading-tight select-none">
-                MANAS<br>
-                <div class="w-full overflow-hidden bg-white/5 backdrop-blur-md border-y border-white/10 my-micro py-4 select-none">
-                    <div class="flex whitespace-nowrap animate-marquee gap-element-md">
-                        <span class="font-body-lg text-[24px] md:text-[32px] uppercase tracking-widest text-paper opacity-80">3D artist • Ai content Creator • Graphic Designer • Video Editor • UI/UX designer • 3D artist • Ai content Creator • Graphic Designer • Video Editor • UI/UX designer • </span>
-                        <span class="font-body-lg text-[24px] md:text-[32px] uppercase tracking-widest text-paper opacity-80">3D artist • Ai content Creator • Graphic Designer • Video Editor • UI/UX designer • 3D artist • Ai content Creator • Graphic Designer • Video Editor • UI/UX designer • </span>
-                    </div>
-                </div>
-                UPADHYAY
-            </h1>
-        </div>
-        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-micro">
-            <span class="font-ui-nav text-ui-nav text-ash uppercase tracking-widest">Scroll to Explore</span>
-            <div class="w-px h-12 bg-ash animate-pulse"></div>
-        </div>
-    </section>
-
-    <!-- 2. Featured Work Section -->
-    <section class="bg-paper py-section-v px-element-lg" id="work">
-        <div class="max-w-[1440px] mx-auto">
-            <h2 class="font-display text-display text-ink mb-offset-lg uppercase reveal">Monolith created</h2>
-            
-            <div class="flex flex-col md:flex-row justify-between items-start gap-element-lg py-[80px] reveal">
-                <h3 class="font-heading-lg text-heading-lg text-ink uppercase md:w-1/2">Conceptual Depth</h3>
-                <div class="md:w-1/2 md:pt-element-md">
-                    <p class="font-body-lg text-body-lg text-ash max-w-md">Design is not merely an aesthetic choice, but a structural dialogue between form and function. Every project begins with a search for the essential truth of the brand, translated into a visual language that prioritizes clarity, rhythm, and emotional resonance.</p>
-                </div>
-            </div>
-            
-            <!-- Immersive AI & Motion Block -->
-            <div class="bg-ink py-[120px] px-element-lg -mx-element-lg mb-offset-lg reveal">
-                <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-element-lg items-center">
-                    <!-- Left Side: Cinematic Image -->
-                    <div class="relative aspect-video md:aspect-square overflow-hidden rounded-lg bg-surface-container-highest">
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="AI Motion Concept" class="w-full h-full object-cover opacity-60 mix-blend-luminosity">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-ink via-transparent to-transparent opacity-40"></div>
-                    </div>
-                    
-                    <!-- Right Side: Content -->
-                    <div class="flex flex-col items-start gap-element-md">
-                        <h2 class="font-heading-lg text-heading-lg text-paper uppercase">AI &amp; MOTION</h2>
-                        
-                        <div class="space-y-element-md">
-                            <div class="space-y-micro">
-                                <h3 class="font-ui-nav text-ui-nav text-paper uppercase tracking-widest">AI Content Creation</h3>
-                                <p class="font-body-lg text-body-lg text-paper opacity-80 max-w-md">
-                                    Leveraging generative neural networks to push the boundaries of visual storytelling, creating assets that were previously impossible to conceive.
-                                </p>
-                            </div>
-                            
-                            <div class="space-y-micro">
-                                <h3 class="font-ui-nav text-ui-nav text-paper uppercase tracking-widest">Video Editing</h3>
-                                <p class="font-body-lg text-body-lg text-paper opacity-80 max-w-md">
-                                    Cinematic pacing and rhythmic assembly that transforms raw footage into immersive digital narratives with high emotional resonance.
-                                </p>
-                            </div>
-                        </div>
-
-                        <a href="#contact" class="bg-graphite text-paper px-element-lg py-4 rounded-full font-ui-nav text-ui-nav uppercase tracking-widest hover:scale-95 transition-transform mt-4 text-center select-none">
-                            View Showreel
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Projects Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-element-lg">
-                <!-- Project 1 -->
-                <div class="group cursor-pointer reveal">
-                    <div class="overflow-hidden mb-component-int border border-ash/20 bg-surface-dim">
-                        <img class="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" alt="Brutalist concrete building" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5bBqJ8FImKmIH_FxZDNYzot25Lyt-lqaNgBCM7Z6pB_Bk6ybWgDMap-MS11RtSqO77chT3SQt3pADkWT12nTamepcRF-oIkU5w7htfwQHj8TyM1SB14H5fyNTdX5U-TAonHQPGYj6CgwsXMZZRqIi1EsxFFK_5WTNtLrVXsie87kyYhE8sbIh-Dyqy6H6QePgXgB58XQmK83s_pCqB4v-xgT-rtrwlGZL8H5qPETpiQhFp-oFjHHXd7fKYc4xWEQa73bMJHLOlYpKqwM">
-                    </div>
-                    <div class="flex justify-between items-baseline border-b border-ash pb-4">
-                        <h3 class="font-heading-sm text-heading-sm text-ink uppercase">metroid&nbsp;</h3>
-                        <span class="font-ui-nav text-ui-nav text-ash uppercase">01 / Branding</span>
-                    </div>
-                </div>
-                <!-- Project 2 -->
-                <div class="group cursor-pointer md:mt-offset-lg reveal">
-                    <div class="overflow-hidden mb-component-int border border-ash/20 bg-surface-dim">
-                        <img class="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" alt="Sleek metallic watch" src="https://lh3.googleusercontent.com/aida-public/AB6AXu2tmqEQloF6Ta-9PQKYJBpKbTNp63-rjVZGZqsDPYppWOgCnx-mfPeKePWpO9q_AGOYjDOjsO8GVli4B6FyIQIJR0lF75_4LqzIeRlGZrXiOt3ak_XXAQvKtubGSemh0Gn4FiU36V2eXYbpzzkOaAEyfcQzVoC_12wEbV-5yuXjdYMTP_C8lAf4wmTJP2BOSJ7recmYjQ24GwNx7o4eyXecwnkt1Kc2Ycp8LqPsrOXq0xxeTg0oRGKkRcjwmnkROhb2IQy0vqWJTzMURI">
-                    </div>
-                    <div class="flex justify-between items-baseline border-b border-ash pb-4">
-                        <h3 class="font-heading-sm text-heading-sm text-ink uppercase">Identity</h3>
-                        <span class="font-ui-nav text-ui-nav text-ash uppercase">02 / Product</span>
-                    </div>
-                </div>
-                <!-- Project 3 -->
-                <div class="group cursor-pointer reveal">
-                    <div class="overflow-hidden mb-component-int border border-ash/20 bg-surface-dim">
-                        <img class="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" alt="Fluid obsidian waves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE3rSov-WeK0JUz1S45GLluA6leOvN5lji7IoVSr0vmLXSvU_GBp-1F7Mcvv5874KMNmtPFUHijo1B99OTg_JtPCwCHvOozsM7FBUn3v0SgY-vXtIcZk2OGt4Fmw2O9NTRRtMTsQoLONvcwmWFKIKe2k9lGclbrldb5vMYRAhUigTRyH4e65yu1Tjm8Q72rvZW2AOVkA_s45eH7a_4oCuHsvhksxzRAFs7irGtX35LCUOEf6gkOTN2cUbULhyYmORHgrDWIjiIKgfgdus">
-                    </div>
-                    <div class="flex justify-between items-baseline border-b border-ash pb-4">
-                        <h3 class="font-heading-sm text-heading-sm text-ink uppercase">fluid waves</h3>
-                        <span class="font-ui-nav text-ui-nav text-ash uppercase">03 / Product</span>
-                    </div>
-                </div>
-                <!-- Project 4 -->
-                <div class="group cursor-pointer md:mt-offset-lg reveal">
-                    <div class="overflow-hidden mb-component-int border border-ash/20 bg-surface-dim">
-                        <img class="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" alt="Minimalist art gallery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACYt94tA3uWBfuh0cWFXetdmtyAR9vy3OdHQYTNauMsc355mNH_tIHHKKeqohU04MMaYpCZiOKR7mVkgeeqcvSXxw18vZ3xMfKaReeYb7E9P6PKxIGLE7UpF7Z-OouWE4VlI-U0t5NEoCRFd3ze1bJO-jkktOUJprzXJGFPHSrYDFuyLTVwtbiTD5fDYXwOl6Ut0CpmB2WmNC5nBQC9Vmj6UGK-Dn7iwExHO3dVulb4O8vcQ5WOOQwU9SFdAoiS5FFwEUugyx1KcxYq4g">
-                    </div>
-                    <div class="flex justify-between items-baseline border-b border-ash pb-4">
-                        <h3 class="font-heading-sm text-heading-sm text-ink uppercase">The cube</h3>
-                        <span class="font-ui-nav text-ui-nav text-ash uppercase">04 / Experience</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. Immersive Split Section -->
-    <section class="flex flex-col md:flex-row h-screen bg-ink" id="about">
-        <div class="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden reveal">
-            <img alt="Manas Contextual Shot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCYTNkpLq9LYPGdgARKMH8jPiK1MFvjnKNcKxkI3osiGuPpKYHknOuWSQOJ_bvQckoJQV0Ru1VoR-Mu9PS0BA1TkiFuR2HfCnlymvMI6M5_NL4YEq0Nx9YYiExOJL3RnzKPB5eF9ULa8TSJx9qQA1RoqizepI5sEL-_zTxMUfqmxBJn1wuWnqkOY4C0BRa-woE6N3s_Zed6cW6heOk8uVlZ_vgHGsLBjKQOMdg5XqaZTcL__KjyiMr8JYL5tHeiahUormT7ZKH0iMS">
-        </div>
-        <div class="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center p-element-lg reveal">
-            <div class="max-w-xl">
-                <span class="font-ui-nav text-ui-nav text-ash uppercase tracking-widest mb-element-md block">The Philosophy</span>
-                <p class="font-heading-md text-heading-md text-paper leading-tight">
-                    Crafting digital narratives that breathe through silence. I specialize in cinematic interfaces where every pixel serves a purpose.
-                </p>
-                <div class="mt-element-lg flex items-center gap-micro cursor-pointer group">
-                    <span class="font-body-md text-body-md text-paper border-b border-paper transition-all group-hover:text-ash group-hover:border-ash">Read Full Biography</span>
-                    <span class="material-symbols-outlined text-paper group-hover:translate-x-2 transition-transform">arrow_forward</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. Services / Expertise Section -->
-    <section class="bg-carbon py-section-v px-element-lg">
-        <div class="max-w-[1440px] mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-element-lg border-y border-ash/30 py-element-lg reveal">
-                <div class="space-y-component-int">
-                    <span class="font-ui-nav text-ui-nav text-ash uppercase">01 / Creative</span>
-                    <h4 class="font-subheading text-subheading text-paper uppercase">Direction</h4>
-                    <p class="font-body-md text-body-md text-smoke">Defining the visual soul of a project through meticulous curation and conceptual depth.</p>
-                </div>
-                <div class="space-y-component-int">
-                    <span class="font-ui-nav text-ui-nav text-ash uppercase">02 / Digital</span>
-                    <h4 class="font-subheading text-subheading text-paper uppercase">Design</h4>
-                    <p class="font-body-md text-body-md text-smoke">Creating immersive, fluid experiences that prioritize typography and structural rhythm.</p>
-                </div>
-                <div class="space-y-component-int">
-                    <span class="font-ui-nav text-ui-nav text-ash uppercase">03 / Visual</span>
-                    <h4 class="font-subheading text-subheading text-paper uppercase">Strategy</h4>
-                    <p class="font-body-md text-body-md text-smoke">Architecting brand ecosystems that stand the test of time through minimalism and clarity.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. Call to Action -->
-    <section class="bg-ink py-offset-lg px-element-lg overflow-hidden relative" id="contact">
-        <div class="max-w-[1440px] mx-auto text-center reveal">
-            <button id="collaborateBtn" class="block w-full group relative focus:outline-none cursor-pointer">
-                <h2 class="font-hero text-[80px] md:text-[152px] leading-none text-paper uppercase group-hover:text-ash transition-colors duration-500 text-center">
-                    LET'S<br>COLLABORATE
-                </h2>
-                <div class="mt-element-md inline-flex items-center gap-micro group-hover:opacity-100 opacity-50 transition-opacity">
-                    <span class="font-ui-nav text-ui-nav text-paper uppercase tracking-widest">Get in Touch</span>
-                    <span class="material-symbols-outlined text-paper" data-weight="fill">arrow_outward</span>
-                </div>
-            </button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-surface-container-lowest relative overflow-hidden w-full flex flex-col items-center justify-center pt-section-v pb-element-lg px-element-lg border-t border-ash/20">
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
-            <img alt="MU Large Logo Background" class="w-[80vw] object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLvBF1zfsW2s5kunNtrgHaSWlvsSkQfM7mik98qFWIg_MN1pFWrdioZawK5E0P2dJWrkHeNGWq5LNwFrGGDV0APWR4Wn9Ku7f79kFZNw5jnBGmq_eATdJ04QnmAGBcz5SsZqZeZsNtke3phpdHWOwZevSFFV5C2y5Enyqh-mNF_2zQw3hBTupzSIjJgEimeYc8HUTlhUfSTynbbJWtqSKAmAwULGgseHvO4xniFA2UoweEzgP-N-paHIw_fY">
-        </div>
-        <div class="relative z-10 w-full max-w-[1440px] flex flex-col md:flex-row justify-between items-center gap-element-md">
-            <div class="font-body-md text-body-md text-ash uppercase">
-                © 2026 mANAS UPADHYAY. ALL RIGHTS RESERVED.
-            </div>
-            <div class="flex gap-element-md">
-                <a class="font-body-md text-body-md text-ash hover:text-on-surface transition-all" href="#">Instagram</a>
-                <a class="font-body-md text-body-md text-ash hover:text-on-surface transition-all" href="#">LinkedIn</a>
-                <a class="font-body-md text-body-md text-ash hover:text-on-surface transition-all" href="#">Twitter</a>
-                <a class="font-body-md text-body-md text-ash hover:text-on-surface transition-all" href="#">Dribbble</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal Overlay (Stitch Design) -->
-    <div class="fixed inset-0 z-[100] modal-overlay flex items-center justify-center px-element-md py-element-md hidden opacity-0" id="contactModal">
-        <!-- Modal Container -->
-        <div class="bg-carbon w-full max-w-[1100px] h-auto max-h-[90vh] overflow-y-auto relative flex flex-col md:flex-row transition-all duration-700 ease-out translate-y-8 opacity-0 border border-white/5" id="modalContainer">
-            <!-- Close Button -->
-            <button class="absolute top-element-md right-element-md z-[110] text-ash hover:text-white transition-colors duration-300 cursor-pointer" id="closeModal">
-                <span class="material-symbols-outlined scale-150">close</span>
-            </button>
-            <!-- Left: Text/Editorial Content -->
-            <div class="w-full md:w-2/5 p-element-lg md:p-card-pad flex flex-col justify-between border-b md:border-b-0 md:border-r border-ash/20 bg-surface-container-lowest">
-                <div class="space-y-element-md">
-                    <h2 class="font-heading-lg text-heading-lg text-white uppercase leading-[1.15] tracking-tight">
-                        LET'S <br/> TALK
-                    </h2>
-                    <p class="font-body-lg text-ash max-w-xs">
-                        Whether you're looking for a collaboration, a project commission, or just a quiet conversation about design.
-                    </p>
-                </div>
-                <div class="mt-element-md md:mt-24 space-y-micro">
-                    <p class="text-ui-nav uppercase text-pewter tracking-widest">General Inquiries</p>
-                    <p class="font-body-md text-white">manasx1upadhyay@gmail.com</p>
-                </div>
-            </div>
-            <!-- Right: Form Content -->
-            <div class="w-full md:w-3/5 p-element-lg md:p-card-pad bg-carbon flex flex-col">
-                <form id="contactForm" class="space-y-element-md flex-grow">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-element-md">
-                        <div class="group relative">
-                            <label class="block text-ui-nav uppercase text-ash group-focus-within:text-white transition-colors mb-micro" for="name">Name</label>
-                            <input required class="w-full bg-transparent border-t-0 border-x-0 border-b border-ash focus:border-white focus:ring-0 text-white font-body-md py-4 px-0 transition-all placeholder-ash/50" id="name" name="name" placeholder="John Doe" type="text"/>
-                        </div>
-                        <div class="group relative">
-                            <label class="block text-ui-nav uppercase text-ash group-focus-within:text-white transition-colors mb-micro" for="email">Email</label>
-                            <input required class="w-full bg-transparent border-t-0 border-x-0 border-b border-ash focus:border-white focus:ring-0 text-white font-body-md py-4 px-0 transition-all placeholder-ash/50" id="email" name="email" placeholder="hello@domain.com" type="email"/>
-                        </div>
-                    </div>
-                    <div class="group relative pt-micro">
-                        <label class="block text-ui-nav uppercase text-ash group-focus-within:text-white transition-colors mb-micro" for="subject">Subject</label>
-                        <input required class="w-full bg-transparent border-t-0 border-x-0 border-b border-ash focus:border-white focus:ring-0 text-white font-body-md py-4 px-0 transition-all placeholder-ash/50" id="subject" name="subject" placeholder="Inquiry about new project" type="text"/>
-                    </div>
-                    <div class="group relative pt-micro">
-                        <label class="block text-ui-nav uppercase text-ash group-focus-within:text-white transition-colors mb-micro" for="message">Message</label>
-                        <textarea required class="w-full bg-transparent border-t-0 border-x-0 border-b border-ash focus:border-white focus:ring-0 text-white font-body-md py-4 px-0 transition-all placeholder-ash/50 resize-none" id="message" name="message" placeholder="Share your vision..." rows="4"></textarea>
-                    </div>
-                    <div class="pt-element-md flex flex-col md:flex-row md:items-center justify-between gap-component-int">
-                        <p class="text-micro text-pewter max-w-[240px]">
-                            By submitting this form, you agree to our privacy policy regarding data handling.
-                        </p>
-                        <button class="bg-white text-ink px-12 py-5 rounded-full font-ui-nav text-[12px] font-normal uppercase tracking-widest hover:bg-pewter hover:text-white transition-all duration-500 transform active:scale-95 flex items-center justify-center gap-2 group cursor-pointer" type="submit">
-                            Send Message
-                            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-</body>
+    <!-- Typography Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Inter:wght@300;400;500;700&family=Chivo+Mono:wght@300;400&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

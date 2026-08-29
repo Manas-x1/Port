@@ -1,0 +1,24 @@
+<!-- Logo SVG — MU Geometric Lettermark (from user-provided logo) -->
+<!-- Pure SVG recreation of the black geometric M/U monogram with white accent line -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" fill="none">
+  <!-- Left vertical bar -->
+  <rect x="4" y="4" width="36" height="110" fill="white"/>
+  <!-- Left bar bottom notch (U shape) -->
+  <rect x="4" y="94" width="18" height="20" fill="black"/>
+
+  <!-- Center chevron / M peak -->
+  <!-- Top-left diagonal block -->
+  <polygon points="44,4 80,4 80,58 44,4" fill="white"/>
+  <!-- Bottom-left diagonal block -->
+  <polygon points="44,114 80,58 80,114 44,114" fill="white"/>
+  <!-- White accent line through center -->
+  <line x1="44" y1="4" x2="80" y2="114" stroke="black" stroke-width="6"/>
+
+  <!-- Right side: two bars forming U -->
+  <!-- Right outer bar -->
+  <rect x="84" y="4" width="24" height="110" fill="white"/>
+  <!-- Right inner bar (taller, forms right of U) -->
+  <rect x="112" y="4" width="24" height="110" fill="white"/>
+  <!-- Bottom of U connecting right bars -->
+  <rect x="84" y="94" width="52" height="20" fill="white"/>
+</svg>
