@@ -3,3 +3,4 @@ Allow: /
 
 Sitemap: https://manasxz.qzz.io/sitemap-main.xml
 Sitemap: https://manasxz.qzz.io/sitemap.xml
+Sitemap: https://manasxz.qzz.io/sitemap.txt
