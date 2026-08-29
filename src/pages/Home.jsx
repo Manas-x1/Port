@@ -15,6 +15,7 @@ import Footer from '../components/layout/Footer';
 
 export default function Home() {
   useEffect(() => {
+    document.title = 'Manas Upadhyay (manasxz) | AI Content Creator, 3D Artist & Visual Designer';
     const revealElements = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(
       (entries, obs) => {

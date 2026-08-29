@@ -54,7 +54,7 @@ export default function AboutSection() {
                 color: 'var(--color-fog-light)',
               }}
             >
-              I am a multidisciplinary creative working at the intersection of AI, 3D design, filmmaking, and visual storytelling. With experience across Blender, Substance Painter, Adobe Creative Suite, and generative AI tools, I build immersive digital experiences that push creative boundaries.
+              I am Manas Upadhyay (manasxz), a multidisciplinary AI Content Creator, 3D Artist, Visual Designer, and Video Editor. Working at the cutting edge of generative AI and digital filmmaking, I specialize in crafting cinematic mythologies, sci-fi worldbuilding, and immersive visual narratives.
             </p>
             <p
               style={{
@@ -64,7 +64,7 @@ export default function AboutSection() {
                 color: 'var(--color-steel-mid)',
               }}
             >
-              This section will be updated with a full bio and experience timeline. Check back soon for the complete story.
+              Combining modern generative workflows (ComfyUI, Midjourney, Runway Gen-2, Stable Diffusion) with industry-standard 3D production pipelines (Blender, Substance) and post-production mastery in DaVinci Resolve and Adobe Premiere Pro, I build visual experiences that bridge ancient storytelling with future technology.
             </p>
           </motion.div>
         </div>

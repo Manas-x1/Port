@@ -14,10 +14,13 @@ export default function ProjectDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  /* Scroll to top on slug change */
+  /* Scroll to top and set document title on slug change */
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [slug]);
+    if (project) {
+      document.title = `${project.title} — AI Case Study | Manas Upadhyay (manasxz)`;
+    }
+  }, [slug, project]);
 
   /* Find project by slug */
   const projectIndex = projects.findIndex((p) => p.slug === slug);

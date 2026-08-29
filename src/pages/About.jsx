@@ -17,6 +17,7 @@ export default function About() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = 'About Manas Upadhyay (manasxz) | Biography & AI Filmmaking Vision';
     window.scrollTo(0, 0);
 
     const revealElements = document.querySelectorAll('.reveal');

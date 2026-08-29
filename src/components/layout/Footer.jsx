@@ -120,8 +120,8 @@ export default function Footer() {
 
         {/* Bottom Copyright & Specification Bar */}
         <div className="pt-6 border-t border-graphite-border flex flex-col sm:flex-row justify-between items-center gap-3 font-mono text-[11px] uppercase text-steel-mid tracking-widest">
-          <span>© 2026 MANAS UPADHYAY. ALL RIGHTS RESERVED.</span>
-          <span>DESIGNED & BUILT WITH PRECISION</span>
+          <span>© 2026 MANAS UPADHYAY (MANASXZ). ALL RIGHTS RESERVED.</span>
+          <span>DESIGNED &amp; BUILT WITH PRECISION</span>
         </div>
       </div>
     </footer>

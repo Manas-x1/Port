@@ -18,6 +18,7 @@ export default function Work() {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
 
   useEffect(() => {
+    document.title = 'Work Archive & AI Case Studies | Manas Upadhyay (manasxz)';
     window.scrollTo(0, 0);
   }, []);
 

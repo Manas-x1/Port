@@ -41,10 +41,20 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-6 md:mb-8 transform hover:scale-105 transition-transform"
+          className="mb-4 md:mb-6 transform hover:scale-105 transition-transform"
         >
           <Logo className="w-16 h-16 md:w-24 md:h-24 drop-shadow-[0_0_20px_rgba(255,79,43,0.3)]" />
         </motion.div>
+
+        {/* Handle Badge */}
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="font-mono text-xs uppercase tracking-[0.25em] text-ember-orange mb-3 px-3 py-1 bg-carbon/80 border border-graphite-border"
+        >
+          @MANASXZ // OFFICIAL PORTFOLIO
+        </motion.span>
 
         {/* Name — Framer Motion Staggered Word Reveal */}
         <motion.h1
