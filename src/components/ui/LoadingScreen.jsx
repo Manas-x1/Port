@@ -164,7 +164,8 @@ export default function LoadingScreen() {
 
             <div className="w-full max-w-4xl relative z-10 flex flex-col items-center justify-center px-4">
               <div className="flex flex-col items-center w-full space-y-6">
-                <h1
+                <div
+                  role="banner"
                   className="text-center select-none uppercase"
                   style={{
                     fontFamily: 'var(--font-display)',
@@ -176,7 +177,7 @@ export default function LoadingScreen() {
                   }}
                 >
                   <ScrambleText text="Welcome to the portfolio" start={scrambleStart} />
-                </h1>
+                </div>
 
                 <div
                   className="select-none self-center md:self-end md:mr-16 min-h-[30px] opacity-80"

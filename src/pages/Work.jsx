@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
 import Footer from '../components/layout/Footer';
-import SectionHeader from '../components/ui/SectionHeader';
 
 const CATEGORIES = ['ALL', 'AI CINEMATIC', 'AI IMAGE & CONCEPT ART', 'FILM & MOTION'];
 
@@ -31,13 +30,22 @@ export default function Work() {
     <div className="w-full bg-void-black text-bone-white min-h-screen pt-28 pb-16">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         {/* Header */}
-        <div className="mb-12">
-          <SectionHeader
-            title="Complete Work Archive"
-            counter="02"
-            subtitle="AI CINEMATIC FILMMAKING, CONCEPT ART & 3D VISUAL DESIGN"
-          />
-        </div>
+        <header className="mb-12">
+          <div className="flex items-baseline justify-between mb-4">
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-ember-orange block">
+              PORTFOLIO ARCHIVE // MANAS UPADHYAY
+            </span>
+            <span className="font-mono text-base text-steel-mid hidden md:block">
+              02
+            </span>
+          </div>
+          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-light uppercase text-bone-white tracking-tight leading-[0.95] max-w-4xl mb-4">
+            Complete Work Archive
+          </h1>
+          <p className="font-mono text-xs text-steel-mid uppercase tracking-widest">
+            AI CINEMATIC FILMMAKING, CONCEPT ART & 3D VISUAL DESIGN
+          </p>
+        </header>
 
         {/* Category Filters */}
         <div className="flex flex-wrap gap-3 mb-12 border-b border-graphite-border pb-6">

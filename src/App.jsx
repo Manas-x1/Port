@@ -21,6 +21,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Work from './pages/Work';
 import ProjectDetail from './pages/ProjectDetail';
+import NotFound from './pages/NotFound';
 
 /* Global ScrollToTop helper for Lenis & Window scroll */
 function ScrollToTop({ lenisRef }) {
@@ -97,6 +98,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/work" element={<Work />} />
           <Route path="/project/:slug" element={<ProjectDetail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </Router>

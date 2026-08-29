@@ -21,11 +21,11 @@ const MENU_ITEMS = [
 const SOCIAL_LINKS = [
   {
     label: 'Instagram',
-    href: 'https://www.instagram.com/someone_on.the_internet?igsh=ZHR0Znh6cGF3Z3kx',
+    href: 'https://www.instagram.com/someone_on.the_internet',
   },
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/manas-u-33245a288?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+    href: 'https://www.linkedin.com/in/manas-u-33245a288',
   },
 ];
 

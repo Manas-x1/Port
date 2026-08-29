@@ -51,7 +51,7 @@ export default function ContactSection() {
                 </span>
                 <div className="flex flex-wrap gap-6">
                   <a
-                    href="https://www.instagram.com/someone_on.the_internet?igsh=ZHR0Znh6cGF3Z3kx"
+                    href="https://www.instagram.com/someone_on.the_internet"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-mono text-sm text-fog-light hover:text-ember-orange transition-colors uppercase tracking-wider no-underline"
@@ -59,7 +59,7 @@ export default function ContactSection() {
                     Instagram ↗
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/manas-u-33245a288?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                    href="https://www.linkedin.com/in/manas-u-33245a288"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-mono text-sm text-fog-light hover:text-ember-orange transition-colors uppercase tracking-wider no-underline"
