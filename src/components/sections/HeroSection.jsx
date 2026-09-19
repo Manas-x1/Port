@@ -7,7 +7,7 @@
  *   - Layer 3 (Foreground): Bold editorial typography ("Hi, I am Manas", disciplines, CTAs)
  *   - Layer 4 (Bottom Edge): GradualBlur transition into rest of the site
  */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import LightRays from '../ui/LightRays';
@@ -16,8 +16,35 @@ import GradualBlur from '../ui/GradualBlur';
 import FilledButton from '../ui/FilledButton';
 import GhostButton from '../ui/GhostButton';
 
+const getDaysOnEarth = () => {
+  const startDate = new Date(2007, 3, 6); // April 6, 2007 (06-04-2007)
+  const now = new Date();
+  const diffTime = now.getTime() - startDate.getTime();
+  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+};
+
+const getISTTime = () => {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Kolkata',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+  }).format(new Date());
+};
+
 export default function HeroSection() {
   const navigate = useNavigate();
+  const [daysOnEarth, setDaysOnEarth] = useState(getDaysOnEarth);
+  const [istTime, setIstTime] = useState(getISTTime);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDaysOnEarth(getDaysOnEarth());
+      setIstTime(getISTTime());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const scrollToProjects = () => {
     const el = document.querySelector('#projects');
@@ -96,18 +123,19 @@ export default function HeroSection() {
             </span>
           </motion.div>
 
-          {/* Right: Location & Availability */}
+          {/* Right: Days on Earth & Live IST Time */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-right flex flex-col gap-1"
+            className="text-right flex flex-col gap-1 items-end"
           >
             <span className="font-display font-light text-bone-white text-base sm:text-xl md:text-2xl tracking-tight">
-              Based in India
+              Days on Earth - <span className="tabular-nums font-normal">{daysOnEarth.toLocaleString()}</span>
             </span>
-            <span className="font-sans text-fog-light text-sm sm:text-base font-light tracking-wide">
-              Available Worldwide
+            <span className="font-mono text-fog-light text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-ember-orange animate-pulse" />
+              <span className="tabular-nums">{istTime}</span>
             </span>
           </motion.div>
         </div>
