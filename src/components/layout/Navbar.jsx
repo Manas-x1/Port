@@ -23,16 +23,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className="fixed top-0 left-0 w-full z-50 transition-all duration-500"
-        style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.75)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid var(--color-graphite-border)',
-        }}
-      >
-        <div className="w-full max-w-[1280px] mx-auto flex justify-between items-center px-4 sm:px-6 md:px-10 py-3 md:py-4">
+      <nav className="fixed top-0 left-0 w-full z-50 pointer-events-none bg-transparent">
+        <div className="w-full max-w-[1280px] mx-auto flex justify-between items-center px-4 sm:px-6 md:px-10 py-3 md:py-4 pointer-events-auto">
           {/* Left: Official MU Logo */}
           <a
             href="/"

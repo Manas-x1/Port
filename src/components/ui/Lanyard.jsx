@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Canvas, extend, useFrame } from '@react-three/fiber';
+import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import {
   BallCollider,
@@ -179,6 +179,8 @@ function Band({
   curve.curveType = 'chordal';
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
+  const { width, height } = useThree((state) => state.size);
+
   return (
     <>
       <group position={[0, 4, 0]}>
@@ -233,7 +235,7 @@ function Band({
         <meshLineMaterial
           color="white"
           depthTest={false}
-          resolution={isMobile ? [1000, 2000] : [1000, 1000]}
+          resolution={[width || 1000, height || 1000]}
           useMap
           map={texture}
           repeat={[-4, 1]}
@@ -245,9 +247,9 @@ function Band({
 }
 
 export default function Lanyard({
-  position = [0, 0, 30],
-  gravity = [0, -40, 0],
-  fov = 20,
+  position = [0, 0, 20],
+  gravity = [0, -38, 0],
+  fov = 22,
   transparent = true,
   frontImage = null,
   backImage = null,
@@ -265,10 +267,17 @@ export default function Lanyard({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const cameraPosition = useMemo(() => {
+    if (!isMobile) return position;
+    return [position[0], position[1] || 0, Math.max(position[2], 22)];
+  }, [isMobile, position]);
+
+  const cameraFov = isMobile ? Math.max(fov, 24) : fov;
+
   return (
     <div className={`lanyard-wrapper ${className}`.trim()} style={style}>
       <Canvas
-        camera={{ position, fov }}
+        camera={{ position: cameraPosition, fov: cameraFov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}

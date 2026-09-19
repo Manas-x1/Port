@@ -105,6 +105,19 @@ function App() {
         </Routes>
       </main>
 
+      {/* Global Gradual Blur at the top edge of the viewport (replacing the solid top bar) */}
+      <GradualBlur
+        target="page"
+        position="top"
+        height="5rem"
+        strength={2.5}
+        divCount={6}
+        curve="bezier"
+        exponential={true}
+        opacity={0.95}
+        zIndex={35}
+      />
+
       {/* Global Gradual Blur at the bottom edge of the viewport across the entire website */}
       <GradualBlur
         target="page"
