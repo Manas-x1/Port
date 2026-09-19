@@ -17,6 +17,7 @@ import 'lenis/dist/lenis.css';
 
 import Navbar from './components/layout/Navbar';
 import LoadingScreen from './components/ui/LoadingScreen';
+import GradualBlur from './components/ui/GradualBlur';
 import Home from './pages/Home';
 import About from './pages/About';
 import Work from './pages/Work';
@@ -68,6 +69,7 @@ function App() {
     });
 
     lenisRef.current = lenis;
+    window.__lenis = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -77,6 +79,7 @@ function App() {
     requestAnimationFrame(raf);
 
     return () => {
+      window.__lenis = null;
       lenis.destroy();
     };
   }, []);
@@ -101,6 +104,19 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+
+      {/* Global Gradual Blur at the bottom edge of the viewport across the entire website */}
+      <GradualBlur
+        target="page"
+        position="bottom"
+        height="3.5rem"
+        strength={2}
+        divCount={5}
+        curve="bezier"
+        exponential={true}
+        opacity={0.9}
+        zIndex={35}
+      />
     </Router>
   );
 }
