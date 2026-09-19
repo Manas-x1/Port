@@ -246,8 +246,20 @@ function Band({
   );
 }
 
+function CameraController({ position, isMobile }) {
+  const { camera } = useThree();
+  useFrame(() => {
+    const x = isMobile ? 0 : (position[0] ?? 0);
+    const y = position[1] ?? 0;
+    const z = isMobile ? Math.max(position[2] || 18, 22) : (position[2] ?? 20);
+    camera.position.set(x, y, z);
+    camera.lookAt(x, y, 0);
+  });
+  return null;
+}
+
 export default function Lanyard({
-  position = [0, 0, 20],
+  position = [-2.8, 0, 14],
   gravity = [0, -38, 0],
   fov = 22,
   transparent = true,
@@ -267,21 +279,15 @@ export default function Lanyard({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const cameraPosition = useMemo(() => {
-    if (!isMobile) return position;
-    return [position[0], position[1] || 0, Math.max(position[2], 22)];
-  }, [isMobile, position]);
-
-  const cameraFov = isMobile ? Math.max(fov, 24) : fov;
-
   return (
     <div className={`lanyard-wrapper ${className}`.trim()} style={style}>
       <Canvas
-        camera={{ position: cameraPosition, fov: cameraFov }}
+        camera={{ position: [0, 0, 20], fov: isMobile ? Math.max(fov, 26) : fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
+        <CameraController position={position} isMobile={isMobile} />
         <ambientLight intensity={Math.PI} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band

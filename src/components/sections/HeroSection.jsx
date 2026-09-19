@@ -59,27 +59,25 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* ── Layer 2: 3D Interactive Lanyard ID Card ── */}
-      <div className="absolute inset-0 z-10 pointer-events-none flex items-center justify-center md:justify-end md:pr-12 lg:pr-28">
-        <div className="w-full max-w-[340px] sm:max-w-[440px] md:max-w-[580px] lg:max-w-[660px] h-[460px] sm:h-[560px] md:h-[720px] lg:h-[800px] pointer-events-auto">
-          <Lanyard
-            position={[0, 0, 20]}
-            gravity={[0, -38, 0]}
-            fov={22}
-            frontImage="/assets/id-card-front.png"
-            backImage="/assets/id-card-back.png"
-            imageFit="cover"
-            lanyardWidth={1.1}
-            className="w-full h-full"
-          />
-        </div>
+      {/* ── Layer 2: 3D Interactive Lanyard ID Card (Full Screen Viewport with Right-Side Placement) ── */}
+      <div className="absolute inset-0 z-10 pointer-events-auto w-full h-full">
+        <Lanyard
+          position={[-2.8, 0, 14]}
+          gravity={[0, -38, 0]}
+          fov={22}
+          frontImage="/assets/id-card-front.png"
+          backImage="/assets/id-card-back.png"
+          imageFit="cover"
+          lanyardWidth={1.2}
+          className="w-full h-full"
+        />
       </div>
 
       {/* ── Hero Content Container ── */}
-      <div className="relative z-20 w-full h-full max-w-[1520px] mx-auto px-5 sm:px-8 md:px-14 pt-24 sm:pt-28 pb-14 sm:pb-20 md:pb-24 flex flex-col justify-between pointer-events-none">
+      <div className="relative z-20 w-full h-full max-w-[1520px] mx-auto px-6 sm:px-10 md:px-14 pt-28 pb-16 sm:pb-20 md:pb-24 flex flex-col justify-between pointer-events-none">
 
         {/* Middle Row: Capabilities (Left) & Location (Right) */}
-        <div className="w-full flex flex-col sm:flex-row items-start justify-between gap-4 mt-auto mb-auto pointer-events-none">
+        <div className="w-full flex flex-row items-start justify-between mt-auto mb-auto pointer-events-none">
           {/* Left: Core Specializations */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -103,7 +101,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-left sm:text-right flex flex-col gap-1"
+            className="text-right flex flex-col gap-1"
           >
             <span className="font-display font-light text-bone-white text-base sm:text-xl md:text-2xl tracking-tight">
               Based in India
