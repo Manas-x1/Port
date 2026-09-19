@@ -68,7 +68,7 @@ export default function HeroSection() {
           frontImage="/assets/id-card-front.png"
           backImage="/assets/id-card-back.png"
           imageFit="cover"
-          lanyardWidth={1.2}
+          lanyardWidth={1}
           className="w-full h-full"
         />
       </div>
