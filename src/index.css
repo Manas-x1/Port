@@ -1,0 +1,401 @@
+/* =============================================================================
+ * index.css — Global Styles & Ori "Radiant" Design System
+ * =============================================================================
+ * Design Reference: New.md (Ori Style Reference)
+ * Theme: Dark infrastructure — black void, white light, one ignited switch.
+ * Palette: Void Black (#000000), Ember Orange (#ff4f2b), Bone White (#f5f5f5)
+ * Fonts: Outfit (display), Inter (body), Chivo Mono (labels)
+ * =========================================================================== */
+
+@import "tailwindcss";
+
+/* =============================================================================
+ * SECTION 1: Tailwind v4 Theme Tokens
+ * Maps CSS custom properties to Tailwind utility classes.
+ * e.g., --color-ember-orange → bg-ember-orange, text-ember-orange
+ * =========================================================================== */
+@theme {
+  /* --- Ori Color Palette --- */
+  --color-ember-orange: #ff4f2b;
+  --color-void-black:   #000000;
+  --color-carbon:       #1a1a1a;
+  --color-graphite-border: #3c3c3c;
+  --color-steel-mid:    #737373;
+  --color-fog-light:    #bfbfbf;
+  --color-bone-white:   #f5f5f5;
+
+  /* --- Font Families --- */
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* =============================================================================
+ * SECTION 2: CSS Custom Properties (available everywhere via var())
+ * These mirror the @theme tokens for use in inline styles.
+ * =========================================================================== */
+:root {
+  /* Colors */
+  --color-ember-orange:    #ff4f2b;
+  --color-void-black:      #000000;
+  --color-carbon:          #1a1a1a;
+  --color-graphite-border: #3c3c3c;
+  --color-steel-mid:       #737373;
+  --color-fog-light:       #bfbfbf;
+  --color-bone-white:      #f5f5f5;
+
+  /* Font families */
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* =============================================================================
+ * SECTION 3: Base & Reset
+ * =========================================================================== */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: #000000;
+  color: #f5f5f5;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default focus ring — use orange border instead */
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 2px solid #ff4f2b;
+  outline-offset: 2px;
+}
+
+/* Selection highlight */
+::selection {
+  background-color: #ff4f2b;
+  color: #000000;
+}
+
+/* =============================================================================
+ * SECTION 4: Custom Scrollbar
+ * =========================================================================== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #3c3c3c; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #737373; }
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #3c3c3c #000000;
+}
+
+/* =============================================================================
+ * SECTION 5: Typography Utilities
+ * Display headings use Outfit weight 300 — the Ori design signature.
+ * Body text uses Inter weight 400.
+ * Labels use Chivo Mono uppercase — terminal control-panel texture.
+ * =========================================================================== */
+
+/* Display heading — Outfit 300, large cinematic scale */
+.font-display-heading {
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+/* Section heading — Outfit 300, medium scale */
+.font-section-heading {
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* Body text — Inter 400 */
+.font-body-text {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Mono label — Chivo Mono 400, uppercase, wide tracking */
+.font-label {
+  font-family: 'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* =============================================================================
+ * SECTION 6: Responsive Typography Scale
+ * clamp(min, preferred, max) for fluid scaling across all devices.
+ * phone (<640px) → tablet (640-1024px) → laptop (1024-1440px) → desktop (>1440px)
+ * =========================================================================== */
+
+/* Hero display — 48px mobile → 96px desktop */
+.text-hero-display {
+  font-size: clamp(44px, 9vw, 96px);
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+/* Section display — 36px mobile → 72px desktop */
+.text-section-display {
+  font-size: clamp(32px, 6vw, 72px);
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Heading — 28px mobile → 48px desktop */
+.text-heading {
+  font-size: clamp(24px, 4vw, 48px);
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+/* Subheading — 20px mobile → 36px desktop */
+.text-subheading {
+  font-size: clamp(18px, 3vw, 36px);
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Body large — consistent 18px */
+.text-body-large {
+  font-size: 18px;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* Body — consistent 16px */
+.text-body-reg {
+  font-size: 16px;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Label large — mono 14px */
+.text-label-lg {
+  font-size: 14px;
+  font-family: 'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Label small — mono 11px, tight tracking */
+.text-label-sm {
+  font-size: 11px;
+  font-family: 'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+/* =============================================================================
+ * SECTION 7: HoverRevealMenu Styles (ported from toggleSupply)
+ * CSS-first staggered reveal pattern.
+ * =========================================================================== */
+
+/* Full-screen overlay — hidden by default */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: #000000;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+/* Open state */
+.menu-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Individual menu item container — clips the inner slide */
+.menu-item {
+  display: block;
+  overflow: hidden;
+  line-height: 1;
+}
+
+/* Inner element slides up from below */
+.menu-item-inner {
+  transform: translateY(110%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide in when open */
+.menu-overlay.is-open .menu-item-inner {
+  transform: translateY(0%);
+}
+
+/* Staggered timing — each item slightly later */
+.menu-item:nth-child(1) .menu-item-inner { transition-delay: 0.06s; }
+.menu-item:nth-child(2) .menu-item-inner { transition-delay: 0.12s; }
+.menu-item:nth-child(3) .menu-item-inner { transition-delay: 0.18s; }
+.menu-item:nth-child(4) .menu-item-inner { transition-delay: 0.24s; }
+.menu-item:nth-child(5) .menu-item-inner { transition-delay: 0.30s; }
+.menu-item:nth-child(6) .menu-item-inner { transition-delay: 0.36s; }
+
+/* Menu link style */
+.menu-link {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  display: inline-block;
+  transition: color 0.25s ease;
+  cursor: pointer;
+  /* Responsive font size */
+  font-size: clamp(36px, 7vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.menu-link:hover {
+  color: #ff4f2b;
+}
+
+/* Menu counter labels */
+.menu-counter {
+  font-family: 'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  width: 32px;
+}
+
+/* =============================================================================
+ * SECTION 8: Skeleton Loading
+ * =========================================================================== */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #1a1a1a 25%,
+    #3c3c3c 50%,
+    #1a1a1a 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-text    { height: 16px; margin-bottom: 8px; }
+.skeleton-heading { height: 48px; margin-bottom: 16px; width: 60%; }
+.skeleton-image   { width: 100%; aspect-ratio: 16 / 9; }
+.skeleton-card    { width: 100%; aspect-ratio: 4 / 5; }
+
+/* =============================================================================
+ * SECTION 9: Aurora Background Animation
+ * =========================================================================== */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0%, 0%) rotate(0deg) scale(1); opacity: 0.55; }
+  25%       { transform: translate(6%, -4%) rotate(45deg) scale(1.15); opacity: 0.75; }
+  50%       { transform: translate(-4%, 6%) rotate(90deg) scale(0.95); opacity: 0.45; }
+  75%       { transform: translate(3%, 3%) rotate(135deg) scale(1.1); opacity: 0.65; }
+}
+
+@keyframes aurora-drift-alt {
+  0%, 100% { transform: translate(0%, 0%) rotate(0deg) scale(1); opacity: 0.45; }
+  33%       { transform: translate(-5%, 4%) rotate(-60deg) scale(1.2); opacity: 0.65; }
+  66%       { transform: translate(4%, -5%) rotate(-120deg) scale(0.9); opacity: 0.50; }
+}
+
+/* =============================================================================
+ * SECTION 10: Scroll Reveal
+ * =========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================================================
+ * SECTION 11: Marquee
+ * =========================================================================== */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee-scroll 30s linear infinite; }
+
+/* =============================================================================
+ * SECTION 12: Input Fields
+ * =========================================================================== */
+input, textarea {
+  background: #1a1a1a;
+  border: 1px solid #3c3c3c;
+  border-radius: 0;
+  color: #f5f5f5;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  padding: 12px 16px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+input::placeholder, textarea::placeholder { color: #737373; }
+input:focus, textarea:focus { border-color: #ff4f2b; outline: none; }
+
+/* Autofill override */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f5f5f5;
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* =============================================================================
+ * SECTION 13: Utilities
+ * =========================================================================== */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Section layout utility */
+.snap-section {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Hairline border utility */
+.border-hairline { border: 1px solid #3c3c3c; }
+.border-hairline-top { border-top: 1px solid #3c3c3c; }
+.border-hairline-bottom { border-bottom: 1px solid #3c3c3c; }
