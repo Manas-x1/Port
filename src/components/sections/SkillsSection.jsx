@@ -276,9 +276,6 @@ export default function SkillsSection() {
               <span className="inline-block w-2 h-2 rounded-full bg-ember-orange animate-pulse" />
               Live Software Registry
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-widest text-steel-mid">
-              Hover to slow // Drag to inspect
-            </span>
           </div>
 
           <div className="py-3 overflow-hidden">
