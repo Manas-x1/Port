@@ -61,11 +61,12 @@ function App() {
   /* Initialize Lenis smooth scroll */
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 2.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 0.7,
+      touchMultiplier: 1.2,
+      infinite: false,
     });
 
     lenisRef.current = lenis;
