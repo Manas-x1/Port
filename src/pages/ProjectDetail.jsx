@@ -14,14 +14,6 @@ export default function ProjectDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  /* Scroll to top and set document title on slug change */
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (project) {
-      document.title = `${project.title} — AI Case Study | Manas Upadhyay (manasxz)`;
-    }
-  }, [slug, project]);
-
   /* Find project by slug */
   const projectIndex = projects.findIndex((p) => p.slug === slug);
   const project = projects[projectIndex];
@@ -29,6 +21,14 @@ export default function ProjectDetail() {
   /* Circular pointers for navigation */
   const nextIndex = (projectIndex + 1) % projects.length;
   const nextProject = projects[nextIndex];
+
+  /* Scroll to top and set document title on slug change */
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (project) {
+      document.title = `${project.title} — AI Case Study | Manas Upadhyay (manasxz)`;
+    }
+  }, [slug, project]);
 
   /* 404 fallback page */
   if (!project) {

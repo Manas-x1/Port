@@ -129,7 +129,11 @@ export default function LoadingScreen() {
     const timer = setTimeout(() => {
       setIsTransitionLoading(false);
       document.body.style.overflow = '';
-    }, 1200);
+      if (window.__lenis) {
+        window.__lenis.resize();
+        window.__lenis.scrollTo(0, { immediate: true });
+      }
+    }, 450);
 
     return () => {
       clearTimeout(timer);

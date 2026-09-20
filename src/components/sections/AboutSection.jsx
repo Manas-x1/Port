@@ -12,8 +12,13 @@ import { motion } from 'framer-motion';
 import SectionHeader from '../ui/SectionHeader';
 import CinematicBackground from '../ui/CinematicBackground';
 
-// 13 cinematic shots located in public/videos/
-const CINEMATIC_SHOTS = Array.from({ length: 13 }, (_, i) => `/videos/v%20(${i + 1}).mp4`);
+// Dynamically discover all video files in public/videos/
+const videoModules = import.meta.glob('/public/videos/*.{mp4,webm,mov,MP4,MOV}', { eager: true });
+const CINEMATIC_SHOTS = Object.keys(videoModules).map((filePath) => {
+  // Strip '/public' prefix so the path becomes a valid public asset URL '/videos/...'
+  const publicPath = filePath.replace(/^\/public/, '');
+  return encodeURI(publicPath);
+});
 
 export default function AboutSection() {
   const [activeShot, setActiveShot] = useState(0);
@@ -85,7 +90,7 @@ export default function AboutSection() {
             </p>
 
             <p className="font-sans text-sm sm:text-base text-steel-mid/90 leading-relaxed font-light drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-              Combining modern generative workflows (<span className="text-fog-light">ComfyUI, Midjourney, Runway Gen-2, Stable Diffusion</span>) with industry-standard 3D production pipelines (<span className="text-fog-light">Blender, Substance</span>) and post-production mastery in <span className="text-fog-light">DaVinci Resolve</span> and <span className="text-fog-light">Adobe Premiere Pro</span>, I build visual experiences that bridge ancient storytelling with future technology.
+              Combining modern generative workflows (<span className="text-fog-light">Higgsfield, Google Flow</span>) and advanced reasoning pipelines (<span className="text-fog-light">Claude &amp; GPT workflows</span>) with industry-standard 3D production (<span className="text-fog-light">Blender, Substance</span>) and post-production mastery in <span className="text-fog-light">DaVinci Resolve</span> and <span className="text-fog-light">Adobe Premiere Pro</span>, I build visual experiences that bridge ancient storytelling with future technology.
             </p>
           </motion.div>
         </div>
