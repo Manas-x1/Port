@@ -11,6 +11,9 @@
 
 .gradual-blur {
   isolation: isolate;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
 }
 
 @supports not (backdrop-filter: blur(1px)) {

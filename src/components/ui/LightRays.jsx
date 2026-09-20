@@ -66,7 +66,7 @@ const LightRays = ({
         const entry = entries[0];
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.0, rootMargin: '200px 0px' }
     );
 
     observerRef.current.observe(containerRef.current);
