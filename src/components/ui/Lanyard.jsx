@@ -145,6 +145,8 @@ function Band({
     }
   }, [hovered, dragged]);
 
+  const anchorRef = useRef(null);
+
   useFrame((state, delta) => {
     if (dragged && typeof dragged !== 'boolean') {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
@@ -163,12 +165,19 @@ function Band({
         const clampedDistance = Math.max(0.1, Math.min(1, lerped.distanceTo(ref.current.translation())));
         lerped.lerp(ref.current.translation(), delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)));
       });
-      curve.points[0].copy(j3.current.translation());
+
+      // Seamlessly anchor the strap to the exact clamp ring position on the card
+      if (anchorRef.current) {
+        anchorRef.current.getWorldPosition(curve.points[0]);
+      } else if (j3.current) {
+        curve.points[0].copy(j3.current.translation());
+      }
+
       curve.points[1].copy(getLerped(j2.current));
       curve.points[2].copy(getLerped(j1.current));
       curve.points[3].copy(fixed.current.translation());
       if (band.current) {
-        band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
+        band.current.geometry.setPoints(curve.getPoints(isMobile ? 24 : 36));
       }
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
@@ -183,7 +192,7 @@ function Band({
 
   return (
     <>
-      <group position={[0, 4, 0]}>
+      <group position={[0, isMobile ? 5.2 : 4, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps} type="dynamic">
           <BallCollider args={[0.1]} />
@@ -200,9 +209,9 @@ function Band({
           {...segmentProps}
           type={dragged ? 'kinematicPosition' : 'dynamic'}
         >
-          <CuboidCollider args={[0.8, 1.125, 0.01]} />
+          <CuboidCollider args={[isMobile ? 0.95 : 0.8, isMobile ? 1.35 : 1.125, 0.01]} />
           <group
-            scale={2.25}
+            scale={isMobile ? 2.35 : 2.25}
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
@@ -225,8 +234,17 @@ function Band({
                 metalness={0.8}
               />
             </mesh>
-            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
-            <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
+            <mesh
+              geometry={nodes.clip.geometry}
+              material={materials.metal}
+              material-roughness={0.3}
+            />
+            <mesh
+              geometry={nodes.clamp.geometry}
+              material={materials.metal}
+            />
+            {/* Exact attachment anchor located at the metallic loop top eyelet */}
+            <group ref={anchorRef} position={[0, 1.216, 0]} />
           </group>
         </RigidBody>
       </group>
@@ -235,11 +253,12 @@ function Band({
         <meshLineMaterial
           color="white"
           depthTest={false}
+          transparent={true}
           resolution={[width || 1000, height || 1000]}
           useMap
           map={texture}
           repeat={[-4, 1]}
-          lineWidth={lanyardWidth}
+          lineWidth={isMobile ? lanyardWidth * 0.9 : lanyardWidth}
         />
       </mesh>
     </>
@@ -249,11 +268,13 @@ function Band({
 function CameraController({ position, isMobile }) {
   const { camera } = useThree();
   useFrame(() => {
-    const x = isMobile ? 0 : (position[0] ?? 0);
-    const y = position[1] ?? 0;
-    const z = isMobile ? Math.max(position[2] || 18, 22) : (position[2] ?? 20);
+    // PC remains strictly untouched using position
+    // Mobile shifts slightly right (x = -0.75) and adjusts framing for the bigger card
+    const x = isMobile ? -0.75 : (position[0] ?? 0);
+    const y = isMobile ? 1.05 : (position[1] ?? 0);
+    const z = isMobile ? 21 : (position[2] ?? 20);
     camera.position.set(x, y, z);
-    camera.lookAt(x, y, 0);
+    camera.lookAt(x, isMobile ? 0.7 : y, 0);
   });
   return null;
 }

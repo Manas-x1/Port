@@ -90,10 +90,10 @@ export default function HeroSection() {
       </div>
 
       {/* ── Hero Content Container ── */}
-      <div className="relative z-20 w-full h-full max-w-[1520px] mx-auto px-6 sm:px-10 md:px-14 pt-28 pb-16 sm:pb-20 md:pb-24 flex flex-col justify-between pointer-events-none">
+      <div className="relative z-20 w-full h-full max-w-[1520px] mx-auto px-5 sm:px-10 md:px-14 pt-24 sm:pt-28 pb-10 sm:pb-16 md:pb-24 flex flex-col justify-between pointer-events-none">
 
         {/* Top/Upper Row: Days on Earth & Live Clock on the Left */}
-        <div className="w-full flex flex-row items-start justify-between pt-2 sm:pt-4 pointer-events-none">
+        <div className="w-full flex flex-row items-start justify-between pt-1 sm:pt-4 pointer-events-none">
           {/* Left: Days on Earth & Live IST Time */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -101,10 +101,10 @@ export default function HeroSection() {
             transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-left flex flex-col gap-1 items-start"
           >
-            <span className="font-display font-light text-bone-white text-base sm:text-xl md:text-2xl tracking-tight">
+            <span className="font-display font-light text-bone-white text-sm sm:text-xl md:text-2xl tracking-tight">
               Days on Earth - <span className="tabular-nums font-normal">{daysOnEarth.toLocaleString()}</span>
             </span>
-            <span className="font-mono text-fog-light text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2">
+            <span className="font-mono text-fog-light text-[11px] sm:text-sm tracking-wider uppercase flex items-center gap-2">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-ember-orange animate-pulse" />
               <Clock />
             </span>
@@ -112,20 +112,20 @@ export default function HeroSection() {
         </div>
 
         {/* Bottom Row: "Hi, I am Manas" (Left) & Actions (Right) */}
-        <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pointer-events-auto">
+        <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-5 sm:gap-6 pointer-events-auto">
           {/* Left: Massive Typography Name */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col"
+            className="flex flex-col select-none"
           >
-            <span className="font-display text-xl sm:text-2xl md:text-3xl text-bone-white font-medium mb-1 tracking-tight pl-1 sm:pl-1.5 md:pl-2">
+            <span className="font-display text-lg sm:text-2xl md:text-3xl text-bone-white font-medium mb-0.5 sm:mb-1 tracking-tight pl-0.5 sm:pl-1.5 md:pl-2">
               Hi, I am
             </span>
             <h1
-              className="font-display font-black text-bone-white leading-[0.82] tracking-tighter"
-              style={{ fontSize: 'clamp(72px, 15vw, 210px)' }}
+              className="font-display font-black text-bone-white leading-[0.85] tracking-tighter"
+              style={{ fontSize: 'clamp(54px, 16vw, 210px)' }}
             >
               Manas
             </h1>
@@ -136,12 +136,12 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.55 }}
-            className="flex flex-wrap items-center gap-4 mb-2 sm:mb-4"
+            className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-1 sm:mb-4"
           >
-            <FilledButton onClick={scrollToProjects} className="px-8 py-3.5 text-xs sm:text-sm">
+            <FilledButton onClick={scrollToProjects} className="w-full sm:w-auto px-7 py-3 text-xs sm:text-sm text-center justify-center">
               Explore Work
             </FilledButton>
-            <GhostButton onClick={() => navigate('/about')} className="px-8 py-3.5 text-xs sm:text-sm">
+            <GhostButton onClick={() => navigate('/about')} className="w-full sm:w-auto px-7 py-3 text-xs sm:text-sm text-center justify-center">
               Story &amp; Journey
             </GhostButton>
           </motion.div>

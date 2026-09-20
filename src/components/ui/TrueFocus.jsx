@@ -96,10 +96,10 @@ export default function TrueFocus({
             }}
             className={`focus-word ${manualMode ? 'manual' : ''} ${isActive ? 'active' : ''}`}
             style={{
-              filter: isActive ? 'blur(0px)' : `blur(${blurAmount}px)`,
-              opacity: isActive ? 1 : 0.75,
+              filter: blurAmount > 0 ? (isActive ? 'blur(0px)' : `blur(${blurAmount}px)`) : 'none',
+              opacity: isActive ? 1 : (blurAmount > 0 ? 0.75 : 0.85),
               color: isActive ? activeTextColor : textColor,
-              transition: `filter ${animationDuration}s ease, opacity ${animationDuration}s ease, color 0.25s ease`,
+              transition: `opacity ${animationDuration}s ease, color 0.25s ease`,
               '--border-color': borderColor,
               '--glow-color': glowColor,
             }}

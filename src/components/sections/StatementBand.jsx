@@ -51,7 +51,7 @@ export default function StatementBand({ text = 'Crafting The Future Through AI &
           <TrueFocus
             sentence={text}
             manualMode={true}
-            blurAmount={6}
+            blurAmount={0}
             borderColor="#000000"
             glowColor="rgba(0, 0, 0, 0.3)"
             textColor="#232630"
