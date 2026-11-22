@@ -8,9 +8,10 @@
  *
  * The comma is the screen's one ember accent.
  */
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import LightRays from '../ui/LightRays';
+// WebGL rays load in their own chunk after first paint; the static glow shows meanwhile
+const LightRays = lazy(() => import('../ui/LightRays'));
 import Clock from '../ui/Clock';
 import useFitText from '../../hooks/useFitText';
 
@@ -67,7 +68,9 @@ export default function HeroSection() {
     <section className="relative w-full h-svh min-h-[560px] sm:min-h-[680px] flex flex-col overflow-hidden bg-void-black select-none grain">
       {/* ── Background ── */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        {!reduceMotion && <LightRays
+        {!reduceMotion && (
+          <Suspense fallback={null}>
+            <LightRays
           raysOrigin="top-right"
           raysColor="#ff552e"
           raysSpeed={0.6}
@@ -79,7 +82,9 @@ export default function HeroSection() {
           distortion={0.04}
           saturation={0.9}
           className="w-full h-full"
-        />}
+        />
+          </Suspense>
+        )}
         <div
           className="absolute inset-0"
           style={{

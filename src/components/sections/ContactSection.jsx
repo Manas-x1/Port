@@ -15,7 +15,7 @@ export function ContactDetails({ eager = false }) {
     <>
       <div className="frame aspect-[4/5] max-w-[360px] lg:max-w-none">
         <img
-          src="/Potrait1.jpeg"
+          src="/portrait.webp"
           alt="Portrait of Manas Upadhyay"
           loading={eager ? 'eager' : 'lazy'}
           className="grayscale contrast-110"

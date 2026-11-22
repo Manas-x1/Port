@@ -249,18 +249,6 @@ export default function CinematicBackground({
         }}
       />
 
-      {/* Atmospheric Vertical Gradients for seamless section blending */}
-      <div className="absolute inset-0 bg-gradient-to-b from-void-black/80 via-transparent to-void-black/80 pointer-events-none opacity-50" />
-      <div className="absolute inset-0 bg-gradient-to-r from-void-black/30 via-transparent to-void-black/30 pointer-events-none" />
-
-      {/* Subtle Cinematic Film Grain Texture */}
-      <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 1px, transparent 1px)`,
-          backgroundSize: '24px 24px',
-        }}
-      />
     </div>
   );
 }

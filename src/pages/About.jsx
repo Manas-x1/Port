@@ -34,7 +34,7 @@ export default function About() {
             className="col-span-4 lg:col-span-5"
           >
             <div className="frame aspect-[4/5]">
-              <img src="/hero-profile.jpg" alt="Manas Upadhyay in profile" fetchPriority="high" />
+              <img src="/profile.webp" alt="Manas Upadhyay in profile" fetchPriority="high" />
             </div>
           </motion.div>
 

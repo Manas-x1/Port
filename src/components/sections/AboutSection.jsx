@@ -1,6 +1,7 @@
 /**
  * AboutSection.jsx — the story, over a slow reel of the user's own shots.
- * Videos only load once the section is near and pause when it leaves.
+ * Videos mount once the section is within 300px, but only play while it is actually
+ * on screen, so nothing decodes while you scroll on into Selected work.
  */
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -9,23 +10,28 @@ import SectionHeader from '../ui/SectionHeader';
 import CinematicBackground from '../ui/CinematicBackground';
 import useInView from '../../hooks/useInView';
 
-const videoModules = import.meta.glob('/public/videos/*.{mp4,webm,mov,MP4,MOV}', { eager: true });
-const CINEMATIC_SHOTS = Object.keys(videoModules).map((p) => encodeURI(p.replace(/^\/public/, '')));
+// Served straight from public/videos (720p, 6s, no audio). A plain list instead of
+// import.meta.glob, which made Vite copy every video into the build a second time.
+const CINEMATIC_SHOTS = Array.from({ length: 15 }, (_, i) => `/videos/about-${String(i + 1).padStart(2, '0')}.mp4`);
 
 const EASE = [0.16, 1, 0.3, 1];
 
 export default function AboutSection() {
-  const [sectionRef, inView, hasBeenNear] = useInView({ rootMargin: '300px 0px' });
+  const [nearRef, , hasBeenNear] = useInView({ rootMargin: '300px 0px' });
+  const [playRef, onScreen] = useInView({ rootMargin: '0px' });
+  const sectionRef = (el) => {
+    nearRef.current = el;
+    playRef.current = el;
+  };
 
   return (
     <section id="about" ref={sectionRef} className="section relative overflow-hidden bg-void-black">
       {hasBeenNear && (
         <CinematicBackground
-          paused={!inView}
+          paused={!onScreen}
           videos={CINEMATIC_SHOTS}
           maxClipDuration={6}
           fadeDuration={1400}
-          blurAmount="0px"
           tintOpacity={0.62}
         />
       )}
