@@ -38,21 +38,25 @@ export default function About() {
             transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
             className="col-span-4 lg:col-span-5"
           >
-            {/* Portrait under a glass lens that follows the cursor (click it to change shape).
+            {/* Portrait under a rainbow glass torus you can pick up and throw (click it to change shape).
                 The plain image sits underneath: it shows while the effect loads, or if WebGL2 isn't available. */}
             <div className="frame aspect-[4/5]">
               <img src="/profile.webp" alt="Manas Upadhyay in profile" fetchPriority="high" />
               <Suspense fallback={null}>
                 <FluidGlass
                   className="!absolute inset-0"
-                  text=""
+                  text="Be Amazed!"
                   src="/profile.webp"
-                  shape="lens"
-                  size={220}
-                  refraction={1}
-                  dispersion={0.35}
-                  shadow={0.4}
-                  interaction="follow"
+                  shape="torus"
+                  size={320}
+                  refraction={1.35}
+                  dispersion={1}
+                  interaction="drag"
+                  reflection={0.9}
+                  shadow={0.3}
+                  elevation={0.5}
+                  smoothness={1}
+                  spin={0.05}
                 />
               </Suspense>
             </div>
