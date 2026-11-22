@@ -1,85 +1,156 @@
 /**
- * Work.jsx — the archive. Title card, filters (scroll sideways on phones), two-up title cards.
+ * Work.jsx — the archive as one scroll.
+ *
+ * Projects sit in three groups (AI work, AR, 3D). A sticky index follows the scroll:
+ *   desktop — left column listing each group and its numbered projects
+ *   phones  — a bar under the nav with the group names
+ * The item in view lights up; tapping an entry scrolls to it.
  */
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { projects } from '../data/projects';
 import Footer from '../components/layout/Footer';
 import PageHeader from '../components/ui/PageHeader';
 import ProjectCard from '../components/project/ProjectCard';
 import useReveal from '../hooks/useReveal';
 
-// Filters match on each project's category text
-const FILTERS = [
-  { label: 'All', test: () => true },
-  { label: 'Cinematic', test: (c) => /cinematic/i.test(c) },
-  { label: 'Worldbuilding', test: (c) => /world/i.test(c) },
-  { label: 'Image & concept', test: (c) => /image|concept/i.test(c) },
-  { label: 'Film & video', test: (c) => /film|video/i.test(c) },
+const pad = (n) => String(n).padStart(2, '0');
+
+const GROUPS = [
+  { id: 'ai-work', name: 'AI work', test: (p) => p.group !== '3D' && !/\bAR\b/.test(p.category) },
+  { id: 'ar', name: 'AR', test: (p) => /\bAR\b/.test(p.category) },
+  { id: '3d', name: '3D', test: (p) => p.group === '3D' },
 ];
 
+const SECTIONS = GROUPS.map((g) => ({
+  ...g,
+  items: projects.map((p, i) => ({ p, i })).filter(({ p }) => g.test(p)),
+})).filter((g) => g.items.length);
+
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (window.__lenis) window.__lenis.scrollTo(el, { offset: -110 });
+  else el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 export default function Work() {
-  const [active, setActive] = useState('All');
+  const [activeGroup, setActiveGroup] = useState(SECTIONS[0]?.id);
+  const [activeItem, setActiveItem] = useState(SECTIONS[0]?.items[0]?.p.slug);
 
   useEffect(() => {
-    document.title = 'Work Archive & AI Case Studies | Manas Upadhyay (manasxz)';
+    document.title = 'Work | Manas Upadhyay (manasxz)';
   }, []);
+  useReveal();
 
-  const counts = useMemo(
-    () => Object.fromEntries(FILTERS.map((f) => [f.label, projects.filter((p) => f.test(p.category)).length])),
-    []
-  );
-  const filter = FILTERS.find((f) => f.label === active);
-  const visible = projects
-    .map((p, i) => ({ p, i }))
-    .filter(({ p }) => filter.test(p.category));
-
-  useReveal(active);
+  // Whatever crosses the middle band of the screen is "current"
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          setActiveItem(e.target.dataset.slug);
+          setActiveGroup(e.target.dataset.group);
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px' }
+    );
+    document.querySelectorAll('[data-slug]').forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
     <div className="w-full bg-void-black text-bone-white min-h-screen">
       <PageHeader
         label="Work"
-        aside={<span className="tabular-nums">{String(projects.length).padStart(2, '0')} projects</span>}
+        aside={<span className="tabular-nums">{pad(projects.length)} projects</span>}
         title={<>The <span className="t-serif">archive</span></>}
-        lead="AI cinematic filmmaking, concept art and 3D visual design."
       />
 
-      <div className="shell">
-        {/* Filters */}
-        <div
-          role="toolbar"
-          aria-label="Filter projects"
-          className="flex gap-2 overflow-x-auto no-scrollbar -mx-[var(--gutter)] px-[var(--gutter)] pb-6 mb-[var(--col-gap)] rule-b"
-        >
-          {FILTERS.map((f) => {
-            const on = active === f.label;
-            return (
-              <button
-                key={f.label}
-                type="button"
-                onClick={() => setActive(f.label)}
-                aria-pressed={on}
-                disabled={!counts[f.label]}
-                className={`shrink-0 inline-flex items-center gap-2 h-10 px-4 t-label border transition-colors duration-500 cursor-pointer disabled:opacity-30 disabled:cursor-default ${
-                  on
-                    ? 'bg-bone-white text-void-black border-bone-white'
-                    : 'bg-transparent text-fog-light border-bone-white/20 hover:border-bone-white hover:text-bone-white'
-                }`}
-              >
-                {f.label}
-                <span className={`tabular-nums ${on ? 'text-void-black/50' : 'text-steel-mid'}`}>{counts[f.label]}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-[var(--col-gap)] pb-8">
-          {visible.map(({ p, i }) => (
-            <div key={p.slug} className="reveal">
-              <ProjectCard project={p} index={i} aspect="aspect-[4/5] lg:aspect-[4/3]" />
-              <p className="t-body text-fog-light mt-4 mb-0 line-clamp-2 max-w-[56ch]">{p.description}</p>
-            </div>
+      {/* Phones: sticky group bar */}
+      <nav
+        aria-label="Work sections"
+        className="lg:hidden sticky top-16 z-30 bg-void-black/90 rule-b"
+      >
+        <div className="shell flex gap-6">
+          {SECTIONS.map((g) => (
+            <button
+              key={g.id}
+              type="button"
+              onClick={() => scrollToId(g.id)}
+              aria-current={activeGroup === g.id ? 'true' : undefined}
+              className={`inline-flex items-center gap-2 h-12 t-label border-b transition-colors duration-500 cursor-pointer bg-transparent ${
+                activeGroup === g.id ? 'text-bone-white border-bone-white' : 'text-steel-mid border-transparent'
+              }`}
+            >
+              {g.name}
+              <span className="tabular-nums text-steel-mid">{pad(g.items.length)}</span>
+            </button>
           ))}
+        </div>
+      </nav>
+
+      <div className="shell pt-[var(--col-gap)] lg:pt-0">
+        <div className="grid-12">
+          {/* Desktop: sticky index */}
+          <aside className="hidden lg:block lg:col-span-3">
+            <nav aria-label="Work index" className="sticky top-28 rule-t pt-4">
+              {SECTIONS.map((g) => (
+                <div key={g.id} className="mb-8">
+                  <button
+                    type="button"
+                    onClick={() => scrollToId(g.id)}
+                    className={`block t-h3 text-left bg-transparent border-0 p-0 cursor-pointer transition-colors duration-500 ${
+                      activeGroup === g.id ? 'text-bone-white' : 'text-steel-mid hover:text-fog-light'
+                    }`}
+                  >
+                    {g.name}
+                  </button>
+                  <ul className="list-none m-0 mt-3 p-0">
+                    {g.items.map(({ p, i }) => {
+                      const on = activeItem === p.slug;
+                      return (
+                        <li key={p.slug}>
+                          <button
+                            type="button"
+                            onClick={() => scrollToId(`work-${p.slug}`)}
+                            className={`flex items-baseline gap-3 min-h-9 w-full text-left bg-transparent border-0 p-0 cursor-pointer t-label transition-colors duration-500 ${
+                              on ? 'text-bone-white' : 'text-steel-mid hover:text-fog-light'
+                            }`}
+                          >
+                            <span className="tabular-nums w-6">{pad(i + 1)}</span>
+                            <span className="truncate">{p.title}</span>
+                            <span
+                              aria-hidden="true"
+                              className={`ml-auto h-px bg-bone-white transition-all duration-700 ${on ? 'w-6' : 'w-0'}`}
+                            />
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </nav>
+          </aside>
+
+          {/* Projects */}
+          <div className="col-span-4 lg:col-start-4 lg:col-span-9 space-y-[var(--section-y)] pb-8">
+            {SECTIONS.map((g) => (
+              <section key={g.id} id={g.id} aria-label={g.name}>
+                <div className="rule-t pt-4 mb-[var(--col-gap)] flex justify-between t-label text-steel-mid">
+                  <span className="text-bone-white">{g.name}</span>
+                  <span className="tabular-nums">{pad(g.items.length)}</span>
+                </div>
+                <div className="space-y-[var(--col-gap)]">
+                  {g.items.map(({ p, i }) => (
+                    <div key={p.slug} id={`work-${p.slug}`} data-slug={p.slug} data-group={g.id} className="reveal">
+                      <ProjectCard project={p} index={i} aspect="aspect-[4/5] sm:aspect-[16/10]" size="lg" />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
         </div>
       </div>
 

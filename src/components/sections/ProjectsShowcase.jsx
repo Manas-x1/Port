@@ -8,7 +8,7 @@ import SectionHeader from '../ui/SectionHeader';
 import ProjectCard from '../project/ProjectCard';
 import { projects } from '../../data/projects';
 
-const FEATURED = projects.slice(0, 5);
+const FEATURED = projects.slice(0, 4);
 
 export default function ProjectsShowcase() {
   const [lead, ...rest] = FEATURED;
@@ -27,7 +27,7 @@ export default function ProjectsShowcase() {
           <ProjectCard project={lead} index={0} size="lg" aspect="aspect-[4/5] sm:aspect-[16/10] lg:aspect-[21/9]" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[var(--col-gap)] gap-y-[var(--col-gap)] mt-[var(--col-gap)]">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-[var(--col-gap)] gap-y-[var(--col-gap)] mt-[var(--col-gap)]">
           {rest.map((project, i) => (
             <div key={project.slug} className="reveal">
               <ProjectCard project={project} index={i + 1} />

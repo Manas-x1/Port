@@ -33,26 +33,32 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://manasxz.qzz.io/project/metroid-sci-fi</loc>
+    <loc>https://manasxz.qzz.io/project/ramayan</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://manasxz.qzz.io/project/neural-frames</loc>
+    <loc>https://manasxz.qzz.io/project/hanuman-chalisa-ar-book</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://manasxz.qzz.io/project/synthetic-visions</loc>
-    <lastmod>2026-08-29</lastmod>
+    <loc>https://manasxz.qzz.io/project/motion-graphics</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://manasxz.qzz.io/project/analog-shift</loc>
-    <lastmod>2026-08-29</lastmod>
+    <loc>https://manasxz.qzz.io/project/stylized-river-generator</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://manasxz.qzz.io/project/procedural-cloud-generator</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -14,7 +14,7 @@ export default function ProjectDetail() {
   const nextProject = projects.length > 1 ? projects[(index + 1) % projects.length] : null;
 
   useEffect(() => {
-    if (project) document.title = `${project.title} — AI Case Study | Manas Upadhyay (manasxz)`;
+    if (project) document.title = `${project.title} — Case Study | Manas Upadhyay (manasxz)`;
   }, [project]);
 
   if (!project) return <NotFound label="Project not found" detail={`There is no project called “${slug}”.`} />;

@@ -18,6 +18,7 @@ import { projects } from '../../data/projects';
 import Footer from '../layout/Footer';
 import LoopVideo from '../ui/LoopVideo';
 import HeroSlideshow from './HeroSlideshow';
+import MediaPlaceholder from './MediaPlaceholder';
 import useFitText from '../../hooks/useFitText';
 import useInView from '../../hooks/useInView';
 import useReveal from '../../hooks/useReveal';
@@ -86,6 +87,8 @@ function HeroMedia({ project }) {
     <div ref={ref} className="absolute inset-0">
       {slideshow ? (
         <HeroSlideshow clips={project.clips} active={inView} />
+      ) : !project.thumbnail ? (
+        <MediaPlaceholder label="" />
       ) : (
         <motion.img
           src={project.thumbnail}
@@ -283,6 +286,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
             <p className="reveal col-span-4 lg:col-span-7 m-0 t-lead text-bone-white" style={{ fontSize: 'clamp(20px, 2vw, 28px)' }}>
               {project.description}
             </p>
+            {project.bullets?.length > 0 && (
             <div className="reveal col-span-4 lg:col-start-9 lg:col-span-4">
               <h2 className="t-label text-steel-mid m-0 mb-4">Scope</h2>
               <ol className="list-none m-0 p-0">
@@ -294,14 +298,17 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
                 ))}
               </ol>
             </div>
+            )}
           </div>
 
-          <div className="reveal mt-[var(--stack)] rule-t rule-b py-5 flex flex-wrap gap-x-6 gap-y-2 t-label">
-            <span className="text-steel-mid">Tools</span>
-            {project.skills.map((s) => (
-              <span key={s} className="text-bone-white">{s}</span>
-            ))}
-          </div>
+          {project.skills?.length > 0 && (
+            <div className="reveal mt-[var(--stack)] rule-t rule-b py-5 flex flex-wrap gap-x-6 gap-y-2 t-label">
+              <span className="text-steel-mid">Tools</span>
+              {project.skills.map((s) => (
+                <span key={s} className="text-bone-white">{s}</span>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -365,7 +372,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
                   project.studio && ['Studio', project.studio],
                   project.client && ['Made for', project.client],
                   project.role && ['My role', project.role],
-                  ['Tools', project.skills.join(', ')],
+                  project.skills?.length > 0 && ['Tools', project.skills.join(', ')],
                 ]
                   .filter(Boolean)
                   .map(([k, v]) => (
@@ -391,7 +398,11 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
         <section aria-label="Next project">
           <Link to={`/project/${nextProject.slug}`} className="group block relative overflow-hidden">
             <div className="frame h-[70svh] min-h-[420px]">
-              <img src={nextProject.thumbnail} alt="" loading="lazy" className="opacity-50" />
+              {nextProject.thumbnail ? (
+                <img src={nextProject.thumbnail} alt="" loading="lazy" className="opacity-50" />
+              ) : (
+                <MediaPlaceholder label="" />
+              )}
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-void-black via-void-black/30 to-void-black" />
             <div className="absolute inset-0 flex flex-col justify-between">
