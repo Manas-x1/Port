@@ -8,6 +8,7 @@
  *               or one wide frame + two-up                             (project.images)
  *   Videos:     muted shots that run only while on screen              (project.clips)
  *   Film:       poster that loads the YouTube player only when tapped  (project.videoUrl)
+ *   Credits:    studio credit and ownership notice                 (project.rights)
  *   Next:       the next project as its own title card
  */
 import React, { useState } from 'react';
@@ -220,8 +221,9 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
   const meta = [
     { label: 'Category', value: project.category, wide: true },
     project.client && { label: 'Made for', value: project.client },
+    project.studio && { label: 'Studio', value: project.studio },
     project.role && { label: 'Role', value: project.role, wide: true },
-    { label: 'Project', value: `${pad(index + 1)} / ${pad(projects.length)}` },
+    { label: 'Project', value: `${pad(index + 1)} / ${pad(projects.length)}`, hidePhone: true },
   ].filter(Boolean);
 
   return (
@@ -229,7 +231,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
       {/* ── Title card ── */}
       <header className="relative w-full h-[92svh] min-h-[560px] flex flex-col justify-end overflow-hidden">
         <HeroMedia project={project} />
-        <div className="absolute inset-0 bg-gradient-to-t from-void-black via-void-black/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-void-black from-10% via-void-black/70 via-50% to-void-black/10" />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-void-black/70 to-transparent" />
 
         <div className="shell relative z-10 pb-16 sm:pb-20">
@@ -261,9 +263,9 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
                 {project.note}
               </p>
             )}
-            <dl className={`col-span-4 ${project.note ? 'lg:col-start-7 lg:col-span-6' : 'lg:col-span-12'} m-0 rule-t pt-5 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5`}>
+            <dl className={`col-span-4 ${project.note ? 'lg:col-start-7 lg:col-span-6' : 'lg:col-span-12'} m-0 rule-t pt-5 grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-5`}>
               {meta.map((m) => (
-                <div key={m.label}>
+                <div key={m.label} className={m.hidePhone ? 'hidden sm:block' : ''}>
                   <dt className="t-label text-steel-mid mb-2">{m.label}</dt>
                   <dd className="m-0 font-display text-[16px] sm:text-[17px] leading-snug text-bone-white tabular-nums">{m.value}</dd>
                 </div>
@@ -347,6 +349,38 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
             <Label index={next()}>Film</Label>
             <div className="reveal">
               <FilmPoster project={project} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Credits & rights ── */}
+      {project.rights && (
+        <section className="section pt-0">
+          <div className="shell">
+            <Label index={next()}>Credits</Label>
+            <div className="grid-12 gap-y-10">
+              <dl className="col-span-4 lg:col-span-5 m-0">
+                {[
+                  project.studio && ['Studio', project.studio],
+                  project.client && ['Made for', project.client],
+                  project.role && ['My role', project.role],
+                  ['Tools', project.skills.join(', ')],
+                ]
+                  .filter(Boolean)
+                  .map(([k, v]) => (
+                    <div key={k} className="rule-t py-4 grid grid-cols-[7rem_1fr] gap-4">
+                      <dt className="t-label text-steel-mid pt-1">{k}</dt>
+                      <dd className="m-0 font-display text-[17px] leading-snug text-bone-white">{v}</dd>
+                    </div>
+                  ))}
+              </dl>
+              <div className="col-span-4 lg:col-start-7 lg:col-span-6">
+                <p className="t-body text-fog-light m-0 max-w-[60ch]">{project.rights}</p>
+                {project.studio && (
+                  <p className="t-label text-steel-mid mt-6 mb-0">© {project.studio}. All rights reserved.</p>
+                )}
+              </div>
             </div>
           </div>
         </section>

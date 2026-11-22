@@ -101,7 +101,7 @@ export default function HeroSlideshow({ clips, active = true }) {
   }, [active]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-void-black" aria-hidden="true">
+    <div className="absolute inset-0 overflow-hidden bg-void-black isolate" aria-hidden="true">
       {refs.map((ref, i) => (
         <video
           key={i}
