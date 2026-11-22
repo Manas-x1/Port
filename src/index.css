@@ -344,3 +344,10 @@ input:-webkit-autofill:focus {
   }
   * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 }
+
+/* ── Project title slideshow (HeroSlideshow.jsx) ───────────────────────────── */
+/* The incoming clip fades in on top; the outgoing one stays opaque underneath */
+@keyframes hs-in { from { opacity: 0; } to { opacity: 1; } }
+.hs-front { z-index: 2; animation: hs-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.hs-back  { z-index: 1; }
+@media (prefers-reduced-motion: reduce) { .hs-front { animation: none; } }

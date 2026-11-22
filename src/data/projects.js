@@ -7,6 +7,7 @@ export const projects = [
     slug: 'kaliya-daman',
     title: 'Kaliya Daman',
     category: 'AI Cinematic Episode',
+    series: 'Krishna Leela · Episode',
     client: 'ISKCON Delhi',
     role: 'Visual Designer / Animator',
     note: 'Premiered in the ISKCON Delhi theatre',

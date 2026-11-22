@@ -1,38 +1,65 @@
 /**
- * LoopVideo.jsx — short muted loop that only loads and plays while on screen.
- * Shows its poster until it's near the viewport, pauses when it leaves,
- * and never autoplays for visitors who ask for reduced motion.
+ * LoopVideo.jsx — muted shot that plays only when someone is looking at it.
+ *
+ *   Mouse/trackpad: plays while hovered (or focused), poster otherwise.
+ *   Touch screens:  plays while at least 60% of it is on screen.
+ *
+ * So at most one or two videos decode at a time instead of every clip in view,
+ * which is what kept scrolling smooth. Nothing downloads until first needed,
+ * and visitors who ask for reduced motion only ever see the poster.
  */
 import React, { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 
-export default function LoopVideo({ src, poster, className = '', label }) {
+const finePointer = () => typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+export default function LoopVideo({ src, poster, className = '', label, hoverTarget }) {
   const ref = useRef(null);
-  const [near, setNear] = useState(false); // latches: source stays attached once loaded
-  const [visible, setVisible] = useState(false);
+  const [armed, setArmed] = useState(false); // source attached (latches)
+  const [wantPlay, setWantPlay] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
     if (!el || reduceMotion) return;
+
+    if (finePointer()) {
+      const target = (hoverTarget && el.closest(hoverTarget)) || el;
+      const on = () => {
+        setArmed(true);
+        setWantPlay(true);
+      };
+      const off = () => setWantPlay(false);
+      target.addEventListener('pointerenter', on);
+      target.addEventListener('pointerleave', off);
+      target.addEventListener('focusin', on);
+      target.addEventListener('focusout', off);
+      return () => {
+        target.removeEventListener('pointerenter', on);
+        target.removeEventListener('pointerleave', off);
+        target.removeEventListener('focusin', on);
+        target.removeEventListener('focusout', off);
+      };
+    }
+
     const io = new IntersectionObserver(
       ([entry]) => {
-        setVisible(entry.isIntersecting);
-        if (entry.isIntersecting) setNear(true);
+        const visible = entry.intersectionRatio >= 0.6;
+        setWantPlay(visible);
+        if (visible) setArmed(true);
       },
-      { rootMargin: '150px 0px' }
+      { threshold: [0, 0.6] }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [reduceMotion]);
+  }, [reduceMotion, hoverTarget]);
 
-  // Play/pause after React has attached the source
   useEffect(() => {
     const el = ref.current;
-    if (!el || !near) return;
-    if (visible) el.play().catch(() => {});
+    if (!el || !armed) return;
+    if (wantPlay) el.play().catch(() => {});
     else el.pause();
-  }, [near, visible]);
+  }, [armed, wantPlay]);
 
   return (
     <video
@@ -44,7 +71,7 @@ export default function LoopVideo({ src, poster, className = '', label }) {
       playsInline
       preload="none"
       aria-label={label}
-      src={near ? src : undefined}
+      src={armed ? src : undefined}
     />
   );
 }

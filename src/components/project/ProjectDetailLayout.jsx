@@ -1,7 +1,8 @@
 /**
  * ProjectDetailLayout.jsx — case study.
  *
- *   Title card: cover, or a random crossfading slideshow of the clips  (project.heroSlideshow)
+ *   Title card: cover, or a random slideshow of the clips            (project.heroSlideshow)
+ *               title fitted to the full width, serif note, meta grid
  *   Overview:   description + numbered scope, tools line
  *   Stills:     grouped by part of the story                           (project.stills)
  *               or one wide frame + two-up                             (project.images)
@@ -9,13 +10,14 @@
  *   Film:       poster that loads the YouTube player only when tapped  (project.videoUrl)
  *   Next:       the next project as its own title card
  */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { projects } from '../../data/projects';
 import Footer from '../layout/Footer';
 import LoopVideo from '../ui/LoopVideo';
-import CinematicBackground from '../ui/CinematicBackground';
+import HeroSlideshow from './HeroSlideshow';
+import useFitText from '../../hooks/useFitText';
 import useInView from '../../hooks/useInView';
 import useReveal from '../../hooks/useReveal';
 
@@ -73,37 +75,81 @@ function PlayButton({ label, poster, onClick, text }) {
   );
 }
 
-// Title-card background: a random crossfading slideshow of the project's clips
-// (paused once the title card scrolls away), or the cover image
+// Title-card background: random slideshow of the clips (paused off screen), else the cover image
 function HeroMedia({ project }) {
   const reduceMotion = useReducedMotion();
   const [ref, inView] = useInView({ rootMargin: '0px', initial: true });
-  const srcs = useMemo(() => (project.clips || []).map((c) => c.src), [project.clips]);
-  const slideshow = project.heroSlideshow && srcs.length > 1 && !reduceMotion;
+  const slideshow = project.heroSlideshow && project.clips?.length > 1 && !reduceMotion;
 
   return (
     <div ref={ref} className="absolute inset-0">
-      <motion.img
-        src={project.thumbnail}
-        alt=""
-        fetchPriority="high"
-        initial={{ scale: 1.08, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 2.4, ease: EASE }}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      {slideshow && (
-        <CinematicBackground videos={srcs} paused={!inView} maxClipDuration={4} fadeDuration={900} tintOpacity={0} />
+      {slideshow ? (
+        <HeroSlideshow clips={project.clips} active={inView} />
+      ) : (
+        <motion.img
+          src={project.thumbnail}
+          alt=""
+          fetchPriority="high"
+          initial={{ scale: 1.08, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 2.4, ease: EASE }}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       )}
     </div>
   );
 }
 
-function Still({ src, caption, n, aspect = 'aspect-video' }) {
+// One line of the title, sized to span the full width of the shell
+function FitLine({ children, delay = 0 }) {
+  const { boxRef, textRef, fontSize } = useFitText();
+  return (
+    <span ref={boxRef} className="block w-full overflow-hidden pb-[0.04em]">
+      <motion.span
+        ref={textRef}
+        className="inline-block whitespace-nowrap"
+        style={{ fontSize: fontSize ? `${fontSize}px` : '14vw', marginRight: '-0.02em' }}
+        initial={{ y: '105%' }}
+        animate={{ y: '0%' }}
+        transition={{ duration: 1.4, delay, ease: EASE }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
+
+// Title card heading: one fitted line on tablets and up; one fitted line per word on phones
+function FitTitle({ title }) {
+  const words = title.split(' ');
+  return (
+    <h1 className="m-0 font-display font-extrabold uppercase text-bone-white leading-[0.82] tracking-[-0.045em]" aria-label={title}>
+      <span className="hidden sm:block" aria-hidden="true">
+        <FitLine delay={0.3}>{title}</FitLine>
+      </span>
+      <span className="sm:hidden" aria-hidden="true">
+        {words.map((w, i) => (
+          <FitLine key={i} delay={0.3 + i * 0.1}>{w}</FitLine>
+        ))}
+      </span>
+    </h1>
+  );
+}
+
+// Grid stills ship an 800px version (stills/sm/) next to the 1600px one; the browser picks
+function Still({ src, caption, n, aspect = 'aspect-video', small = false }) {
+  const sm = small && src.includes('/stills/') ? src.replace('/stills/', '/stills/sm/') : null;
   return (
     <figure className="reveal m-0">
       <div className={`frame ${aspect}`}>
-        <img src={src} alt={caption || ''} loading="lazy" decoding="async" />
+        <img
+          src={sm || src}
+          srcSet={sm ? `${sm} 800w, ${src} 1600w` : undefined}
+          sizes={sm ? '(min-width: 1024px) 31vw, (min-width: 640px) 47vw, 92vw' : undefined}
+          alt={caption || ''}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <figcaption className="t-label text-steel-mid mt-3 flex gap-3">
         <span className="tabular-nums text-bone-white">{pad(n)}</span>
@@ -137,7 +183,7 @@ function GroupedStills({ stills }) {
             {rest.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[var(--col-gap)] mt-[var(--col-gap)]">
                 {rest.map((s) => (
-                  <Still key={s.src} {...s} />
+                  <Still key={s.src} {...s} small />
                 ))}
               </div>
             )}
@@ -181,49 +227,49 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
   return (
     <div className="w-full bg-void-black text-bone-white">
       {/* ── Title card ── */}
-      <header className="relative w-full h-[88svh] min-h-[520px] flex flex-col justify-end overflow-hidden">
+      <header className="relative w-full h-[92svh] min-h-[560px] flex flex-col justify-end overflow-hidden">
         <HeroMedia project={project} />
-        <div className="absolute inset-0 bg-gradient-to-t from-void-black via-void-black/40 to-void-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-void-black via-void-black/55 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-void-black/70 to-transparent" />
 
-        <div className="shell relative z-10 pb-20 sm:pb-24">
-          <Link to="/work" className="inline-flex items-center gap-3 min-h-10 t-label text-fog-light hover:text-bone-white transition-colors mb-6">
-            <span aria-hidden="true">←</span> All work
-          </Link>
-          <h1 className="t-h1 m-0 text-bone-white max-w-[14ch]">
-            <span className="block overflow-hidden pb-[0.08em]">
-              <motion.span
-                className="block"
-                initial={{ y: '110%' }}
-                animate={{ y: '0%' }}
-                transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
-              >
-                {project.title}
-              </motion.span>
-            </span>
-          </h1>
-          {project.note && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.2, delay: 0.6 }}
-              className="t-serif text-fog-light text-xl sm:text-2xl mt-3 mb-0"
-            >
-              {project.note}
-            </motion.p>
-          )}
-          <motion.dl
+        <div className="shell relative z-10 pb-16 sm:pb-20">
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.8 }}
-            className="rule-t mt-8 pt-4 m-0 grid grid-cols-2 sm:flex sm:flex-wrap sm:gap-x-12 gap-x-4 gap-y-3 t-label"
+            transition={{ duration: 1.2, delay: 0.2 }}
+            className="flex items-center justify-between gap-6 mb-6 sm:mb-8"
           >
-            {meta.map((m) => (
-              <div key={m.label} className={m.wide ? 'col-span-2 sm:col-span-1' : ''}>
-                <dt className="text-steel-mid mb-1">{m.label}</dt>
-                <dd className="m-0 tabular-nums">{m.value}</dd>
-              </div>
-            ))}
-          </motion.dl>
+            <Link to="/work" className="inline-flex items-center gap-3 min-h-10 t-label text-fog-light hover:text-bone-white transition-colors">
+              <span aria-hidden="true">←</span> All work
+            </Link>
+            {project.series && <span className="t-label text-fog-light text-right">{project.series}</span>}
+          </motion.div>
+
+          <FitTitle title={project.title} />
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.8, ease: EASE }}
+            className="grid-12 gap-y-6 mt-6 sm:mt-8 items-end"
+          >
+            {project.note && (
+              <p
+                className="col-span-4 lg:col-span-5 m-0 t-serif text-bone-white/85 leading-[1.1]"
+                style={{ fontSize: 'clamp(22px, 2.3vw, 34px)' }}
+              >
+                {project.note}
+              </p>
+            )}
+            <dl className={`col-span-4 ${project.note ? 'lg:col-start-7 lg:col-span-6' : 'lg:col-span-12'} m-0 rule-t pt-5 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5`}>
+              {meta.map((m) => (
+                <div key={m.label}>
+                  <dt className="t-label text-steel-mid mb-2">{m.label}</dt>
+                  <dd className="m-0 font-display text-[16px] sm:text-[17px] leading-snug text-bone-white tabular-nums">{m.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </motion.div>
         </div>
       </header>
 
@@ -259,7 +305,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
 
       {/* ── Stills ── */}
       {(project.stills?.length > 0 || project.images?.length > 0) && (
-        <section className="section pt-0">
+        <section className="section pt-0 [content-visibility:auto] [contain-intrinsic-size:auto_2400px]">
           <div className="shell">
             <Label
               index={next()}
@@ -274,7 +320,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
 
       {/* ── Videos ── */}
       {project.clips?.length > 0 && (
-        <section className="section pt-0">
+        <section className="section pt-0 [content-visibility:auto] [contain-intrinsic-size:auto_2400px]">
           <div className="shell">
             <Label index={next()} aside={<span className="tabular-nums">{pad(project.clips.length)} shots</span>}>Videos</Label>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[var(--col-gap)]">
