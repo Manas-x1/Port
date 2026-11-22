@@ -24,7 +24,7 @@ export const projects = [
       'Shots built with Google Flow, Higgsfield and Hailuo AI, with Premiere Pro for the edit',
     ],
     skills: ['Google Flow', 'Higgsfield', 'Hailuo AI', 'Premiere Pro'],
-    thumbnail: '/projects/kaliya-daman/cover.webp',
+    thumbnail: '/projects/kaliya-daman/thumbnail.webp',
     // Stills from the episode, grouped by part of the story (a few per part, start to end)
     stills: [
       { section: 'Night on the Yamuna', src: '/projects/kaliya-daman/stills/01-river-at-night.webp', caption: 'The Yamuna at night' },
@@ -32,8 +32,8 @@ export const projects = [
       { section: 'Night on the Yamuna', src: '/projects/kaliya-daman/stills/monkey-on-the-bank.webp', caption: 'A watcher on the bank' },
       { section: 'Night on the Yamuna', src: '/projects/kaliya-daman/stills/monkey-on-the-branch.webp', caption: 'Above the rapids' },
       { section: 'Night on the Yamuna', src: '/projects/kaliya-daman/stills/03-kaliya-eye.webp', caption: 'Kaliya’s eye' },
-      { section: 'Vrindavan', src: '/projects/kaliya-daman/stills/04-village-morning.webp', caption: 'Morning in Vrindavan' },
       { section: 'Vrindavan', src: '/projects/kaliya-daman/stills/krishnas-eyes.webp', caption: 'Krishna’s eyes' },
+      { section: 'Vrindavan', src: '/projects/kaliya-daman/stills/04-village-morning.webp', caption: 'Morning in Vrindavan' },
       { section: 'Vrindavan', src: '/projects/kaliya-daman/stills/05-friends-running.webp', caption: 'Krishna and his friends' },
       { section: 'Vrindavan', src: '/projects/kaliya-daman/stills/krishna-and-the-mango.webp', caption: 'Krishna and the mango' },
       { section: 'Vrindavan', src: '/projects/kaliya-daman/stills/gopis-with-mangoes.webp', caption: 'Mangoes for Krishna' },
