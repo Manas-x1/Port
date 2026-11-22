@@ -16,6 +16,7 @@ export default function CinematicBackground({
   fadeDuration = 1000, // 1.0s smooth, gentle film dissolve
   blurAmount = '1.2px',
   tintOpacity = 0.52,
+  paused = false, // stop playback + reel cycling (e.g. when scrolled off-screen)
   onShotChange,
 }) {
   const [activeSlot, setActiveSlot] = useState('A');
@@ -29,6 +30,8 @@ export default function CinematicBackground({
   const isTransitioningRef = useRef(false);
   const fallbackTimerRef = useRef(null);
   const activeSlotRef = useRef('A');
+  const pausedRef = useRef(paused);
+  pausedRef.current = paused;
 
   // Keep activeSlotRef in sync with state
   useEffect(() => {
@@ -96,7 +99,7 @@ export default function CinematicBackground({
 
   // Trigger the crossfade to the other slot
   const triggerTransition = useCallback(() => {
-    if (isTransitioningRef.current || !videos || videos.length <= 1) return;
+    if (pausedRef.current || isTransitioningRef.current || !videos || videos.length <= 1) return;
     isTransitioningRef.current = true;
 
     if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
@@ -166,9 +169,21 @@ export default function CinematicBackground({
     }
   };
 
+  // Pause / resume the visible clip with the section's visibility
+  useEffect(() => {
+    const active = activeSlotRef.current === 'A' ? videoRefA.current : videoRefB.current;
+    if (paused) {
+      videoRefA.current?.pause();
+      videoRefB.current?.pause();
+    } else if (active && active.src) {
+      active.play().catch(() => {});
+    }
+  }, [paused]);
+
   // Safety fallback timer if a clip hangs or metadata is delayed
   useEffect(() => {
     if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
+    if (paused) return;
 
     fallbackTimerRef.current = setTimeout(() => {
       if (!isTransitioningRef.current) {
@@ -179,7 +194,7 @@ export default function CinematicBackground({
     return () => {
       if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
     };
-  }, [activeSlot, triggerTransition, maxClipDuration]);
+  }, [activeSlot, triggerTransition, maxClipDuration, paused]);
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
@@ -192,11 +207,15 @@ export default function CinematicBackground({
         preload="auto"
         onTimeUpdate={(e) => handleTimeUpdate('A', e)}
         onEnded={() => handleEnded('A')}
-        className="absolute inset-0 w-full h-full object-cover will-change-opacity transition-opacity"
+        className="absolute inset-0 w-full h-full object-cover transition-opacity"
         style={{
           opacity: activeSlot === 'A' ? 1 : 0,
           transitionDuration: `${fadeDuration}ms`,
           transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          // Hint to create a GPU compositing layer for the opacity transition.
+          // Falls back gracefully; the transition still works in software.
+          willChange: 'opacity',
+          contain: 'strict',
         }}
       />
 
@@ -205,24 +224,28 @@ export default function CinematicBackground({
         ref={videoRefB}
         muted
         playsInline
-        preload="auto"
+        preload="none"
         onTimeUpdate={(e) => handleTimeUpdate('B', e)}
         onEnded={() => handleEnded('B')}
-        className="absolute inset-0 w-full h-full object-cover will-change-opacity transition-opacity"
+        className="absolute inset-0 w-full h-full object-cover transition-opacity"
         style={{
           opacity: activeSlot === 'B' ? 1 : 0,
           transitionDuration: `${fadeDuration}ms`,
           transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          willChange: 'opacity',
+          contain: 'strict',
         }}
       />
 
-      {/* Middle Layer: Soft Scrim Tint & Delicate Backdrop Blur */}
+      {/* Middle Layer: Scrim Tint — NO backdropFilter.
+          backdropFilter: blur() over a full-screen element costs
+          ~2M pixel reads+writes per frame in software rendering.
+          A denser rgba background achieves the same readability goal
+          at zero filter overhead. */}
       <div
         className="absolute inset-0"
         style={{
-          backgroundColor: `rgba(8, 9, 13, ${tintOpacity})`,
-          backdropFilter: `blur(${blurAmount})`,
-          WebkitBackdropFilter: `blur(${blurAmount})`,
+          backgroundColor: `rgba(8, 9, 13, ${Math.min(tintOpacity + 0.1, 0.72)})`,
         }}
       />
 

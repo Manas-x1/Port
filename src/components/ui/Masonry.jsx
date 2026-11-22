@@ -130,7 +130,7 @@ export default function Masonry({
     const mappedGrid = items.map(child => {
       const col = colHeights.indexOf(Math.min(...colHeights));
       const x = columnWidth * col;
-      const height = child.height / 2;
+      const height = (child.height / 2) * (columns === 1 ? 0.7 : 1);
       const y = colHeights[col];
 
       colHeights[col] += height;
@@ -277,13 +277,13 @@ export default function Masonry({
                   background: 'linear-gradient(45deg, rgba(255,79,43,0.4), rgba(255,140,0,0.4))',
                   opacity: 0,
                   pointerEvents: 'none',
-                  borderRadius: '12px',
+                  borderRadius: '2px',
                 }}
               />
             )}
 
             {/* Top-right subtle arrow icon */}
-            <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-void-black/70 backdrop-blur-md border border-white/10 flex items-center justify-center text-steel-mid group-hover:text-ember-orange group-hover:border-ember-orange/50 transition-all opacity-0 group-hover:opacity-100 group-hover:scale-105">
+            <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-void-black/90 border border-white/10 flex items-center justify-center text-steel-mid group-hover:text-ember-orange group-hover:border-ember-orange/50 transition-all opacity-0 group-hover:opacity-100 group-hover:scale-105">
               <ArrowUpRight size={16} />
             </div>
 

@@ -159,14 +159,14 @@ export default function FluidGlassCard({
     <div
       className={`group relative rounded-2xl overflow-hidden transition-all duration-500 ${className}`}
       style={{
-        background: 'linear-gradient(135deg, rgba(22,22,28,0.78) 0%, rgba(14,14,18,0.88) 100%)',
+        background: 'linear-gradient(135deg, rgba(22,22,28,0.92) 0%, rgba(14,14,18,0.97) 100%)',
         border: '1px solid',
         borderColor: isInView ? 'rgba(255,79,43,0.38)' : 'rgba(255,255,255,0.08)',
         boxShadow: isInView
           ? '0 12px 36px -5px rgba(0,0,0,0.85), 0 0 24px -2px rgba(255,79,43,0.2)'
           : '0 8px 28px -5px rgba(0,0,0,0.7)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        // backdropFilter removed: card background is near-opaque + has its own
+        // WebGL canvas child; a second blur pass is redundant and costly.
         ...style,
       }}
     >

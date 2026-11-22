@@ -1,216 +1,153 @@
 /**
- * LoadingScreen.jsx — Initial entry loading screen (Silent & Clean)
- * 
- * Features:
- *   - Character letter scramble animation
- *   - Strict scroll locking while active
- *   - Click to continue unlock handler
+ * LoadingScreen.jsx — opening title card + route transition veil.
+ *
+ * First visit per session: a slow title card ("A portfolio by / Manas Upadhyay").
+ * Click, scroll, or Enter lets the visitor in; scroll is locked until then.
+ * Route changes: a short black veil with a thin rule drawing across.
  */
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
+const EASE = [0.16, 1, 0.3, 1];
 
-function ScrambleText({ text, start = false, delay = 0 }) {
-  const [displayText, setDisplayText] = useState('');
+function readEntered() {
+  try {
+    return sessionStorage.getItem('portfolio_entered') === 'true';
+  } catch {
+    return false;
+  }
+}
 
-  useEffect(() => {
-    if (!start) return;
-
-    let isMounted = true;
-    let iteration = 0;
-    let interval = null;
-    let timeoutId = null;
-
-    const run = () => {
-      interval = setInterval(() => {
-        if (!isMounted) return;
-
-        setDisplayText(
-          text
-            .split('')
-            .map((char, index) => {
-              if (index < iteration) return text[index];
-              if (char === ' ' || char === '-' || char === '—') return char;
-              return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
-            })
-            .join('')
-        );
-
-        if (iteration >= text.length) {
-          clearInterval(interval);
-        }
-
-        iteration += 1 / 3;
-      }, 35);
-    };
-
-    if (delay > 0) {
-      timeoutId = setTimeout(run, delay);
-    } else {
-      run();
-    }
-
-    return () => {
-      if (interval) clearInterval(interval);
-      if (timeoutId) clearTimeout(timeoutId);
-      isMounted = false;
-    };
-  }, [text, start, delay]);
-
-  return <span>{displayText}</span>;
+function Rise({ children, delay = 0, className = '' }) {
+  return (
+    <span className={`block overflow-hidden pb-[0.06em] ${className}`}>
+      <motion.span
+        className="block"
+        initial={{ y: '110%' }}
+        animate={{ y: '0%' }}
+        transition={{ duration: 1.4, delay, ease: EASE }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
 }
 
 export default function LoadingScreen() {
   const location = useLocation();
-
-  const [hasEntered, setHasEntered] = useState(() => {
-    return sessionStorage.getItem('portfolio_entered') === 'true';
-  });
+  const [hasEntered, setHasEntered] = useState(readEntered);
   const [isInitialLoading, setIsInitialLoading] = useState(!hasEntered);
-  const [scrambleStart, setScrambleStart] = useState(false);
-
   const [isTransitionLoading, setIsTransitionLoading] = useState(false);
   const isFirstEntry = useRef(true);
+  const enterRef = useRef(null);
 
-  useEffect(() => {
-    if (!hasEntered) {
-      const timer = setTimeout(() => setScrambleStart(true), 400);
-      return () => clearTimeout(timer);
-    }
-  }, [hasEntered]);
+  const handleEnterSite = () => {
+    setHasEntered(true);
+    try { sessionStorage.setItem('portfolio_entered', 'true'); } catch { /* storage blocked */ }
+    setIsInitialLoading(false);
+  };
+  enterRef.current = handleEnterSite;
 
-  /* Strict scroll locking while initial loading screen is active */
+  // Lock scroll while the title card is up; a deliberate scroll or key lets the visitor in
   useEffect(() => {
     if (!isInitialLoading) return;
-
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
+    window.__lenis?.stop();
 
-    const preventScroll = (e) => {
+    const block = (e) => {
       e.preventDefault();
-      e.stopPropagation();
-      return false;
+      if (e.type === 'wheel' && Math.abs(e.deltaY) > 20) enterRef.current?.();
+    };
+    let touchY = null;
+    const onTouchStart = (e) => { touchY = e.touches[0].clientY; };
+    const onTouchMove = (e) => {
+      e.preventDefault();
+      if (touchY !== null && Math.abs(touchY - e.touches[0].clientY) > 40) enterRef.current?.();
+    };
+    const onKey = (e) => {
+      if (['Space', 'PageUp', 'PageDown', 'End', 'Home', 'ArrowUp', 'ArrowDown'].includes(e.code)) e.preventDefault();
+      if (['Enter', 'Space', 'ArrowDown', 'PageDown'].includes(e.code)) enterRef.current?.();
     };
 
-    const keysToBlock = ['Space', 'PageUp', 'PageDown', 'End', 'Home', 'ArrowUp', 'ArrowDown'];
-    const preventKeyScroll = (e) => {
-      if (keysToBlock.includes(e.code)) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener('wheel', preventScroll, { passive: false });
-    window.addEventListener('touchmove', preventScroll, { passive: false });
-    window.addEventListener('keydown', preventKeyScroll, { passive: false });
-
+    window.addEventListener('wheel', block, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('keydown', onKey, { passive: false });
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
-      window.removeEventListener('wheel', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-      window.removeEventListener('keydown', preventKeyScroll);
+      window.__lenis?.start();
+      window.removeEventListener('wheel', block);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('keydown', onKey);
     };
   }, [isInitialLoading]);
 
+  // Route transition veil
   useEffect(() => {
     if (!hasEntered) return;
-
     if (isFirstEntry.current) {
       isFirstEntry.current = false;
       return;
     }
-
     setIsTransitionLoading(true);
-    document.body.style.overflow = 'hidden';
     window.scrollTo(0, 0);
-
     const timer = setTimeout(() => {
       setIsTransitionLoading(false);
-      document.body.style.overflow = '';
       if (window.__lenis) {
         window.__lenis.resize();
-        window.__lenis.scrollTo(0, { immediate: true });
+        if (!window.location.hash) window.__lenis.scrollTo(0, { immediate: true });
       }
     }, 450);
-
-    return () => {
-      clearTimeout(timer);
-      document.body.style.overflow = '';
-    };
+    return () => clearTimeout(timer);
   }, [location.pathname, hasEntered]);
-
-  const handleEnterSite = () => {
-    setHasEntered(true);
-    sessionStorage.setItem('portfolio_entered', 'true');
-    setIsInitialLoading(false);
-  };
 
   return (
     <>
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {isInitialLoading && (
           <motion.div
             key="entry-loader"
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }}
+            exit={{ opacity: 0, transition: { duration: 1, ease: EASE } }}
             onClick={handleEnterSite}
-            className="fixed inset-0 z-[9999] bg-void-black flex flex-col items-center justify-center p-8 select-none cursor-pointer"
+            onKeyDown={(e) => e.key === 'Enter' && handleEnterSite()}
+            role="button"
+            tabIndex={0}
+            aria-label="Enter the portfolio"
+            className="fixed inset-0 z-[9999] bg-void-black select-none cursor-pointer grain"
           >
-            <div
-              className="absolute inset-0 pointer-events-none opacity-[0.04]"
-              style={{
-                backgroundImage: 'radial-gradient(circle, rgba(245, 245, 245, 0.8) 1px, transparent 1px)',
-                backgroundSize: '40px 40px',
-              }}
-            />
+            <div className="shell h-full flex flex-col justify-between pt-6 sm:pt-8 pb-20">
+              <div className="flex justify-between t-label text-steel-mid">
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.2 }}>
+                  Portfolio
+                </motion.span>
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.2 }}>
+                  © 2026
+                </motion.span>
+              </div>
 
-            <div className="w-full max-w-4xl relative z-10 flex flex-col items-center justify-center px-4">
-              <div className="flex flex-col items-center w-full space-y-6">
-                <div
-                  role="banner"
-                  className="text-center select-none uppercase"
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(32px, 5vw, 54px)',
-                    fontWeight: 300,
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1.1,
-                    color: 'var(--color-bone-white)',
-                  }}
-                >
-                  <ScrambleText text="Welcome to the portfolio" start={scrambleStart} />
-                </div>
-
-                <div
-                  className="select-none self-center md:self-end md:mr-16 min-h-[30px] opacity-80"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 'clamp(14px, 2vw, 18px)',
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-steel-mid)',
-                  }}
-                >
-                  <ScrambleText text="— manas upadhyay" start={scrambleStart} delay={1200} />
-                </div>
+              <div>
+                <Rise delay={0.3} className="t-serif text-fog-light text-3xl sm:text-5xl mb-2 sm:mb-3">
+                  A portfolio by
+                </Rise>
+                <h1 className="m-0 t-h1 text-bone-white" style={{ fontSize: 'clamp(52px, 15vw, 200px)' }}>
+                  <Rise delay={0.45}>Manas</Rise>
+                  <Rise delay={0.6}>Upadhyay</Rise>
+                </h1>
               </div>
 
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 0.4, y: 0 }}
-                transition={{ delay: 2.5, duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
-                className="mt-16"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '11px',
-                  letterSpacing: '0.3em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-steel-mid)',
-                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.2, delay: 1.6 }}
+                className="rule-t pt-4 flex justify-between gap-4 t-label text-fog-light"
               >
-                click to continue
+                <span>Tap, scroll or press Enter</span>
+                <span className="text-ember-orange" aria-hidden="true">↓</span>
               </motion.div>
             </div>
           </motion.div>
@@ -225,38 +162,16 @@ export default function LoadingScreen() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[9998] bg-void-black flex flex-col items-center justify-center pointer-events-auto"
+            className="fixed inset-0 z-[9998] bg-void-black flex items-center justify-center"
+            aria-hidden="true"
           >
-            <div
-              className="absolute inset-0 pointer-events-none opacity-[0.03]"
-              style={{
-                backgroundImage: 'radial-gradient(circle, rgba(245, 245, 245, 0.6) 1px, transparent 1px)',
-                backgroundSize: '32px 32px',
-              }}
-            />
-
-            <div className="relative z-10 flex flex-col items-center space-y-6">
-              <span
-                className="animate-pulse"
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '11px',
-                  letterSpacing: '0.4em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-steel-mid)',
-                }}
-              >
-                Loading Context
-              </span>
-
-              <div className="w-48 h-[1px] bg-graphite-border overflow-hidden relative">
-                <motion.div
-                  initial={{ left: '-100%' }}
-                  animate={{ left: '100%' }}
-                  transition={{ duration: 1.2, ease: 'easeInOut', repeat: 0 }}
-                  className="absolute top-0 bottom-0 w-24 bg-ember-orange"
-                />
-              </div>
+            <div className="w-40 h-px bg-graphite-border overflow-hidden relative">
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.45, ease: EASE }}
+                className="absolute inset-0 bg-bone-white origin-left"
+              />
             </div>
           </motion.div>
         )}

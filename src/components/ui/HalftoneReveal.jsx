@@ -213,9 +213,12 @@ const HalftoneReveal = ({
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      // Cap DPR at 1.0 \u2014 halves linear dimensions giving 4x fewer pixels to
+      // software-rasterise when hardware acceleration is unavailable.
+      dpr: Math.min(window.devicePixelRatio || 1, 1.0),
       alpha: false,
-      antialias: true
+      antialias: false,
+      powerPreference: 'high-performance'
     });
     rendererRef.current = renderer;
     const gl = renderer.gl;

@@ -74,7 +74,7 @@ export default function ProjectFootnoteBar({ nextProject }) {
           </div>
 
           <div className="pt-6 mt-6 border-t border-graphite-border/60 font-mono text-[11px] uppercase tracking-widest text-steel-mid/60 text-center lg:text-left">
-            MANAS UPADHYAY // CREATIVE ARCHIVE
+            MANAS UPADHYAY — CREATIVE ARCHIVE
           </div>
         </div>
 

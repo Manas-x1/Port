@@ -1,59 +1,43 @@
 /**
- * ProjectsShowcase.jsx — Featured projects with React Bits GSAP Masonry layout
+ * ProjectsShowcase.jsx — Selected work, led by imagery.
+ * One wide feature, then a two-up grid; everything links to its case study.
  */
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../ui/SectionHeader';
-import Masonry from '../ui/Masonry';
+import ProjectCard from '../project/ProjectCard';
 import { projects } from '../../data/projects';
-import { ArrowUpRight } from 'lucide-react';
+
+const FEATURED = projects.slice(0, 5);
 
 export default function ProjectsShowcase() {
-  // Staggered heights for dynamic masonry rhythm
-  const heights = [780, 540, 840, 600, 720, 660];
-
-  const items = useMemo(() => {
-    return projects.map((project, idx) => ({
-      id: project.slug || `project-${idx}`,
-      img: project.thumbnail,
-      url: `/project/${project.slug}`,
-      height: heights[idx % heights.length],
-      title: project.title,
-      category: `${String(idx + 1).padStart(2, '0')} // ${project.category}`,
-    }));
-  }, []);
+  const [lead, ...rest] = FEATURED;
 
   return (
-    <section
-      className="w-full py-20 md:py-32 px-4 sm:px-6 md:px-10 snap-section bg-void-black relative z-10"
-      id="projects"
-    >
-      <div className="max-w-[1280px] mx-auto">
-        <SectionHeader title="Selected Work" number="02" />
+    <section id="projects" className="section bg-void-black">
+      <div className="shell">
+        <SectionHeader
+          index="02"
+          label="Selected work"
+          aside={<span className="tabular-nums">{String(projects.length).padStart(2, '0')} projects</span>}
+          title={<>Films, worlds <span className="t-serif">&amp;</span> frames</>}
+        />
 
-        {/* React Bits GSAP Masonry Grid */}
-        <div className="mt-8 md:mt-12">
-          <Masonry
-            items={items}
-            ease="power3.out"
-            duration={0.6}
-            stagger={0.05}
-            animateFrom="bottom"
-            scaleOnHover={true}
-            hoverScale={0.98}
-            blurToFocus={true}
-            colorShiftOnHover={false}
-          />
+        <div className="reveal">
+          <ProjectCard project={lead} index={0} size="lg" aspect="aspect-[4/5] sm:aspect-[16/10] lg:aspect-[21/9]" />
         </div>
 
-        {/* Link to full /work index */}
-        <div className="mt-16 text-center">
-          <Link
-            to="/work"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-carbon border border-graphite-border hover:border-ember-orange font-mono text-xs uppercase tracking-widest text-bone-white hover:text-ember-orange transition-all no-underline group rounded-lg"
-          >
-            <span>Explore Complete Work Archive ({projects.length} Projects)</span>
-            <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[var(--col-gap)] gap-y-[var(--col-gap)] mt-[var(--col-gap)]">
+          {rest.map((project, i) => (
+            <div key={project.slug} className="reveal">
+              <ProjectCard project={project} index={i + 1} />
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 sm:mt-16 flex justify-center">
+          <Link to="/work" className="btn btn-ghost w-full sm:w-auto">
+            All work <span className="text-steel-mid tabular-nums">({projects.length})</span> <span aria-hidden="true">→</span>
           </Link>
         </div>
       </div>

@@ -10,19 +10,35 @@
  * Shared layout: Navbar wraps all pages.
  * Lenis integration provides buttery smooth physics-based scrolling with instant route scroll reset.
  */
-import React, { useEffect, useRef } from 'react';
+import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
+import { MotionConfig } from 'framer-motion';
 import 'lenis/dist/lenis.css';
+import { detectHardwareAcceleration } from './utils/renderingMode';
+
+// Detect GPU availability once at module load — synchronous, cached.
+// Components read this to decide whether to use WebGL or static fallbacks.
+const HW_ACCEL = detectHardwareAcceleration();
+
+// Expose globally so any component can read without prop-drilling
+if (typeof window !== 'undefined') {
+  window.__hwAccel = HW_ACCEL;
+  // Data attribute so CSS can react: [data-hw="0"] selectors
+  document.documentElement.setAttribute('data-hw', HW_ACCEL ? '1' : '0');
+}
 
 import Navbar from './components/layout/Navbar';
 import LoadingScreen from './components/ui/LoadingScreen';
 import GradualBlur from './components/ui/GradualBlur';
 import Home from './pages/Home';
-import About from './pages/About';
-import Work from './pages/Work';
-import ProjectDetail from './pages/ProjectDetail';
-import NotFound from './pages/NotFound';
+// Secondary routes are split out so the home page doesn't ship their code up front
+const About = lazy(() => import('./pages/About'));
+const Work = lazy(() => import('./pages/Work'));
+const Skills = lazy(() => import('./pages/Skills'));
+const Contact = lazy(() => import('./pages/Contact'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 /* Global ScrollToTop helper for Lenis & Window scroll */
 function ScrollToTop({ lenisRef }) {
@@ -58,13 +74,21 @@ function ScrollToTop({ lenisRef }) {
 function App() {
   const lenisRef = useRef(null);
 
-  /* Initialize Lenis smooth scroll */
+  /* Initialize Lenis smooth scroll — ONLY when hardware acceleration is available.
+     In software rendering mode, Lenis's rAF loop competes with LightRays
+     on the single CPU thread, contributing to the FPS collapse. Native browser
+     scroll is perfectly smooth and costs zero JS when GPU is off. */
   useEffect(() => {
+    if (!HW_ACCEL) return; // Skip Lenis entirely on software renderers
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const lenis = new Lenis({
-      duration: 2.0,
+      // 2s with a 0.7 wheel multiplier felt like dragging through syrup; this keeps
+      // the glide but lands where the reader aimed
+      duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 0.7,
+      wheelMultiplier: 1,
       touchMultiplier: 1.2,
       infinite: false,
     });
@@ -86,6 +110,7 @@ function App() {
   }, []);
 
   return (
+    <MotionConfig reducedMotion="user">
     <Router>
       <ScrollToTop lenisRef={lenisRef} />
 
@@ -97,16 +122,20 @@ function App() {
 
       {/* Page router */}
       <main className="w-full min-h-screen bg-void-black text-bone-white">
+        <Suspense fallback={<div className="min-h-screen bg-void-black" />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/work" element={<Work />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/project/:slug" element={<ProjectDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
       </main>
 
-      {/* Global Gradual Blur at the top edge of the viewport (replacing the solid top bar) */}
+      {/* Global Gradual Blur at the top edge of the viewport */}
       <GradualBlur
         target="page"
         position="top"
@@ -117,9 +146,11 @@ function App() {
         exponential={true}
         opacity={0.95}
         zIndex={35}
+        useGradientFallback={true}
+        fallbackColor="#000000"
       />
 
-      {/* Global Gradual Blur at the bottom edge of the viewport across the entire website */}
+      {/* Global Gradual Blur at the bottom edge of the viewport */}
       <GradualBlur
         target="page"
         position="bottom"
@@ -130,8 +161,11 @@ function App() {
         exponential={true}
         opacity={0.9}
         zIndex={35}
+        useGradientFallback={true}
+        fallbackColor="#000000"
       />
     </Router>
+    </MotionConfig>
   );
 }
 

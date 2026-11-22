@@ -207,7 +207,7 @@ export default function ElasticUpNext({ nextProject }) {
             <span>Portfolio Index</span>
           </Link>
 
-          <span className="text-[11px] text-steel-mid/60">MANAS UPADHYAY // CREATIVE ARCHIVE</span>
+          <span className="text-[11px] text-steel-mid/60">MANAS UPADHYAY — CREATIVE ARCHIVE</span>
 
           <Link
             to="/work"

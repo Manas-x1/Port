@@ -81,7 +81,10 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
         lastTimestampRef.current = timestamp;
       }
 
-      const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
+      const deltaTime = Math.min(
+        Math.max(0, timestamp - lastTimestampRef.current) / 1000,
+        1 / 20 // cap at 50ms — prevents large scroll jumps on slow/software-rendered frames
+      );
       lastTimestampRef.current = timestamp;
 
       const target = isHovered && hoverSpeed !== undefined ? hoverSpeed : targetVelocity;

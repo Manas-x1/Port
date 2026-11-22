@@ -133,6 +133,13 @@ const GradualBlur = (props) => {
       isHovered && config.hoverIntensity ? config.strength * config.hoverIntensity : config.strength;
 
     const curveFunc = CURVE_FUNCTIONS[config.curve] || CURVE_FUNCTIONS.linear;
+    const direction = getGradientDirection(config.position);
+
+    // Performance: use a pure CSS gradient instead of backdrop-filter:blur when
+    // useGradientFallback is set. This eliminates all filter compositing cost —
+    // critical for browsers running without hardware acceleration.
+    const useGradientFallback = config.useGradientFallback;
+    const fallbackColor = config.fallbackColor || 'rgb(0,0,0)';
 
     for (let i = 1; i <= config.divCount; i++) {
       let progress = i / config.divCount;
@@ -154,21 +161,35 @@ const GradualBlur = (props) => {
       if (p3 <= 100) gradient += `, black ${p3}%`;
       if (p4 <= 100) gradient += `, transparent ${p4}%`;
 
-      const direction = getGradientDirection(config.position);
+      let divStyle;
 
-      const divStyle = {
-        position: 'absolute',
-        inset: '0',
-        maskImage: `linear-gradient(${direction}, ${gradient})`,
-        WebkitMaskImage: `linear-gradient(${direction}, ${gradient})`,
-        backdropFilter: `blur(${blurValue.toFixed(3)}rem)`,
-        WebkitBackdropFilter: `blur(${blurValue.toFixed(3)}rem)`,
-        opacity: config.opacity,
-        transition:
-          config.animated && config.animated !== 'scroll'
-            ? `backdrop-filter ${config.duration} ${config.easing}`
-            : undefined
-      };
+      if (useGradientFallback) {
+        // Gradient-only fallback: paint a gradient from transparent to the
+        // background color at increasing opacity per slice. Works with any CSS
+        // color format because we only use `opacity` on the div, not string
+        // interpolation into the color itself.
+        const sliceOpacity = progress * config.opacity;
+        divStyle = {
+          position: 'absolute',
+          inset: '0',
+          background: `linear-gradient(${direction}, transparent 0%, ${fallbackColor} 100%)`,
+          opacity: sliceOpacity,
+        };
+      } else {
+        divStyle = {
+          position: 'absolute',
+          inset: '0',
+          maskImage: `linear-gradient(${direction}, ${gradient})`,
+          WebkitMaskImage: `linear-gradient(${direction}, ${gradient})`,
+          backdropFilter: `blur(${blurValue.toFixed(3)}rem)`,
+          WebkitBackdropFilter: `blur(${blurValue.toFixed(3)}rem)`,
+          opacity: config.opacity,
+          transition:
+            config.animated && config.animated !== 'scroll'
+              ? `backdrop-filter ${config.duration} ${config.easing}`
+              : undefined
+        };
+      }
 
       divs.push(<div key={i} style={divStyle} />);
     }

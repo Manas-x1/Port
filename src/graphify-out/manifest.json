@@ -1,0 +1,308 @@
+{
+  "App.jsx": {
+    "mtime": 1790170856.4293437,
+    "seen": 1794846523.8757062,
+    "ast_hash": "0d712436521237cb438b6bcf0ba22539",
+    "semantic_hash": ""
+  },
+  "components/layout/Footer.jsx": {
+    "mtime": 1788021345.67343,
+    "seen": 1794846523.8757172,
+    "ast_hash": "ff186287a3a85e2eec62a9c3d491569b",
+    "semantic_hash": ""
+  },
+  "components/layout/HoverRevealMenu.jsx": {
+    "mtime": 1788018670.4195,
+    "seen": 1794846523.8757222,
+    "ast_hash": "55ba61b72760cd35bdaa081441f8861e",
+    "semantic_hash": ""
+  },
+  "components/layout/Navbar.jsx": {
+    "mtime": 1789845600.2966611,
+    "seen": 1794846523.8757253,
+    "ast_hash": "6c646f802dd968e7f59843c189edbc2a",
+    "semantic_hash": ""
+  },
+  "components/project/ElasticUpNext.jsx": {
+    "mtime": 1787119739.648976,
+    "seen": 1794846523.875728,
+    "ast_hash": "d030f43c37bd2dbd9824247989db0bdb",
+    "semantic_hash": ""
+  },
+  "components/project/ProjectDetailLayout.jsx": {
+    "mtime": 1790169277.117695,
+    "seen": 1794846523.8757303,
+    "ast_hash": "5b30e7c82e87969bc4e1ddf9e50599b3",
+    "semantic_hash": ""
+  },
+  "components/project/ProjectFootnoteBar.jsx": {
+    "mtime": 1787127241.633368,
+    "seen": 1794846523.8757324,
+    "ast_hash": "520e951d5df7dd1159af89a43d20b907",
+    "semantic_hash": ""
+  },
+  "components/sections/AboutSection.jsx": {
+    "mtime": 1790169110.065816,
+    "seen": 1794846523.8757346,
+    "ast_hash": "eb2adbe3154026d046c255b3c01d2cdb",
+    "semantic_hash": ""
+  },
+  "components/sections/ContactSection.jsx": {
+    "mtime": 1788018655.511257,
+    "seen": 1794846523.8757367,
+    "ast_hash": "12bd83f102a5195f285ee54a6ef368e6",
+    "semantic_hash": ""
+  },
+  "components/sections/HeroSection.jsx": {
+    "mtime": 1790168838.1209297,
+    "seen": 1794846523.8757386,
+    "ast_hash": "c2473b5739a269f29c287b345a54456e",
+    "semantic_hash": ""
+  },
+  "components/sections/ProjectsShowcase.jsx": {
+    "mtime": 1789929756.4952857,
+    "seen": 1794846523.8757408,
+    "ast_hash": "db78f673bac4c24b9d6683630f5434f7",
+    "semantic_hash": ""
+  },
+  "components/sections/SkillsSection.jsx": {
+    "mtime": 1790169098.4973996,
+    "seen": 1794846523.875743,
+    "ast_hash": "2881d6c52b1009f12ba560773375e53b",
+    "semantic_hash": ""
+  },
+  "components/sections/StatementBand.jsx": {
+    "mtime": 1789919345.5872273,
+    "seen": 1794846523.875745,
+    "ast_hash": "20026fd7f654d14913d4fff5867c0423",
+    "semantic_hash": ""
+  },
+  "components/sections/TimelineSection.jsx": {
+    "mtime": 1789803866.6935012,
+    "seen": 1794846523.8757493,
+    "ast_hash": "7d68a19b0528e622e2d56fc2755eddad",
+    "semantic_hash": ""
+  },
+  "components/ui/AuroraBackground.jsx": {
+    "mtime": 1790168735.1456378,
+    "seen": 1794846523.8757544,
+    "ast_hash": "942fb41c902fafbab78726262036e007",
+    "semantic_hash": ""
+  },
+  "components/ui/CinematicBackground.jsx": {
+    "mtime": 1790168763.1919117,
+    "seen": 1794846523.8757586,
+    "ast_hash": "0f577fee3187640345a76a4b71c78220",
+    "semantic_hash": ""
+  },
+  "components/ui/Clock.jsx": {
+    "mtime": 1789843576.8892422,
+    "seen": 1794846523.8757637,
+    "ast_hash": "edc9ce7c342d1067ce8b6d48e6a7650d",
+    "semantic_hash": ""
+  },
+  "components/ui/ContactModal.jsx": {
+    "mtime": 1790169214.9395623,
+    "seen": 1794846523.8757672,
+    "ast_hash": "b06db1bba3aaca15659d6b4124d076f5",
+    "semantic_hash": ""
+  },
+  "components/ui/FilledButton.jsx": {
+    "mtime": 1786956399.826202,
+    "seen": 1794846523.8757706,
+    "ast_hash": "ce9f9f1802d4fc9c86531b8b1a556185",
+    "semantic_hash": ""
+  },
+  "components/ui/FlipCard.jsx": {
+    "mtime": 1789926383.5099163,
+    "seen": 1794846523.8757734,
+    "ast_hash": "47b2a4111afa4cc82f35b3f8404369e8",
+    "semantic_hash": ""
+  },
+  "components/ui/FluidGlass.jsx": {
+    "mtime": 1790012704.203051,
+    "seen": 1794846523.8757756,
+    "ast_hash": "0010168fa49709f3c30075f0f3f8a023",
+    "semantic_hash": ""
+  },
+  "components/ui/FluidGlassCard.jsx": {
+    "mtime": 1790169252.9153018,
+    "seen": 1794846523.8757775,
+    "ast_hash": "4cbcb9f7dc69f988071f685df575f4b1",
+    "semantic_hash": ""
+  },
+  "components/ui/GhostButton.jsx": {
+    "mtime": 1786956406.4234004,
+    "seen": 1794846523.8757808,
+    "ast_hash": "9f315cb66025208364c0d04883f85914",
+    "semantic_hash": ""
+  },
+  "components/ui/GlassSurface.jsx": {
+    "mtime": 1790012704.208922,
+    "seen": 1794846523.875783,
+    "ast_hash": "ad937f687f9419c94780e6390266cf75",
+    "semantic_hash": ""
+  },
+  "components/ui/GradualBlur.jsx": {
+    "mtime": 1790168827.4946828,
+    "seen": 1794846523.8757849,
+    "ast_hash": "3bf7ac98e88d25b47190c361a769bed1",
+    "semantic_hash": ""
+  },
+  "components/ui/HalftoneReveal.jsx": {
+    "mtime": 1790169459.2346957,
+    "seen": 1794846523.875787,
+    "ast_hash": "9421cb30cad256920281f65c43531deb",
+    "semantic_hash": ""
+  },
+  "components/ui/Lanyard.jsx": {
+    "mtime": 1790169351.6215613,
+    "seen": 1794846523.8757892,
+    "ast_hash": "f137fb09904e90c87a72c71e17b3a9cf",
+    "semantic_hash": ""
+  },
+  "components/ui/LightRays.jsx": {
+    "mtime": 1790168695.0147386,
+    "seen": 1794846523.875791,
+    "ast_hash": "96dbf7a5aa7fad6c05624f77a3cd5345",
+    "semantic_hash": ""
+  },
+  "components/ui/LoadingScreen.jsx": {
+    "mtime": 1789932327.472114,
+    "seen": 1794846523.875793,
+    "ast_hash": "5ae6335797d510574d826d5a8ae9ea9f",
+    "semantic_hash": ""
+  },
+  "components/ui/Logo.jsx": {
+    "mtime": 1786968706.7906756,
+    "seen": 1794846523.875795,
+    "ast_hash": "d2445d924b640164df5acfb90e343560",
+    "semantic_hash": ""
+  },
+  "components/ui/LogoLoop.jsx": {
+    "mtime": 1790168709.5432158,
+    "seen": 1794846523.875797,
+    "ast_hash": "3f8a783f8ffebace1a9a7e0fa6100d1f",
+    "semantic_hash": ""
+  },
+  "components/ui/Masonry.jsx": {
+    "mtime": 1790169150.1744478,
+    "seen": 1794846523.875799,
+    "ast_hash": "11d33a325b0e77de4246b3b0600da28d",
+    "semantic_hash": ""
+  },
+  "components/ui/ProfileCard.jsx": {
+    "mtime": 1790169133.7339625,
+    "seen": 1794846523.8758008,
+    "ast_hash": "a4b06adbfc341d8e2bb3c2d81beb5175",
+    "semantic_hash": ""
+  },
+  "components/ui/SectionHeader.jsx": {
+    "mtime": 1786972146.971433,
+    "seen": 1794846523.875803,
+    "ast_hash": "49b65fcf984af118c3d6701802037725",
+    "semantic_hash": ""
+  },
+  "components/ui/SkeletonLoader.jsx": {
+    "mtime": 1790012704.2147005,
+    "seen": 1794846523.875805,
+    "ast_hash": "50c1d91234d3917730be5bf591a988f9",
+    "semantic_hash": ""
+  },
+  "components/ui/SlidingNumber.jsx": {
+    "mtime": 1789843488.932849,
+    "seen": 1794846523.875807,
+    "ast_hash": "b286c405454dd9dfff192f25581d6bd6",
+    "semantic_hash": ""
+  },
+  "components/ui/TextMorph.jsx": {
+    "mtime": 1790012704.2167113,
+    "seen": 1794846523.8758087,
+    "ast_hash": "072cb58ae404ed2184f1a5171598cf4a",
+    "semantic_hash": ""
+  },
+  "components/ui/TimelineCard.jsx": {
+    "mtime": 1790169185.996801,
+    "seen": 1794846523.8758109,
+    "ast_hash": "5162a0553917bdd452bf8e940ed3ea38",
+    "semantic_hash": ""
+  },
+  "components/ui/TrueFocus.jsx": {
+    "mtime": 1789919351.273873,
+    "seen": 1794846523.8758128,
+    "ast_hash": "e1ef6c90a00bb9f3c7a5842bce6ad42f",
+    "semantic_hash": ""
+  },
+  "data/projects.js": {
+    "mtime": 1787117429.025347,
+    "seen": 1794846523.875815,
+    "ast_hash": "7f9bd81dfb3c004575bf65b4da16f21c",
+    "semantic_hash": ""
+  },
+  "main.jsx": {
+    "mtime": 1786956723.3670084,
+    "seen": 1794846523.8758168,
+    "ast_hash": "bda63c8a23761888b3ad1a64cb682dd3",
+    "semantic_hash": ""
+  },
+  "pages/About.jsx": {
+    "mtime": 1789803453.3321352,
+    "seen": 1794846523.8758185,
+    "ast_hash": "6703a0f04004133f6a9a2e3fc797b1c6",
+    "semantic_hash": ""
+  },
+  "pages/Home.jsx": {
+    "mtime": 1790012704.2179298,
+    "seen": 1794846523.8758209,
+    "ast_hash": "1d688327e4e01f6a0b89f74c0ed1b651",
+    "semantic_hash": ""
+  },
+  "pages/NotFound.jsx": {
+    "mtime": 1788018677.4412541,
+    "seen": 1794846523.8758235,
+    "ast_hash": "7e7a5faf0d3148c31961eeb9de0bf396",
+    "semantic_hash": ""
+  },
+  "pages/ProjectDetail.jsx": {
+    "mtime": 1789932316.3100514,
+    "seen": 1794846523.8758256,
+    "ast_hash": "c3620b4f926c1c17652f221b9d4c3c10",
+    "semantic_hash": ""
+  },
+  "pages/Work.jsx": {
+    "mtime": 1788021317.5665154,
+    "seen": 1794846523.8758278,
+    "ast_hash": "678b165879e24036760dbf4184697899",
+    "semantic_hash": ""
+  },
+  "utils/renderingMode.js": {
+    "mtime": 1790170824.5881817,
+    "seen": 1794846523.8758302,
+    "ast_hash": "cda0a07f2a2ac3f6c51d8c699a101e6d",
+    "semantic_hash": ""
+  },
+  "assets/hero.png": {
+    "mtime": 1783261111.0433533,
+    "seen": 1794846523.8758323,
+    "ast_hash": "aead493361b27e7510691c5d7072dfc1",
+    "semantic_hash": ""
+  },
+  "assets/lanyard/lanyard.png": {
+    "mtime": 1789807148.0159836,
+    "seen": 1794846523.8758347,
+    "ast_hash": "a2cb6837e3669054d03020052ea450b0",
+    "semantic_hash": ""
+  },
+  "assets/react.svg": {
+    "mtime": 1783261111.0450642,
+    "seen": 1794846523.8758366,
+    "ast_hash": "f0402b67b6ce880f65666bb49e841696",
+    "semantic_hash": ""
+  },
+  "assets/vite.svg": {
+    "mtime": 1783261111.04607,
+    "seen": 1794846523.8758388,
+    "ast_hash": "6d5180a782d64c8cf51ba01c2a2184d8",
+    "semantic_hash": ""
+  }
+}

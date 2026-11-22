@@ -1,45 +1,37 @@
 /**
- * SectionHeader.jsx — Framer Motion Animated Section Header
+ * SectionHeader.jsx — the one header every section shares.
+ *
+ *   ───────────────────────────────────────────── (rule)
+ *   01 — About                              aside
+ *   HEADING
  */
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function SectionHeader({ title, number, className = '' }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className={`flex items-baseline justify-between mb-12 md:mb-16 ${className}`}
-    >
-      {/* Section title — display font, weight 300, uppercase */}
-      <h2
-        className="text-bone-white uppercase"
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(36px, 5vw, 60px)',
-          fontWeight: 300,
-          lineHeight: 1.1,
-          letterSpacing: '-0.02em',
-        }}
-      >
-        {title}
-      </h2>
+const EASE = [0.16, 1, 0.3, 1];
 
-      {/* Section counter — monospaced label */}
-      {number && (
-        <span
-          className="text-steel-mid hidden md:block"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '16px',
-            fontWeight: 400,
-          }}
-        >
-          {number}
+export default function SectionHeader({ index, label, title, aside, className = '', as: Tag = 'h2' }) {
+  return (
+    <header className={`stack-gap ${className}`}>
+      <div className="rule-t pt-4 flex items-baseline justify-between gap-6 t-label text-steel-mid">
+        <span>
+          {index && <span className="text-bone-white tabular-nums">{index}</span>}
+          {index && label && <span> — </span>}
+          {label}
         </span>
+        {/* Long asides drop on phones rather than wrapping against the label */}
+        {aside && <span className={`text-right ${typeof aside === 'string' && aside.length > 18 ? 'hidden sm:inline' : ''}`}>{aside}</span>}
+      </div>
+      {title && (
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 1.2, ease: EASE }}
+        >
+          <Tag className="t-h2 text-bone-white mt-8 sm:mt-10 m-0">{title}</Tag>
+        </motion.div>
       )}
-    </motion.div>
+    </header>
   );
 }

@@ -24,12 +24,13 @@ export default function TimelineCard({
           : '0 8px 24px -4px rgba(0,0,0,0.75)',
       }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className={`relative rounded-2xl overflow-hidden p-6 md:p-8 transition-colors ${className}`}
+      className={`relative rounded-sm overflow-hidden p-6 md:p-8 transition-colors ${className}`}
       style={{
-        background: 'linear-gradient(135deg, rgba(18,18,22,0.92) 0%, rgba(10,10,14,0.96) 100%)',
+        background: 'linear-gradient(135deg, rgba(18,18,22,0.96) 0%, rgba(10,10,14,0.99) 100%)',
         border: '1px solid',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
+        // backdropFilter removed: card background is near-opaque (0.92–0.96 alpha),
+        // so the blur composites over an essentially opaque dark surface — zero
+        // visual difference, but costs a full software convolution pass per frame.
         ...style,
       }}
     >

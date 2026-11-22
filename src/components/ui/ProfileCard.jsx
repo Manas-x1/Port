@@ -121,7 +121,7 @@ export default function ProfileCard() {
               filter: 'grayscale(100%) contrast(115%) brightness(95%)',
             }}
           />
-          <div className="absolute bottom-3 left-3 bg-void-black/85 backdrop-blur-md px-3 py-1 border border-graphite-border flex items-center gap-2">
+          <div className="absolute bottom-3 left-3 bg-void-black/95 px-3 py-1 border border-graphite-border flex items-center gap-2">
             <Sparkles size={12} className="text-ember-orange animate-pulse" />
             <span className="font-mono text-[11px] uppercase tracking-wider text-bone-white">
               Manas Upadhyay

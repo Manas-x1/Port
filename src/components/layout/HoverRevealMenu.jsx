@@ -1,188 +1,104 @@
 /**
- * HoverRevealMenu.jsx — Full-screen hover reveal navigation menu
- * 
- * Features:
- *   - Active route & section indicator (small glowing indicator dot/tag in front of active item)
- *   - Current active page becomes unclickable/disabled while other links remain active
- *   - Keyboard shortcut: ESC to close overlay
+ * HoverRevealMenu.jsx — full-screen index.
+ * Large links rise in one after another; the current page is marked in serif italic.
+ * ESC closes; body scroll is locked while open.
  */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-/* Menu items configuration */
-const MENU_ITEMS = [
-  { label: 'Home', path: '/', counter: '01' },
-  { label: 'About', path: '/about', counter: '02' },
-  { label: 'Works', path: '/work', counter: '03' },
-  { label: 'Skills', path: '/#skills', counter: '04' },
-  { label: 'Contact', path: '/#contact', counter: '05' },
-];
-
-const SOCIAL_LINKS = [
-  {
-    label: 'Instagram',
-    href: 'https://www.instagram.com/someone_on.the_internet',
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/manas-u-33245a288',
-  },
-];
+import goTo from '../../utils/goTo';
+import { CONTACT, SOCIALS, NAV_LINKS } from '../../data/contact';
 
 export default function HoverRevealMenu({ isOpen, onClose }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const closeRef = useRef(null);
 
   useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
+    const onKey = (e) => {
+      if (e.key === 'Escape' && isOpen) onClose();
     };
-
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [isOpen, onClose]);
 
   useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      window.__lenis?.stop();
+      closeRef.current?.focus({ preventScroll: true });
     } else {
-      document.body.style.overflow = '';
+      window.__lenis?.start();
     }
-
     return () => {
       document.body.style.overflow = '';
+      window.__lenis?.start();
     };
   }, [isOpen]);
 
-  /* Helper to check if menu item is currently active */
-  const checkIsActive = (item) => {
-    const currentPath = location.pathname;
-    const currentHash = window.location.hash;
-
-    if (item.path === '/') {
-      return currentPath === '/' && (!currentHash || currentHash === '#top');
-    }
-    if (item.path === '/about') {
-      return currentPath === '/about';
-    }
-    if (item.path === '/work') {
-      return currentPath === '/work';
-    }
-    if (item.path.startsWith('/#')) {
-      const hash = item.path.substring(1);
-      return currentPath === '/' && currentHash === hash;
-    }
-    return false;
-  };
-
-  const handleItemClick = (e, path, isActive) => {
-    e.preventDefault();
-    if (isActive) return; // Unclickable if currently on that page
-
-    onClose();
-
-    if (path.startsWith('/#')) {
-      const hash = path.substring(1);
-      if (window.location.pathname !== '/') {
-        navigate('/');
-        setTimeout(() => {
-          const el = document.querySelector(hash);
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 600);
-      } else {
-        const el = document.querySelector(hash);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } else {
-      navigate(path);
-    }
-  };
+  const isActive = (path) => !path.includes('#') && location.pathname === path;
 
   return (
-    <div
-      className={`menu-overlay ${isOpen ? 'is-open' : ''}`}
-      aria-hidden={!isOpen}
-    >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute top-8 right-10 z-10 cursor-pointer group flex items-center gap-2"
-        aria-label="Close menu"
-        style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '14px',
-          textTransform: 'uppercase',
-          color: 'var(--color-steel-mid)',
-          background: 'none',
-          border: 'none',
-          letterSpacing: '0.1em',
-        }}
-      >
-        <span className="group-hover:text-ember-orange transition-colors duration-300">
-          Close ✕
-        </span>
-      </button>
+    <div className={`menu-overlay ${isOpen ? 'is-open' : ''}`} aria-hidden={!isOpen} inert={!isOpen}>
+      <div className="shell min-h-full flex flex-col">
+        <div className="flex justify-between items-center py-3 sm:py-5">
+          <span className="t-label text-steel-mid">Index</span>
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            className="inline-flex items-center gap-3 h-10 px-4 t-label text-bone-white border border-bone-white/25 hover:bg-bone-white hover:text-void-black transition-colors duration-500 cursor-pointer"
+            aria-label="Close menu"
+          >
+            Close <span aria-hidden="true">✕</span>
+          </button>
+        </div>
 
-      {/* Menu items container */}
-      <nav className="h-full flex flex-col justify-center px-10 md:px-20 lg:px-32">
-        <ul className="list-none m-0 p-0 space-y-3 md:space-y-5">
-          {MENU_ITEMS.map((item) => {
-            const isActive = checkIsActive(item);
-
-            return (
-              <li key={item.path} className="menu-item">
-                <div className="menu-item-inner flex items-center gap-4 md:gap-6">
-                  <span className="menu-counter font-mono text-xs md:text-sm text-steel-mid">
-                    {item.counter}
-                  </span>
-
-                  {/* Active Indicator & Item Label */}
-                  <div className="flex items-center gap-3">
-                    {isActive && (
-                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-carbon border border-ember-orange font-mono text-[10px] uppercase text-ember-orange tracking-widest animate-pulse">
-                        <span className="w-1.5 h-1.5 rounded-full bg-ember-orange" />
-                        ACTIVE
-                      </span>
-                    )}
-
+        <nav className="flex-1 flex flex-col justify-center py-10" aria-label="Main">
+          <ul className="list-none m-0 p-0 rule-b">
+            {NAV_LINKS.map((item, i) => {
+              const active = isActive(item.path);
+              return (
+                <li key={item.path} className="menu-item rule-t">
+                  <div className="menu-item-inner">
                     <a
                       href={item.path}
-                      onClick={(e) => handleItemClick(e, item.path, isActive)}
-                      tabIndex={isActive ? -1 : 0}
-                      className={`menu-link font-display text-2xl md:text-5xl uppercase font-light transition-all no-underline ${
-                        isActive
-                          ? 'text-ember-orange pointer-events-none cursor-default opacity-90'
-                          : 'text-bone-white hover:text-ember-orange cursor-pointer'
-                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onClose();
+                        // Wait for the close to unlock scrolling (Lenis is stopped while the menu is open,
+                        // and it ignores scrollTo calls until restarted)
+                        if (!active) setTimeout(() => goTo(navigate, item.path), 60);
+                      }}
+                      aria-current={active ? 'page' : undefined}
+                      className="group flex items-baseline gap-4 sm:gap-8 py-3 sm:py-4"
                     >
-                      {item.label}
+                      <span className="t-label text-steel-mid tabular-nums w-6 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                      <span
+                        className="font-display font-light uppercase leading-[0.95] tracking-[-0.03em] text-bone-white transition-[color,transform] duration-700 group-hover:translate-x-2 group-hover:text-fog-light"
+                        style={{ fontSize: 'clamp(40px, 9vw, 112px)' }}
+                      >
+                        {item.label}
+                      </span>
+                      {active && <span className="t-serif text-ember-orange text-xl sm:text-3xl ml-auto">current</span>}
                     </a>
                   </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
-        {/* Social links */}
-        <div className="menu-item mt-12 md:mt-16 pt-8 border-t border-graphite-border">
-          <div className="menu-item-inner flex gap-8">
-            {SOCIAL_LINKS.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors duration-300 hover:text-ember-orange font-mono text-xs md:text-sm uppercase tracking-widest text-steel-mid no-underline"
-              >
-                {social.label} ↗
-              </a>
-            ))}
-          </div>
+        <div className="pb-8 grid grid-cols-2 sm:flex sm:justify-between gap-y-2 t-label">
+          {SOCIALS.map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-10 text-fog-light hover:text-bone-white transition-colors">
+              {s.label} ↗
+            </a>
+          ))}
+          <a href={`mailto:${CONTACT.email}`} className="col-span-2 inline-flex items-center min-h-10 text-fog-light hover:text-bone-white transition-colors normal-case tracking-normal font-body text-sm">
+            {CONTACT.email}
+          </a>
         </div>
-      </nav>
+      </div>
     </div>
   );
 }

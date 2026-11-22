@@ -1,88 +1,93 @@
 /**
- * ContactSection.jsx — Interactive Contact Section
- * Left side: Section statement & Reach-out trigger button.
- * Right side: React Bits styled 3D Profile Card with B&W photo, email, and phone.
+ * ContactSection.jsx — home-page call to action, pointing to the full /contact page.
+ * Also exports ContactDetails (portrait + direct lines), shared with the Contact page.
  */
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import SectionHeader from '../ui/SectionHeader';
-import { MessageSquare } from 'lucide-react';
-import ContactModal from '../ui/ContactModal';
-import ProfileCard from '../ui/ProfileCard';
+import { CONTACT, SOCIALS } from '../../data/contact';
 
-export default function ContactSection() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const EASE = [0.16, 1, 0.3, 1];
 
+export function ContactDetails({ eager = false }) {
   return (
     <>
-      <section
-        className="w-full py-20 md:py-32 px-6 md:px-10 snap-section bg-void-black relative border-t border-graphite-border"
-        id="contact"
-      >
-        <div className="max-w-[1280px] mx-auto">
-          <SectionHeader title="Get In Touch" number="04" />
+      <div className="frame aspect-[4/5] max-w-[360px] lg:max-w-none">
+        <img
+          src="/Potrait1.jpeg"
+          alt="Portrait of Manas Upadhyay"
+          loading={eager ? 'eager' : 'lazy'}
+          className="grayscale contrast-110"
+        />
+      </div>
+      <dl className="mt-6 m-0 t-label">
+        <div className="rule-t flex justify-between items-center gap-4 py-1">
+          <dt className="text-steel-mid">Email</dt>
+          <dd className="m-0">
+            <a href={`mailto:${CONTACT.email}`} className="inline-flex items-center min-h-10 text-bone-white normal-case tracking-normal font-body text-sm">
+              {CONTACT.email}
+            </a>
+          </dd>
+        </div>
+        <div className="rule-t flex justify-between items-center gap-4 py-1">
+          <dt className="text-steel-mid">Phone</dt>
+          <dd className="m-0">
+            <a href={`tel:${CONTACT.phoneHref}`} className="inline-flex items-center min-h-10 text-bone-white">{CONTACT.phone}</a>
+          </dd>
+        </div>
+        {SOCIALS.map((s) => (
+          <div key={s.label} className="rule-t flex justify-between items-center gap-4 py-1">
+            <dt className="text-steel-mid">{s.label}</dt>
+            <dd className="m-0">
+              <a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-10 text-bone-white normal-case tracking-normal font-body text-sm">
+                {s.handle} ↗
+              </a>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </>
+  );
+}
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left Side — Statement & Actions */}
-            <div className="space-y-8">
-              <h3 className="font-display font-light text-4xl sm:text-6xl lg:text-7xl uppercase leading-none text-bone-white tracking-tight">
-                Let's<br />
-                <span className="text-ember-orange font-normal">Collaborate</span>
-              </h3>
+export default function ContactSection() {
+  return (
+    <section id="contact" className="section bg-void-black">
+      <div className="shell">
+        <SectionHeader index="04" label="Contact" aside="Open to projects" />
 
-              <p className="font-body text-base md:text-lg text-fog-light max-w-lg leading-relaxed">
-                Have a project in mind for AI video creation, 3D visual direction, VFX, or film production? Click Reach-out to connect directly.
-              </p>
+        <div className="grid-12 gap-y-14">
+          <div className="col-span-4 lg:col-span-7 flex flex-col">
+            <motion.h2
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 1.2, ease: EASE }}
+              className="m-0 t-h1 text-bone-white"
+            >
+              Let&rsquo;s <span className="t-serif">collaborate</span>
+            </motion.h2>
 
-              <div className="flex flex-wrap gap-4 pt-2">
-                {/* Single Reach-out Button */}
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="inline-flex items-center gap-3 bg-ember-orange text-void-black font-mono text-sm uppercase font-semibold tracking-wider px-8 py-4 hover:brightness-110 active:scale-95 transition-all cursor-pointer border-0 select-none"
-                >
-                  <MessageSquare size={18} />
-                  <span>Reach-out</span>
-                </button>
-              </div>
+            <p className="t-lead text-fog-light mt-8 mb-10 max-w-[34ch]">
+              AI video, 3D visual direction, VFX or a full film. Tell me what you are making.
+            </p>
 
-              {/* Updated Social Networks */}
-              <div className="pt-6 border-t border-graphite-border">
-                <span className="block font-mono text-xs uppercase tracking-widest text-steel-mid mb-3">
-                  Social Networks
-                </span>
-                <div className="flex flex-wrap gap-6">
-                  <a
-                    href="https://www.instagram.com/someone_on.the_internet"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-sm text-fog-light hover:text-ember-orange transition-colors uppercase tracking-wider no-underline"
-                  >
-                    Instagram ↗
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/manas-u-33245a288"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-sm text-fog-light hover:text-ember-orange transition-colors uppercase tracking-wider no-underline"
-                  >
-                    LinkedIn ↗
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Side — React Bits styled 3D Profile Card */}
-            <div className="w-full flex justify-center lg:justify-end">
-              <ProfileCard />
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link to="/contact" className="btn btn-primary w-full sm:w-auto">
+                Start a project <span aria-hidden="true">→</span>
+              </Link>
+              <a href={`mailto:${CONTACT.email}`} className="btn btn-ghost w-full sm:w-auto normal-case tracking-normal font-body text-sm">
+                {CONTACT.email}
+              </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Floating Dialog */}
-      <ContactModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-    </>
+          <div className="col-span-4 lg:col-start-9 lg:col-span-4">
+            <ContactDetails />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

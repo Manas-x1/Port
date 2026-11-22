@@ -1,8 +1,5 @@
 /**
- * Home.jsx — Home page
- * 
- * Order of sections:
- * Hero → Statement Band → About (01) → Selected Work (02) → Skills & Tools (03) → Contact (04)
+ * Home.jsx — Hero → Statement → About (01) → Selected work (02) → Skills (03) → Contact (04) → Footer
  */
 import React, { useEffect } from 'react';
 import HeroSection from '../components/sections/HeroSection';
@@ -12,31 +9,18 @@ import ProjectsShowcase from '../components/sections/ProjectsShowcase';
 import SkillsSection from '../components/sections/SkillsSection';
 import ContactSection from '../components/sections/ContactSection';
 import Footer from '../components/layout/Footer';
+import useReveal from '../hooks/useReveal';
 
 export default function Home() {
   useEffect(() => {
     document.title = 'Manas Upadhyay (manasxz) | AI Content Creator, 3D Artist & Visual Designer';
-    const revealElements = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-
-    revealElements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
   }, []);
+  useReveal();
 
   return (
     <div className="w-full">
       <HeroSection />
-      <StatementBand text="Crafting The Future Through AI & Film" />
+      <StatementBand />
       <AboutSection />
       <ProjectsShowcase />
       <SkillsSection />

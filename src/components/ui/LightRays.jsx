@@ -94,9 +94,17 @@ const LightRays = ({
 
       if (!containerRef.current) return;
 
+      // Cap DPR at 1.0: halves linear dimensions → 4x fewer pixels for the
+      // software rasteriser when hardware acceleration is unavailable.
+      // On a real GPU the quality difference at this size is imperceptible.
+      const safeDpr = Math.min(window.devicePixelRatio || 1, 1.0);
+
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio || 1, 2),
-        alpha: true
+        dpr: safeDpr,
+        alpha: true,
+        // Ask the browser to assign the discrete GPU context.
+        // Falls back silently when only a software renderer is available.
+        powerPreference: 'high-performance'
       });
       rendererRef.current = renderer;
 
@@ -254,7 +262,8 @@ void main() {
       const updatePlacement = () => {
         if (!containerRef.current || !renderer) return;
 
-        renderer.dpr = Math.min(window.devicePixelRatio || 1, 2);
+        // Keep DPR capped at 1.0 on resize as well
+        renderer.dpr = Math.min(window.devicePixelRatio || 1, 1.0);
 
         const { clientWidth: wCSS, clientHeight: hCSS } = containerRef.current;
         renderer.setSize(wCSS, hCSS);
@@ -270,12 +279,21 @@ void main() {
         uniforms.rayDir.value = dir;
       };
 
+      // Track wall-clock time separately so we can clamp large deltas.
+      // On no-GPU frames the browser can stall 200-400 ms between rAF calls,
+      // which would make the shader time jump and create visible flicker.
+      let lastFrameTime = -1;
+      const MAX_FRAME_DT = 1 / 25; // cap at ~25fps equivalent
+
       const loop = (t) => {
         if (!rendererRef.current || !uniformsRef.current || !meshRef.current) {
           return;
         }
 
-        uniforms.iTime.value = t * 0.001;
+        // Clamp delta so shader time never jumps by more than ~40ms
+        const dt = lastFrameTime < 0 ? 0 : Math.min((t - lastFrameTime) * 0.001, MAX_FRAME_DT);
+        lastFrameTime = t;
+        uniforms.iTime.value += dt;
 
         if (followMouse && mouseInfluence > 0.0) {
           const smoothing = 0.92;

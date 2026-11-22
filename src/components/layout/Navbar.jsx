@@ -1,61 +1,55 @@
 /**
- * Navbar.jsx — Top navigation bar with official logo & floating ContactModal
+ * Navbar.jsx — logo + name left; "Reach out" and Menu right. All targets 40px+.
  */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HoverRevealMenu from './HoverRevealMenu';
 import Logo from '../ui/Logo';
 import ContactModal from '../ui/ContactModal';
+import goTo from '../../utils/goTo';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogoClick = (e) => {
-    e.preventDefault();
-    if (window.location.pathname !== '/') {
-      navigate('/');
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 pointer-events-none bg-transparent transform-gpu will-change-transform [backface-visibility:hidden]">
-        <div className="w-full flex justify-between items-center px-4 sm:px-6 md:px-10 py-3 md:py-4 pointer-events-auto">
-          {/* Left: Official MU Logo */}
+      <nav className="fixed top-0 left-0 w-full z-50 pointer-events-none">
+        <div className="shell flex justify-between items-center py-3 sm:py-5 pointer-events-auto">
           <a
             href="/"
-            onClick={handleLogoClick}
-            className="flex items-center gap-3 no-underline cursor-pointer group"
-            aria-label="Home"
+            onClick={(e) => {
+              e.preventDefault();
+              goTo(navigate, '/');
+            }}
+            className="flex items-center gap-3 min-h-10 -ml-1 pl-1 pr-2"
+            aria-label="Manas Upadhyay, home"
           >
-            <Logo className="w-6 h-7 md:w-7 md:h-8" />
+            <Logo className="w-6 h-7" alt="" />
+            <span className="hidden sm:inline t-label text-bone-white">Manas Upadhyay</span>
           </a>
 
-          {/* Right: Floating Contact Trigger & Menu */}
-          <div className="flex items-center gap-3 md:gap-6">
-            {/* Open Floating Contact Dialog */}
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
+              type="button"
               onClick={() => setIsContactOpen(true)}
-              className="inline-flex items-center justify-center bg-ember-orange text-void-black font-mono text-xs md:text-sm uppercase tracking-wider px-4 py-2 hover:brightness-110 active:scale-95 transition-all select-none cursor-pointer font-medium"
+              className="inline-flex items-center h-10 px-4 t-label text-bone-white border border-bone-white/25 bg-void-black/40 hover:bg-bone-white hover:text-void-black transition-colors duration-500 cursor-pointer"
             >
-              Reach Out
+              Reach out
             </button>
-
-            {/* Menu trigger button */}
             <button
+              type="button"
               onClick={() => setIsMenuOpen(true)}
-              className="cursor-pointer group flex items-center gap-2 px-2 py-1.5 border border-graphite-border hover:border-ember-orange transition-colors"
+              className="group inline-flex items-center justify-center gap-3 h-10 min-w-10 px-3 border border-bone-white/25 bg-void-black/40 hover:bg-bone-white transition-colors duration-500 cursor-pointer"
               aria-label="Open menu"
+              aria-expanded={isMenuOpen}
             >
-              <div className="flex flex-col gap-[4px]">
-                <div className="w-5 h-[1.5px] bg-bone-white group-hover:bg-ember-orange transition-colors" />
-                <div className="w-3.5 h-[1.5px] bg-bone-white group-hover:bg-ember-orange transition-colors" />
-              </div>
-              <span className="hidden md:inline-block font-mono text-xs md:text-sm uppercase tracking-wider text-bone-white group-hover:text-ember-orange transition-colors">
+              <span className="flex flex-col gap-[5px]" aria-hidden="true">
+                <span className="block w-5 h-px bg-bone-white group-hover:bg-void-black transition-colors duration-500" />
+                <span className="block w-5 h-px bg-bone-white group-hover:bg-void-black transition-colors duration-500" />
+              </span>
+              <span className="hidden md:inline t-label text-bone-white group-hover:text-void-black transition-colors duration-500">
                 Menu
               </span>
             </button>
@@ -63,17 +57,8 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Fullscreen menu overlay */}
-      <HoverRevealMenu
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-      />
-
-      {/* Floating Contact Modal */}
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-      />
+      <HoverRevealMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} onContact={() => setIsContactOpen(true)} />
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </>
   );
 }

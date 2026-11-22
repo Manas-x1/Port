@@ -1,166 +1,181 @@
 /**
- * HeroSection.jsx — Layered Hero with LightRays & 3D Interactive Lanyard ID Card
+ * HeroSection.jsx — Type-only title card
  *
- * Layers:
- *   - Layer 1 (Background): Volumetric interactive LightRays (React Bits)
- *   - Layer 2 (3D Object): Interactive physics Lanyard ID badge (React Bits + Stitch UI design)
- *   - Layer 3 (Foreground): Bold editorial typography ("Hi, I am Manas", disciplines, CTAs)
- *   - Layer 4 (Bottom Edge): GradualBlur transition into rest of the site
+ *   - Background: slow light rays, a warm pool under the name, static grain
+ *   - Top: days-on-earth counter and local time on one ruled line
+ *   - Bottom: serif "Hi, I am" locked to "MANAS", fitted edge to edge
+ *   - Bottom edge: disciplines ticker, just above the site-wide 3.5rem fade
+ *
+ * The comma is the screen's one ember accent.
  */
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import LightRays from '../ui/LightRays';
-import Lanyard from '../ui/Lanyard';
-import GradualBlur from '../ui/GradualBlur';
-import FilledButton from '../ui/FilledButton';
-import GhostButton from '../ui/GhostButton';
 import Clock from '../ui/Clock';
+import useFitText from '../../hooks/useFitText';
+
+const NAME = 'Manas';
+const DISCIPLINES = ['AI films', '3D worlds', 'Visual design', 'Video editing', 'Concept art', 'Mythology & sci-fi'];
+const EASE = [0.16, 1, 0.3, 1];
 
 const getDaysOnEarth = () => {
-  const startDate = new Date(2007, 3, 6); // April 6, 2007 (06-04-2007)
-  const now = new Date();
-  const diffTime = now.getTime() - startDate.getTime();
-  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const startDate = new Date(2007, 3, 6); // 6 April 2007
+  return Math.floor((Date.now() - startDate.getTime()) / 86_400_000);
 };
 
-export default function HeroSection() {
-  const navigate = useNavigate();
-  const [daysOnEarth, setDaysOnEarth] = useState(getDaysOnEarth);
-
+// Isolated so its tick never re-renders the rest of the hero
+function DaysOnEarth() {
+  const [days, setDays] = useState(getDaysOnEarth);
   useEffect(() => {
-    const timer = setInterval(() => {
-      setDaysOnEarth(getDaysOnEarth());
-    }, 1000);
+    const timer = setInterval(() => setDays(getDaysOnEarth()), 60_000);
     return () => clearInterval(timer);
   }, []);
+  return <span className="tabular-nums">{days.toLocaleString()}</span>;
+}
 
-  const scrollToProjects = () => {
-    const el = document.querySelector('#projects');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
+function Ticker() {
+  const row = (
+    <span className="flex items-center shrink-0" aria-hidden="true">
+      {DISCIPLINES.map((d) => (
+        <span key={d} className="flex items-center">
+          <span className="px-6 sm:px-10">{d}</span>
+          <span className="text-steel-mid">/</span>
+        </span>
+      ))}
+    </span>
+  );
+  return (
+    <div className="relative w-full overflow-hidden rule-t rule-b py-3.5 sm:py-4 t-label text-fog-light">
+      <span className="sr-only">{DISCIPLINES.join(', ')}</span>
+      <div className="flex w-max animate-marquee" style={{ animationDuration: '60s' }}>
+        {row}
+        {row}
+      </div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-32 bg-gradient-to-r from-void-black to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-32 bg-gradient-to-l from-void-black to-transparent" />
+    </div>
+  );
+}
+
+export default function HeroSection() {
+  const name = useFitText();
+  // Phones: "Hi, / I am" fills the open column, shrinking only if height runs short
+  const hi = useFitText({ fitHeight: true });
+  const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative w-full h-screen min-h-[680px] flex flex-col justify-between overflow-hidden snap-section bg-void-black select-none">
-      {/* ── Layer 1: Background LightRays with Ambient Gradients ── */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <LightRays
+    <section className="relative w-full h-svh min-h-[560px] sm:min-h-[680px] flex flex-col overflow-hidden bg-void-black select-none grain">
+      {/* ── Background ── */}
+      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        {!reduceMotion && <LightRays
           raysOrigin="top-right"
           raysColor="#ff552e"
-          raysSpeed={1.2}
-          lightSpread={0.9}
-          rayLength={2.0}
+          raysSpeed={0.6}
+          lightSpread={1.1}
+          rayLength={2.4}
           followMouse={true}
-          mouseInfluence={0.15}
-          noiseAmount={0.06}
-          distortion={0.05}
-          saturation={1.0}
-          className="w-full h-full opacity-85"
-        />
-
-        {/* Ambient deep space atmospheric vignettes */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(ellipse at 80% 25%, rgba(255, 85, 46, 0.18) 0%, transparent 60%), radial-gradient(circle at 20% 80%, rgba(10, 11, 16, 0.95) 0%, transparent 70%)',
-          }}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(to top, rgba(7,7,10,0.92) 0%, rgba(7,7,10,0.2) 40%, rgba(7,7,10,0.7) 100%)',
-          }}
-        />
-      </div>
-
-      {/* ── Layer 2: 3D Interactive Lanyard ID Card (Full Screen Viewport with Right-Side Placement) ── */}
-      <div className="absolute inset-0 z-10 pointer-events-auto w-full h-full">
-        <Lanyard
-          position={[-2.8, 0, 14]}
-          gravity={[0, -38, 0]}
-          fov={22}
-          frontImage="/assets/id-card-front.png"
-          backImage="/assets/id-card-back.png"
-          imageFit="cover"
-          lanyardWidth={1}
+          mouseInfluence={0.1}
+          noiseAmount={0.05}
+          distortion={0.04}
+          saturation={0.9}
           className="w-full h-full"
+        />}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(90% 55% at 10% 95%, rgba(255,79,43,0.16) 0%, rgba(255,79,43,0.05) 45%, transparent 70%)',
+          }}
         />
+        <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-void-black/80 to-transparent" />
       </div>
 
-      {/* ── Hero Content Container ── */}
-      <div className="relative z-20 w-full h-full max-w-[1520px] mx-auto px-5 sm:px-10 md:px-14 pt-24 sm:pt-28 pb-10 sm:pb-16 md:pb-24 flex flex-col justify-between pointer-events-none">
-
-        {/* Top/Upper Row: Days on Earth & Live Clock on the Left */}
-        <div className="w-full flex flex-row items-start justify-between pt-1 sm:pt-4 pointer-events-none">
-          {/* Left: Days on Earth & Live IST Time */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-left flex flex-col gap-1 items-start"
-          >
-            <span className="font-display font-light text-bone-white text-sm sm:text-xl md:text-2xl tracking-tight">
-              Days on Earth - <span className="tabular-nums font-normal">{daysOnEarth.toLocaleString()}</span>
+      <div className="shell relative z-20 flex-1 min-h-0 pt-20 sm:pt-28 pb-6 sm:pb-8 flex flex-col">
+        {/* ── Meta line: counter left, local time right ── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
+          className="flex items-end justify-between gap-6 pb-4 sm:pb-5 rule-b"
+        >
+          <div className="flex flex-col gap-2">
+            <span className="t-label text-steel-mid">Days on Earth</span>
+            <span className="font-display font-light text-bone-white text-5xl sm:text-6xl md:text-7xl tracking-[-0.03em] leading-[0.85]">
+              <DaysOnEarth />
             </span>
-            <span className="font-mono text-fog-light text-[11px] sm:text-sm tracking-wider uppercase flex items-center gap-2">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-ember-orange animate-pulse" />
+          </div>
+          <div className="flex flex-col items-end gap-2 pb-0.5">
+            <span className="t-label text-steel-mid">Local time</span>
+            <span className="font-mono text-bone-white text-xs sm:text-sm tracking-wider uppercase flex items-center gap-2">
               <Clock />
+              <span className="text-steel-mid">IST</span>
             </span>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
-        {/* Bottom Row: "Hi, I am Manas" (Left) & Actions (Right) */}
-        <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-5 sm:gap-6 pointer-events-auto">
-          {/* Left: Massive Typography Name */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col select-none"
-          >
-            <span className="font-display text-lg sm:text-2xl md:text-3xl text-bone-white font-medium mb-0.5 sm:mb-1 tracking-tight pl-0.5 sm:pl-1.5 md:pl-2">
-              Hi, I am
-            </span>
-            <h1
-              className="font-display font-black text-bone-white leading-[0.85] tracking-tighter"
-              style={{ fontSize: 'clamp(54px, 16vw, 210px)' }}
+        {/* ── Lockup ── */}
+        <div className="flex-1 min-h-0 flex flex-col justify-end pt-6">
+          {/* Phones: greeting fills the space above the name */}
+          <div ref={hi.boxRef} className="md:hidden flex-1 min-h-0 w-full flex items-end">
+            <motion.p
+              ref={hi.textRef}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.4, delay: 0.2, ease: EASE }}
+              className="inline-flex flex-col m-0 pr-[0.06em] font-serif italic font-normal text-bone-white leading-[0.82] tracking-[-0.02em]"
+              style={{ fontSize: hi.fontSize ? `${hi.fontSize}px` : '40vw' }}
             >
-              Manas
-            </h1>
-          </motion.div>
+              <span>
+                Hi<span className="text-ember-orange">,</span>
+              </span>
+              <span>I am</span>
+            </motion.p>
+          </div>
 
-          {/* Right: Actions & Navigation Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+          {/* Larger screens: greeting tucked over the name */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55 }}
-            className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-1 sm:mb-4"
+            transition={{ duration: 1.4, delay: 0.2, ease: EASE }}
+            className="hidden md:block m-0 font-serif italic text-bone-white leading-none tracking-[-0.02em]"
+            style={{ fontSize: 'clamp(64px, 11vw, 200px)' }}
           >
-            <FilledButton onClick={scrollToProjects} className="w-full sm:w-auto px-7 py-3 text-xs sm:text-sm text-center justify-center">
-              Explore Work
-            </FilledButton>
-            <GhostButton onClick={() => navigate('/about')} className="w-full sm:w-auto px-7 py-3 text-xs sm:text-sm text-center justify-center">
-              Story &amp; Journey
-            </GhostButton>
-          </motion.div>
-        </div>
+            Hi<span className="text-ember-orange">,</span> I am
+          </motion.p>
 
+          <div ref={name.boxRef} className="relative z-10 w-full -mt-[0.35rem] md:mt-[0.1rem]">
+            <h1
+              ref={name.textRef}
+              aria-label={NAME}
+              className="inline-flex whitespace-nowrap m-0 font-display font-extrabold text-bone-white uppercase leading-[0.8] tracking-[-0.045em]"
+              style={{ fontSize: name.fontSize ? `${name.fontSize}px` : '20vw', marginRight: '-0.02em' }}
+            >
+              {NAME.split('').map((ch, i) => (
+                <span key={i} className="inline-block overflow-hidden pb-[0.04em] px-[0.08em] -mx-[0.08em]" aria-hidden="true">
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: '105%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 1.4, delay: 0.4 + i * 0.09, ease: EASE }}
+                  >
+                    {ch}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+          </div>
+        </div>
       </div>
 
-      {/* ── Seamless Gradual Blur transition at the bottom of the Hero ── */}
-      <GradualBlur
-        target="parent"
-        position="bottom"
-        height="6rem"
-        strength={2.5}
-        divCount={6}
-        curve="bezier"
-        exponential={true}
-        opacity={1}
-        zIndex={5}
-      />
+      {/* ── Ticker ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.4, delay: 1.1 }}
+        className="relative z-20 w-full bg-void-black/60 mb-14"
+      >
+        <Ticker />
+      </motion.div>
     </section>
   );
 }
