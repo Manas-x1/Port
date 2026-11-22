@@ -21,7 +21,7 @@ export default function PageHeader({ label, aside, title, lead, children }) {
       </motion.div>
 
       <h1 className="t-h1 text-bone-white m-0 mt-10 sm:mt-14">
-        <span className="block overflow-hidden pb-[0.08em]">
+        <span className="block overflow-hidden pt-[0.12em] -mt-[0.12em] pb-[0.08em]">
           <motion.span
             className="block"
             initial={{ y: '110%' }}

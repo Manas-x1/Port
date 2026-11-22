@@ -156,7 +156,7 @@ export default function HeroSection() {
               style={{ fontSize: name.fontSize ? `${name.fontSize}px` : '20vw', marginRight: '-0.02em' }}
             >
               {NAME.split('').map((ch, i) => (
-                <span key={i} className="inline-block overflow-hidden pb-[0.04em] px-[0.08em] -mx-[0.08em]" aria-hidden="true">
+                <span key={i} className="inline-block overflow-hidden pt-[0.12em] -mt-[0.12em] pb-[0.04em] px-[0.08em] -mx-[0.08em]" aria-hidden="true">
                   <motion.span
                     className="inline-block"
                     initial={{ y: '105%' }}

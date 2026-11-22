@@ -5,6 +5,7 @@
  */
 import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Instagram, Linkedin, Mail } from 'lucide-react';
 import goTo from '../../utils/goTo';
 import { CONTACT, SOCIALS, NAV_LINKS } from '../../data/contact';
 
@@ -64,22 +65,36 @@ export default function HoverRevealMenu({ isOpen, onClose }) {
                       href={item.path}
                       onClick={(e) => {
                         e.preventDefault();
-                        onClose();
-                        // Wait for the close to unlock scrolling (Lenis is stopped while the menu is open,
-                        // and it ignores scrollTo calls until restarted)
-                        if (!active) setTimeout(() => goTo(navigate, item.path), 60);
+                        if (active) {
+                          onClose();
+                          return;
+                        }
+                        if (item.path.includes('#')) {
+                          // Same-page anchor: close first so scrolling is unlocked, then scroll
+                          onClose();
+                          setTimeout(() => goTo(navigate, item.path), 60);
+                        } else {
+                          // New page: navigate first so the page veil covers the screen,
+                          // then close the menu underneath it (no flash of the old page)
+                          goTo(navigate, item.path);
+                          setTimeout(onClose, 120);
+                        }
                       }}
                       aria-current={active ? 'page' : undefined}
                       className="group flex items-baseline gap-4 sm:gap-8 py-3 sm:py-4"
                     >
                       <span className="t-label text-steel-mid tabular-nums w-6 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                      {/* The page you're on switches to the serif italic in ember */}
                       <span
-                        className="font-display font-light uppercase leading-[0.95] tracking-[-0.03em] text-bone-white transition-[color,transform] duration-700 group-hover:translate-x-2 group-hover:text-fog-light"
-                        style={{ fontSize: 'clamp(40px, 9vw, 112px)' }}
+                        className={`leading-[0.95] transition-[color,transform] duration-700 ${
+                          active
+                            ? 't-serif text-ember-orange'
+                            : 'font-display font-light uppercase tracking-[-0.03em] text-bone-white group-hover:translate-x-2 group-hover:text-fog-light'
+                        }`}
+                        style={{ fontSize: active ? 'clamp(46px, 10vw, 128px)' : 'clamp(40px, 9vw, 112px)' }}
                       >
                         {item.label}
                       </span>
-                      {active && <span className="t-serif text-ember-orange text-xl sm:text-3xl ml-auto">current</span>}
                     </a>
                   </div>
                 </li>
@@ -88,15 +103,23 @@ export default function HoverRevealMenu({ isOpen, onClose }) {
           </ul>
         </nav>
 
-        <div className="pb-8 grid grid-cols-2 sm:flex sm:justify-between gap-y-2 t-label">
-          {SOCIALS.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-10 text-fog-light hover:text-bone-white transition-colors">
-              {s.label} ↗
+        {/* Social links as icons */}
+        <div className="pb-8 flex gap-3">
+          {[
+            ...SOCIALS.map((s) => ({ ...s, Icon: s.label === 'Instagram' ? Instagram : Linkedin, external: true })),
+            { label: 'Email', href: `mailto:${CONTACT.email}`, Icon: Mail },
+          ].map(({ label, href, Icon, external }) => (
+            <a
+              key={label}
+              href={href}
+              aria-label={label}
+              title={label}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className="inline-flex items-center justify-center w-12 h-12 border border-bone-white/20 text-fog-light hover:text-void-black hover:bg-bone-white hover:border-bone-white transition-colors duration-500"
+            >
+              <Icon size={20} strokeWidth={1.5} aria-hidden="true" />
             </a>
           ))}
-          <a href={`mailto:${CONTACT.email}`} className="col-span-2 inline-flex items-center min-h-10 text-fog-light hover:text-bone-white transition-colors normal-case tracking-normal font-body text-sm">
-            {CONTACT.email}
-          </a>
         </div>
       </div>
     </div>

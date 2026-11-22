@@ -5,6 +5,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/layout/Footer';
+import { openContact } from '../data/contact';
 import PageHeader from '../components/ui/PageHeader';
 import SectionHeader from '../components/ui/SectionHeader';
 import { SkillsIndex } from '../components/sections/SkillsSection';
@@ -59,9 +60,9 @@ export default function Skills() {
             <Link to="/work" className="btn btn-primary">
               See the work <span aria-hidden="true">→</span>
             </Link>
-            <Link to="/contact" className="btn btn-ghost">
+            <button type="button" onClick={openContact} className="btn btn-ghost">
               Get in touch
-            </Link>
+            </button>
           </div>
         </div>
       </section>

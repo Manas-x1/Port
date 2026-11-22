@@ -38,7 +38,7 @@ export default function Work() {
   const [activeItem, setActiveItem] = useState(SECTIONS[0]?.items[0]?.p.slug);
 
   useEffect(() => {
-    document.title = 'Work | Manas Upadhyay (manasxz)';
+    document.title = 'Archive | Manas Upadhyay (manasxz)';
   }, []);
   useReveal();
 
@@ -61,14 +61,14 @@ export default function Work() {
   return (
     <div className="w-full bg-void-black text-bone-white min-h-screen">
       <PageHeader
-        label="Work"
+        label="Archive"
         aside={<span className="tabular-nums">{pad(projects.length)} projects</span>}
         title={<>The <span className="t-serif">archive</span></>}
       />
 
       {/* Phones: sticky group bar */}
       <nav
-        aria-label="Work sections"
+        aria-label="Archive sections"
         className="lg:hidden sticky top-16 z-30 bg-void-black/90 rule-b"
       >
         <div className="shell flex gap-6">
@@ -93,7 +93,7 @@ export default function Work() {
         <div className="grid-12">
           {/* Desktop: sticky index */}
           <aside className="hidden lg:block lg:col-span-3">
-            <nav aria-label="Work index" className="sticky top-28 rule-t pt-4">
+            <nav aria-label="Archive index" className="sticky top-28 rule-t pt-4">
               {SECTIONS.map((g) => (
                 <div key={g.id} className="mb-8">
                   <button

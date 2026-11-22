@@ -13,7 +13,9 @@ export const SOCIALS = [
 export const NAV_LINKS = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
-  { label: 'Work', path: '/work' },
+  { label: 'Archive', path: '/work' },
   { label: 'Skills', path: '/skills' },
-  { label: 'Contact', path: '/contact' },
 ];
+
+// Opens the contact dialog from anywhere (Navbar listens for this event)
+export const openContact = () => window.dispatchEvent(new Event('open-contact'));

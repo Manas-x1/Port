@@ -37,7 +37,7 @@ export default function ProjectsShowcase() {
 
         <div className="mt-12 sm:mt-16 flex justify-center">
           <Link to="/work" className="btn btn-ghost w-full sm:w-auto">
-            All work <span className="text-steel-mid tabular-nums">({projects.length})</span> <span aria-hidden="true">→</span>
+            Full archive <span className="text-steel-mid tabular-nums">({projects.length})</span> <span aria-hidden="true">→</span>
           </Link>
         </div>
       </div>

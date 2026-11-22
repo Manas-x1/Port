@@ -1,5 +1,5 @@
 /**
- * ContactForm.jsx — the inquiry form, used inline on /contact and inside ContactModal.
+ * ContactForm.jsx — the inquiry form, used inside ContactModal.
  * Delivery: Google Apps Script web app, formsubmit fallback.
  */
 import React, { useState, useEffect, useRef } from 'react';

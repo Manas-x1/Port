@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '../components/layout/Footer';
+import { openContact } from '../data/contact';
 import PageHeader from '../components/ui/PageHeader';
 import TimelineSection from '../components/sections/TimelineSection';
 
@@ -77,9 +78,9 @@ export default function About() {
                 Cinematic AI video production, 3D visual design or creative editing. Let&rsquo;s connect.
               </p>
               <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3">
-                <Link to="/contact" className="btn btn-primary">
+                <button type="button" onClick={openContact} className="btn btn-primary">
                   Get in touch <span aria-hidden="true">→</span>
-                </Link>
+                </button>
                 <Link to="/work" className="btn btn-ghost">
                   See the work
                 </Link>

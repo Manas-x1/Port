@@ -36,7 +36,6 @@ import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Work = lazy(() => import('./pages/Work'));
 const Skills = lazy(() => import('./pages/Skills'));
-const Contact = lazy(() => import('./pages/Contact'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -128,7 +127,6 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/work" element={<Work />} />
           <Route path="/skills" element={<Skills />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/project/:slug" element={<ProjectDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

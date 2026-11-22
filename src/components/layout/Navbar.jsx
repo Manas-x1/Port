@@ -1,7 +1,7 @@
 /**
  * Navbar.jsx — logo + name left; "Reach out" and Menu right. All targets 40px+.
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HoverRevealMenu from './HoverRevealMenu';
 import Logo from '../ui/Logo';
@@ -12,6 +12,13 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const navigate = useNavigate();
+
+  // Any "Get in touch" button on the site opens this dialog via openContact()
+  useEffect(() => {
+    const open = () => setIsContactOpen(true);
+    window.addEventListener('open-contact', open);
+    return () => window.removeEventListener('open-contact', open);
+  }, []);
 
   return (
     <>

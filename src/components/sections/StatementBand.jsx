@@ -24,7 +24,7 @@ export default function StatementBand() {
             viewport={{ once: true, margin: '-80px' }}
           >
             {LINES.map((line, i) => (
-              <span key={i} className="block overflow-hidden pb-[0.08em]">
+              <span key={i} className="block overflow-hidden pt-[0.12em] -mt-[0.12em] pb-[0.08em]">
                 <motion.span
                   className="block"
                   variants={{ hidden: { y: '110%' }, shown: { y: '0%' } }}

@@ -3,7 +3,7 @@
  *
  * First visit per session: a slow title card ("A portfolio by / Manas Upadhyay").
  * Click, scroll, or Enter lets the visitor in; scroll is locked until then.
- * Route changes: a short black veil with a thin rule drawing across.
+ * Route changes: a 1-second black veil with a thin rule drawing across.
  */
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -21,7 +21,7 @@ function readEntered() {
 
 function Rise({ children, delay = 0, className = '' }) {
   return (
-    <span className={`block overflow-hidden pb-[0.06em] ${className}`}>
+    <span className={`block overflow-hidden pt-[0.12em] -mt-[0.12em] pb-[0.06em] ${className}`}>
       <motion.span
         className="block"
         initial={{ y: '110%' }}
@@ -101,7 +101,7 @@ export default function LoadingScreen() {
         window.__lenis.resize();
         if (!window.location.hash) window.__lenis.scrollTo(0, { immediate: true });
       }
-    }, 450);
+    }, 1000);
     return () => clearTimeout(timer);
   }, [location.pathname, hasEntered]);
 
@@ -120,21 +120,13 @@ export default function LoadingScreen() {
             aria-label="Enter the portfolio"
             className="fixed inset-0 z-[9999] bg-void-black select-none cursor-pointer grain"
           >
-            <div className="shell h-full flex flex-col justify-between pt-6 sm:pt-8 pb-20">
-              <div className="flex justify-between t-label text-steel-mid">
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.2 }}>
-                  Portfolio
-                </motion.span>
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.2 }}>
-                  © 2026
-                </motion.span>
-              </div>
+            <div className="shell h-full flex flex-col justify-end gap-16 pt-6 sm:pt-8 pb-20">
 
               <div>
                 <Rise delay={0.3} className="t-serif text-fog-light text-3xl sm:text-5xl mb-2 sm:mb-3">
                   A portfolio by
                 </Rise>
-                <h1 className="m-0 t-h1 text-bone-white" style={{ fontSize: 'clamp(52px, 15vw, 200px)' }}>
+                <h1 className="m-0 font-display font-extrabold uppercase leading-[0.88] tracking-[-0.04em] text-bone-white" style={{ fontSize: 'clamp(52px, 14vw, 190px)' }}>
                   <Rise delay={0.45}>Manas</Rise>
                   <Rise delay={0.6}>Upadhyay</Rise>
                 </h1>
@@ -158,10 +150,9 @@ export default function LoadingScreen() {
         {isTransitionLoading && (
           <motion.div
             key="transition-loader"
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, transition: { duration: 0.4 } }}
             className="fixed inset-0 z-[9998] bg-void-black flex items-center justify-center"
             aria-hidden="true"
           >
@@ -169,7 +160,7 @@ export default function LoadingScreen() {
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.45, ease: EASE }}
+                transition={{ duration: 0.95, ease: EASE }}
                 className="absolute inset-0 bg-bone-white origin-left"
               />
             </div>

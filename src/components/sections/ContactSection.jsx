@@ -1,12 +1,12 @@
 /**
- * ContactSection.jsx — home-page call to action, pointing to the full /contact page.
+ * ContactSection.jsx — home-page call to action, opening the contact dialog.
  * Also exports ContactDetails (portrait + direct lines), shared with the Contact page.
  */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SectionHeader from '../ui/SectionHeader';
-import { CONTACT, SOCIALS } from '../../data/contact';
+import { CONTACT, SOCIALS, openContact } from '../../data/contact';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -74,9 +74,9 @@ export default function ContactSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link to="/contact" className="btn btn-primary w-full sm:w-auto">
+              <button type="button" onClick={openContact} className="btn btn-primary w-full sm:w-auto">
                 Start a project <span aria-hidden="true">→</span>
-              </Link>
+              </button>
               <a href={`mailto:${CONTACT.email}`} className="btn btn-ghost w-full sm:w-auto normal-case tracking-normal font-body text-sm">
                 {CONTACT.email}
               </a>

@@ -245,7 +245,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
             className="flex items-center justify-between gap-6 mb-6 sm:mb-8"
           >
             <Link to="/work" className="inline-flex items-center gap-3 min-h-10 t-label text-fog-light hover:text-bone-white transition-colors">
-              <span aria-hidden="true">←</span> All work
+              <span aria-hidden="true">←</span> Archive
             </Link>
             {project.series && <span className="t-label text-fog-light text-right">{project.series}</span>}
           </motion.div>

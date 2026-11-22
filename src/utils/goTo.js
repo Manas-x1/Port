@@ -12,7 +12,7 @@ export default function goTo(navigate, path) {
     const hash = path.slice(1);
     if (window.location.pathname !== '/') {
       navigate('/');
-      setTimeout(() => scrollToHash(hash), 650);
+      setTimeout(() => scrollToHash(hash), 1100); // after the 1s page veil
     } else {
       scrollToHash(hash);
     }
