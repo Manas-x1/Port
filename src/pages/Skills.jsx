@@ -8,6 +8,7 @@ import Footer from '../components/layout/Footer';
 import { openContact } from '../data/contact';
 import PageHeader from '../components/ui/PageHeader';
 import SectionHeader from '../components/ui/SectionHeader';
+import ToolLogo from '../components/ui/ToolLogo';
 import { SkillsIndex } from '../components/sections/SkillsSection';
 import { SKILL_CATEGORIES } from '../data/skills';
 import useReveal from '../hooks/useReveal';
@@ -37,15 +38,25 @@ export default function Skills() {
 
       <section className="shell pb-[var(--section-y)]">
         <SectionHeader index="02" label="Every tool" aside={<span className="tabular-nums">{pad(ALL_TOOLS.length)} tools</span>} />
-        {/* Slightly smaller than h2 on phones so "Substance Designer" fits on one line at 360px */}
-        <p className="reveal m-0 t-h2 text-bone-white" style={{ fontSize: 'clamp(26px, 5.2vw, 76px)' }}>
-          {ALL_TOOLS.map((tool, i) => (
-            <React.Fragment key={tool}>
-              <span className="whitespace-nowrap">{tool}</span>
-              {i < ALL_TOOLS.length - 1 && <span className="t-serif text-steel-mid"> / </span>}
-            </React.Fragment>
+        {/* Logo stack: hairline grid, logos in one colour; hover lifts the tile */}
+        <ul className="reveal list-none m-0 p-0 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-px bg-[var(--rule)] border border-[var(--rule)]">
+          {ALL_TOOLS.map((tool) => (
+            <li key={tool} className="group aspect-square bg-void-black flex flex-col text-fog-light transition-colors duration-500 hover:bg-[#0d0d0d] hover:text-bone-white">
+              <span className="flex-1 min-h-0 flex items-center justify-center transition-transform duration-700 group-hover:-translate-y-1">
+                <ToolLogo name={tool} size={34} />
+              </span>
+              <span className="px-2.5 pb-2.5 sm:px-3 sm:pb-3 t-label text-[9px] sm:text-[11px] tracking-[0.12em] text-steel-mid leading-tight min-h-[2.6em] transition-colors duration-500 group-hover:text-fog-light">
+                {tool}
+              </span>
+            </li>
           ))}
-        </p>
+          {/* Empty tiles so the last row is complete at 3, 4 and 6 columns */}
+          {Array.from({ length: 5 }, (_, k) => {
+            const need = (c) => k < (c - (ALL_TOOLS.length % c)) % c;
+            const cls = [need(3) ? 'block' : 'hidden', need(4) ? 'sm:block' : 'sm:hidden', need(6) ? 'lg:block' : 'lg:hidden'].join(' ');
+            return <li key={`fill-${k}`} aria-hidden="true" className={`${cls} aspect-square bg-void-black`} />;
+          })}
+        </ul>
       </section>
 
       <section className="shell">

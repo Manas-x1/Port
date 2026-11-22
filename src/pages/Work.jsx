@@ -3,7 +3,6 @@
  *
  * Projects sit in three groups (AI work, AR, 3D). A sticky index follows the scroll:
  *   desktop — left column listing each group and its numbered projects
- *   phones  — a bar under the nav with the group names
  * The item in view lights up; tapping an entry scrolls to it.
  */
 import React, { useEffect, useState } from 'react';
@@ -66,28 +65,6 @@ export default function Work() {
         title={<>The <span className="t-serif">archive</span></>}
       />
 
-      {/* Phones: sticky group bar */}
-      <nav
-        aria-label="Archive sections"
-        className="lg:hidden sticky top-16 z-30 bg-void-black/90 rule-b"
-      >
-        <div className="shell flex gap-6">
-          {SECTIONS.map((g) => (
-            <button
-              key={g.id}
-              type="button"
-              onClick={() => scrollToId(g.id)}
-              aria-current={activeGroup === g.id ? 'true' : undefined}
-              className={`inline-flex items-center gap-2 h-12 t-label border-b transition-colors duration-500 cursor-pointer bg-transparent ${
-                activeGroup === g.id ? 'text-bone-white border-bone-white' : 'text-steel-mid border-transparent'
-              }`}
-            >
-              {g.name}
-              <span className="tabular-nums text-steel-mid">{pad(g.items.length)}</span>
-            </button>
-          ))}
-        </div>
-      </nav>
 
       <div className="shell pt-[var(--col-gap)] lg:pt-0">
         <div className="grid-12">
