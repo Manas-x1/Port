@@ -2,13 +2,17 @@
  * About.jsx — Story & vision.
  * Title card with portrait → chronology → closing call to action → footer.
  */
-import React, { useEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '../components/layout/Footer';
 import { openContact } from '../data/contact';
 import PageHeader from '../components/ui/PageHeader';
 import TimelineSection from '../components/sections/TimelineSection';
+
+// WebGL glass effect, loaded in its own chunk
+const FluidGlass = lazy(() => import('../components/ui/FluidGlass'));
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -34,8 +38,23 @@ export default function About() {
             transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
             className="col-span-4 lg:col-span-5"
           >
+            {/* Portrait under a glass lens that follows the cursor (click it to change shape).
+                The plain image sits underneath: it shows while the effect loads, or if WebGL2 isn't available. */}
             <div className="frame aspect-[4/5]">
               <img src="/profile.webp" alt="Manas Upadhyay in profile" fetchPriority="high" />
+              <Suspense fallback={null}>
+                <FluidGlass
+                  className="!absolute inset-0"
+                  text=""
+                  src="/profile.webp"
+                  shape="lens"
+                  size={220}
+                  refraction={1}
+                  dispersion={0.35}
+                  shadow={0.4}
+                  interaction="follow"
+                />
+              </Suspense>
             </div>
           </motion.div>
 
