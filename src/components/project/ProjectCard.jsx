@@ -5,6 +5,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MediaPlaceholder from './MediaPlaceholder';
+import BrandBackdrop from './BrandBackdrop';
 
 export default function ProjectCard({ project, index, aspect = 'aspect-square lg:aspect-[4/3]', size = 'md', eager = false }) {
   const num = String(index + 1).padStart(2, '0');
@@ -13,7 +14,9 @@ export default function ProjectCard({ project, index, aspect = 'aspect-square lg
   return (
     <Link to={`/project/${project.slug}`} className="group block" aria-label={`${project.title}, ${project.category}`}>
       <div className={`frame scrim ${aspect}`}>
-        {project.thumbnail ? (
+        {project.brand ? (
+          <BrandBackdrop brand={project.brand} name={project.title} />
+        ) : project.thumbnail ? (
           <img src={project.thumbnail} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" className="brightness-[0.62] group-hover:brightness-[0.8]" />
         ) : (
           <MediaPlaceholder />

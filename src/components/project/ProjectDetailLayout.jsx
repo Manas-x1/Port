@@ -4,6 +4,7 @@
  *   Title card: cover, or a random slideshow of the clips            (project.heroSlideshow)
  *               title fitted to the full width, serif note, meta grid
  *   Overview:   description + numbered scope, tools line
+ *   Scenes:     name, context and the scene with sound, loaded on tap  (project.scenes)
  *   Stills:     grouped by part of the story                           (project.stills)
  *               or one wide frame + two-up                             (project.images)
  *   Videos:     muted shots that run only while on screen              (project.clips)
@@ -19,6 +20,7 @@ import Footer from '../layout/Footer';
 import LoopVideo from '../ui/LoopVideo';
 import HeroSlideshow from './HeroSlideshow';
 import MediaPlaceholder from './MediaPlaceholder';
+import ResearchSection from './ResearchSection';
 import useFitText from '../../hooks/useFitText';
 import useInView from '../../hooks/useInView';
 import useReveal from '../../hooks/useReveal';
@@ -74,6 +76,40 @@ function PlayButton({ label, poster, onClick, text }) {
         </span>
       </span>
     </button>
+  );
+}
+
+// Full film with sound: poster first, the file only loads when play is pressed
+function Film({ film, title }) {
+  const [started, setStarted] = useState(false);
+  const vertical = film.aspect === '9/16';
+  return (
+    <div className={vertical ? 'mx-auto w-full max-w-[420px]' : ''}>
+      <div className="frame" style={{ aspectRatio: film.aspect || '16/9' }}>
+        {started ? (
+          <video
+            src={film.src}
+            poster={film.poster}
+            controls
+            autoPlay
+            playsInline
+            data-solo=""
+            // Only one piece with sound at a time: starting this one pauses the others
+            onPlay={(e) =>
+              document.querySelectorAll('video[data-solo]').forEach((v) => v !== e.currentTarget && v.pause())
+            }
+            className="absolute inset-0 w-full h-full object-contain bg-black"
+          />
+        ) : (
+          <PlayButton
+            label={`Play ${title}`}
+            poster={film.poster}
+            onClick={() => setStarted(true)}
+            text={`${film.label || 'Play film'}${film.duration ? ` · ${film.duration}` : ''}`}
+          />
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -164,7 +200,16 @@ function Still({ src, caption, n, aspect = 'aspect-video', small = false }) {
 }
 
 // Stills grouped by part of the story; the first of each group runs full width
-function GroupedStills({ stills }) {
+function GroupedStills({ stills, vertical = false }) {
+  if (vertical) {
+    return (
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[var(--col-gap)]">
+        {stills.map((s, i) => (
+          <Still key={s.src} {...s} n={i + 1} aspect="aspect-[9/16]" small />
+        ))}
+      </div>
+    );
+  }
   const groups = [];
   stills.forEach((s, i) => {
     const last = groups[groups.length - 1];
@@ -179,10 +224,12 @@ function GroupedStills({ stills }) {
         const [first, ...rest] = g.items;
         return (
           <div key={g.name}>
-            <h3 className="t-h3 m-0 mb-6 text-bone-white flex items-baseline justify-between gap-4">
-              <span>{g.name}</span>
-              <span className="t-label text-steel-mid tabular-nums">{pad(g.items.length)} stills</span>
-            </h3>
+            {g.name && (
+              <h3 className="t-h3 m-0 mb-6 text-bone-white flex items-baseline justify-between gap-4">
+                <span>{g.name}</span>
+                <span className="t-label text-steel-mid tabular-nums">{pad(g.items.length)} stills</span>
+              </h3>
+            )}
             <Still {...first} />
             {rest.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[var(--col-gap)] mt-[var(--col-gap)]">
@@ -216,6 +263,8 @@ function SimpleStills({ project }) {
 
 export default function ProjectDetailLayout({ project, index, nextProject }) {
   useReveal(project.slug);
+
+  const vertical = project.film?.aspect === '9/16';
 
   // Number sections in the order they appear
   let n = 1;
@@ -312,6 +361,53 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
         </div>
       </section>
 
+      {/* ── Scenes: name, context, then the scene with sound (most intense first) ── */}
+      {project.scenes?.length > 0 && (
+        <section className="section pt-0">
+          <div className="shell">
+            <Label index={next()} aside={<span className="tabular-nums">{pad(project.scenes.length)} scenes · with sound</span>}>
+              Scenes
+            </Label>
+            <ol className="list-none m-0 p-0 flex flex-col gap-16 sm:gap-24">
+              {project.scenes.map((s, i) => (
+                <li key={s.src} className="reveal grid-12 gap-y-6 items-start">
+                  <div className="col-span-4 lg:col-span-4 lg:sticky lg:top-28">
+                    <span className="t-label text-ember-orange tabular-nums">{pad(i + 1)}</span>
+                    <h3 className="t-h3 text-bone-white m-0 mt-3 mb-4">{s.title}</h3>
+                    <p className="t-body text-fog-light m-0 max-w-[46ch]">{s.context}</p>
+                  </div>
+                  <div className="col-span-4 lg:col-start-6 lg:col-span-7">
+                    <Film film={{ ...s, label: 'Play scene' }} title={s.title} />
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
+      {/* ── Film (full piece, with sound) ── */}
+      {project.film && (
+        <section className="section pt-0">
+          <div className="shell">
+            <Label index={next()} aside="With sound">Film</Label>
+            <div className="reveal">
+              <Film film={project.film} title={project.title} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Research: palette, type, elements ── */}
+      {project.research && (
+        <section className="section pt-0">
+          <div className="shell">
+            <Label index={next()}>Research</Label>
+            <ResearchSection research={project.research} />
+          </div>
+        </section>
+      )}
+
       {/* ── Stills ── */}
       {(project.stills?.length > 0 || project.images?.length > 0) && (
         <section className="section pt-0 [content-visibility:auto] [contain-intrinsic-size:auto_2400px]">
@@ -322,7 +418,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
             >
               Stills
             </Label>
-            {project.stills ? <GroupedStills stills={project.stills} /> : <SimpleStills project={project} />}
+            {project.stills ? <GroupedStills stills={project.stills} vertical={vertical} /> : <SimpleStills project={project} />}
           </div>
         </section>
       )}
@@ -332,10 +428,10 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
         <section className="section pt-0 [content-visibility:auto] [contain-intrinsic-size:auto_2400px]">
           <div className="shell">
             <Label index={next()} aside={<span className="tabular-nums">{pad(project.clips.length)} shots</span>}>Videos</Label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[var(--col-gap)]">
+            <div className={`grid gap-[var(--col-gap)] ${vertical ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
               {project.clips.map((c, i) => (
                 <figure key={c.src} className="reveal m-0">
-                  <div className="frame aspect-video">
+                  <div className={`frame ${vertical ? 'aspect-[9/16]' : 'aspect-video'}`}>
                     <LoopVideo src={c.src} poster={c.poster} label={c.caption} className="absolute inset-0 w-full h-full object-cover" />
                   </div>
                   <figcaption className="t-label text-steel-mid mt-3 flex gap-3">

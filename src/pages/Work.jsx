@@ -15,8 +15,9 @@ import useReveal from '../hooks/useReveal';
 const pad = (n) => String(n).padStart(2, '0');
 
 const GROUPS = [
-  { id: 'ai-work', name: 'AI work', test: (p) => p.group !== '3D' && !/\bAR\b/.test(p.category) },
+  { id: 'ai-work', name: 'AI work', test: (p) => p.group !== '3D' && p.group !== 'Motion' && !/\bAR\b/.test(p.category) },
   { id: 'ar', name: 'AR', test: (p) => /\bAR\b/.test(p.category) },
+  { id: 'motion', name: 'Motion design', test: (p) => p.group === 'Motion' },
   { id: '3d', name: '3D', test: (p) => p.group === '3D' },
 ];
 

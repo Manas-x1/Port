@@ -338,3 +338,8 @@ input:-webkit-autofill:focus {
 .hs-front { z-index: 2; animation: hs-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) both; }
 .hs-back  { z-index: 1; }
 @media (prefers-reduced-motion: reduce) { .hs-front { animation: none; } }
+
+/* Notion card: blinking caret (BrandBackdrop.jsx) */
+@keyframes nb-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.nb-caret { animation: nb-blink 1.05s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .nb-caret { animation: none; } }
