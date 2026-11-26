@@ -50,7 +50,7 @@ export default function AboutSection() {
             transition={{ duration: 1.2, ease: EASE }}
             className="col-span-4 lg:col-span-7 m-0 t-h2 text-bone-white"
           >
-            Crafting digital narratives that <span className="t-serif">ignite</span>
+            Digital narratives that <span className="t-serif">ignite</span>
           </motion.h2>
 
           <motion.div
