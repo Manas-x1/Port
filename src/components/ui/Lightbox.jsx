@@ -1,6 +1,7 @@
 /**
  * Lightbox.jsx — full-screen viewer for stills.
- * Wrap a gallery in <LightboxGallery>; tapping any image inside opens it.
+ * Wrap a gallery in <LightboxGallery>; tapping any image (or a frame marked
+ * data-lb-video) inside opens it.
  * Arrows / swipe to move, Esc / tap outside to close.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -16,11 +17,16 @@ export default function LightboxGallery({ children, className = '' }) {
   const open = i >= 0;
 
   const onClick = (e) => {
-    const img = e.target.closest('img');
-    if (!img || !boxRef.current) return;
-    const imgs = [...boxRef.current.querySelectorAll('img')];
-    setItems(imgs.map((el) => ({ src: full(el.getAttribute('src')), alt: el.alt })));
-    setI(imgs.indexOf(img));
+    const sel = '[data-lb-video], img';
+    const hit = e.target.closest(sel);
+    if (!hit || !boxRef.current) return;
+    // A video frame wraps its own poster <img>; count each frame once
+    const els = [...boxRef.current.querySelectorAll(sel)].filter((el) => !el.parentElement.closest('[data-lb-video]'));
+    const target = hit.closest('[data-lb-video]') || hit;
+    setItems(els.map((el) => (el.dataset.lbVideo
+      ? { video: el.dataset.lbVideo, src: el.dataset.lbPoster, alt: el.dataset.lbAlt || '' }
+      : { src: full(el.getAttribute('src')), alt: el.alt })));
+    setI(els.indexOf(target));
   };
 
   const close = useCallback(() => setI(-1), []);
@@ -46,7 +52,7 @@ export default function LightboxGallery({ children, className = '' }) {
   // Preload neighbours so arrowing feels instant
   useEffect(() => {
     if (!open || items.length < 2) return;
-    [1, -1].forEach((d) => { new Image().src = items[(i + d + items.length) % items.length].src; });
+    [1, -1].forEach((d) => { const n = items[(i + d + items.length) % items.length]; if (!n.video) new Image().src = n.src; });
   }, [open, i, items]);
 
   const touch = useRef(null);
@@ -54,7 +60,7 @@ export default function LightboxGallery({ children, className = '' }) {
 
   return (
     <>
-      <div ref={boxRef} onClick={onClick} className={`[&_img]:cursor-zoom-in ${className}`}>
+      <div ref={boxRef} onClick={onClick} className={`[&_img]:cursor-zoom-in [&_[data-lb-video]]:cursor-zoom-in ${className}`}>
         {children}
       </div>
       {createPortal(
@@ -86,17 +92,36 @@ export default function LightboxGallery({ children, className = '' }) {
                 </button>
               </div>
               <div className="relative flex-1 min-h-0 flex items-center justify-center px-4 sm:px-16">
-                <motion.img
-                  key={item.src}
-                  src={item.src}
-                  alt={item.alt}
-                  initial={{ opacity: 0, scale: 0.985 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="max-w-full max-h-full object-contain select-none"
-                  onClick={(e) => e.stopPropagation()}
-                  draggable={false}
-                />
+                {item.video ? (
+                  <motion.video
+                    key={item.video}
+                    src={item.video}
+                    poster={item.src}
+                    aria-label={item.alt}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    controls
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="max-w-full max-h-full object-contain"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                ) : (
+                  <motion.img
+                    key={item.src}
+                    src={item.src}
+                    alt={item.alt}
+                    initial={{ opacity: 0, scale: 0.985 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="max-w-full max-h-full object-contain select-none"
+                    onClick={(e) => e.stopPropagation()}
+                    draggable={false}
+                  />
+                )}
                 {items.length > 1 && (
                   <>
                     <button type="button" aria-label="Previous" onClick={(e) => { e.stopPropagation(); step(-1); }}
