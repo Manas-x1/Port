@@ -796,12 +796,7 @@ export const projects = [
     bullets: [],
     skills: ['Blender'],
     thumbnail: '/projects/motion-graphics/thumbnail.webp',
-    film: {
-      src: '/projects/motion-graphics/film.mp4',
-      poster: '/projects/motion-graphics/film-poster.webp',
-      duration: '0:54',
-      aspect: '1/1',
-    },
+    clipAspect: '1/1',
     stills: [],
     clips: [
       { src: '/projects/motion-graphics/clips/01-liquid-orbs.mp4', poster: '/projects/motion-graphics/clips/01-liquid-orbs.webp', caption: 'Liquid orbs' },
