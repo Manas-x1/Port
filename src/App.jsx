@@ -113,6 +113,10 @@ function App() {
     <Router>
       <ScrollToTop lenisRef={lenisRef} />
 
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[10001] focus:px-4 focus:py-3 focus:bg-bone-white focus:text-void-black t-label">
+        Skip to content
+      </a>
+
       {/* Entry animation & route transition loader */}
       <LoadingScreen />
 
@@ -120,7 +124,7 @@ function App() {
       <Navbar />
 
       {/* Page router */}
-      <main className="w-full min-h-screen bg-void-black text-bone-white">
+      <main id="main" tabIndex={-1} className="outline-none w-full min-h-screen bg-void-black text-bone-white">
         <Suspense fallback={<div className="min-h-screen bg-void-black" />}>
         <Routes>
           <Route path="/" element={<Home />} />
