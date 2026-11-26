@@ -82,9 +82,9 @@ function PlayButton({ label, poster, onClick, text }) {
 // Full film with sound: poster first, the file only loads when play is pressed
 function Film({ film, title }) {
   const [started, setStarted] = useState(false);
-  const vertical = film.aspect === '9/16';
+  const narrow = film.aspect === '9/16' ? 'max-w-[420px]' : film.aspect === '1/1' ? 'max-w-[720px]' : '';
   return (
-    <div className={vertical ? 'mx-auto w-full max-w-[420px]' : ''}>
+    <div className={narrow ? `mx-auto w-full ${narrow}` : ''}>
       <div className="frame" style={{ aspectRatio: film.aspect || '16/9' }}>
         {started ? (
           <video
@@ -431,7 +431,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
             <div className={`grid gap-[var(--col-gap)] ${vertical ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
               {project.clips.map((c, i) => (
                 <figure key={c.src} className="reveal m-0">
-                  <div className={`frame ${vertical ? 'aspect-[9/16]' : 'aspect-video'}`}>
+                  <div className={`frame ${vertical ? 'aspect-[9/16]' : project.film?.aspect === '1/1' ? 'aspect-square' : 'aspect-video'}`}>
                     <LoopVideo src={c.src} poster={c.poster} label={c.caption} className="absolute inset-0 w-full h-full object-cover" />
                   </div>
                   <figcaption className="t-label text-steel-mid mt-3 flex gap-3">

@@ -792,13 +792,22 @@ export const projects = [
     group: '3D',
     category: '3D Motion Graphics',
     description:
-      '3D motion graphics work.',
-    // To fill in: scope, tools, stills and clips (sections stay hidden while empty)
+      'Three seamless 3D loops built in Blender: liquid orbs, a neon tunnel and a wave grid. Each one is 6 seconds and loops with no visible cut.',
     bullets: [],
-    skills: [],
-    thumbnail: '',
+    skills: ['Blender'],
+    thumbnail: '/projects/motion-graphics/thumbnail.webp',
+    film: {
+      src: '/projects/motion-graphics/film.mp4',
+      poster: '/projects/motion-graphics/film-poster.webp',
+      duration: '0:54',
+      aspect: '1/1',
+    },
     stills: [],
-    clips: [],
+    clips: [
+      { src: '/projects/motion-graphics/clips/01-liquid-orbs.mp4', poster: '/projects/motion-graphics/clips/01-liquid-orbs.webp', caption: 'Liquid orbs' },
+      { src: '/projects/motion-graphics/clips/02-neon-tunnel.mp4', poster: '/projects/motion-graphics/clips/02-neon-tunnel.webp', caption: 'Neon tunnel' },
+      { src: '/projects/motion-graphics/clips/03-wave-grid.mp4', poster: '/projects/motion-graphics/clips/03-wave-grid.webp', caption: 'Wave grid' },
+    ],
   },
   {
     slug: 'stylized-river-generator',
