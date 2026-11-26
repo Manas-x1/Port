@@ -103,9 +103,125 @@ export const projects = [
     // To fill in: scope, tools, stills and clips (sections stay hidden while empty)
     bullets: [],
     skills: [],
-    thumbnail: '',
+    thumbnail: '/projects/shiv-mahapuran/thumbnail.webp',
     stills: [],
-    clips: [],
+    // Muted single-shot loops (≤3.5s, 1280px), cut from the masters. Also feed the random slideshow behind the title.
+    clips: [
+      { src: '/projects/shiv-mahapuran/clips/01-third-eye.mp4', poster: '/projects/shiv-mahapuran/clips/01-third-eye.webp', caption: 'The third eye opens' },
+      { src: '/projects/shiv-mahapuran/clips/02-fire-beam.mp4', poster: '/projects/shiv-mahapuran/clips/02-fire-beam.webp', caption: 'Fire across the snow' },
+      { src: '/projects/shiv-mahapuran/clips/03-virabhadra.mp4', poster: '/projects/shiv-mahapuran/clips/03-virabhadra.webp', caption: 'Virabhadra' },
+      { src: '/projects/shiv-mahapuran/clips/04-gana-army.mp4', poster: '/projects/shiv-mahapuran/clips/04-gana-army.webp', caption: 'The gana army' },
+      { src: '/projects/shiv-mahapuran/clips/05-sati-fire.mp4', poster: '/projects/shiv-mahapuran/clips/05-sati-fire.webp', caption: 'Sati’s fire' },
+      { src: '/projects/shiv-mahapuran/clips/06-cosmos.mp4', poster: '/projects/shiv-mahapuran/clips/06-cosmos.webp', caption: 'Through the cosmos' },
+      { src: '/projects/shiv-mahapuran/clips/07-snow-ridge.mp4', poster: '/projects/shiv-mahapuran/clips/07-snow-ridge.webp', caption: 'The walk through the snow' },
+      { src: '/projects/shiv-mahapuran/clips/08-bhairav-light.mp4', poster: '/projects/shiv-mahapuran/clips/08-bhairav-light.webp', caption: 'Shiv as light' },
+      { src: '/projects/shiv-mahapuran/clips/09-bhairav.mp4', poster: '/projects/shiv-mahapuran/clips/09-bhairav.webp', caption: 'Bhairav' },
+      { src: '/projects/shiv-mahapuran/clips/10-frozen-shiv.mp4', poster: '/projects/shiv-mahapuran/clips/10-frozen-shiv.webp', caption: 'Frozen Kailash' },
+      { src: '/projects/shiv-mahapuran/clips/11-gulal.mp4', poster: '/projects/shiv-mahapuran/clips/11-gulal.webp', caption: 'The ganas arrive' },
+      { src: '/projects/shiv-mahapuran/clips/12-lotus.mp4', poster: '/projects/shiv-mahapuran/clips/12-lotus.webp', caption: 'The lotus birth' },
+      { src: '/projects/shiv-mahapuran/clips/13-light-streams.mp4', poster: '/projects/shiv-mahapuran/clips/13-light-streams.webp', caption: 'The tej' },
+      { src: '/projects/shiv-mahapuran/clips/14-glowing-face.mp4', poster: '/projects/shiv-mahapuran/clips/14-glowing-face.webp', caption: 'The gods’ council' },
+    ],
+    heroSlideshow: true,
+    // Key scenes with sound, most intense first. Each video loads only when played.
+    scenes: [
+      {
+        title: 'The third eye opens',
+        context:
+          'Sent to break Shiv’s meditation, Kamdev looses his arrow. The cuts grow faster and faster, the third eye opens as a slit across the three lines of ash, and a beam of fire turns Kama to ash. The narration falls away and the score carries the moment into long, quiet holds on Rati’s grief.',
+        src: '/projects/shiv-mahapuran/scenes/kamdev-burned.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/kamdev-burned.webp',
+        duration: '1:35',
+      },
+      {
+        title: 'Shiv’s wrath and the birth of Virabhadra',
+        context:
+          'Word of Sati’s death reaches Kailash. Shiv’s rage is built in fragments before the wide shot, cold blue Kailash cut against Daksha’s amber hall with a white flash between them, until Virabhadra rises and leads the ganas into battle, shown only in silhouette.',
+        src: '/projects/shiv-mahapuran/scenes/virabhadra.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/virabhadra.webp',
+        duration: '1:25',
+      },
+      {
+        title: 'Sati’s confrontation and self-immolation',
+        context:
+          'At her father’s yagya, Sati confronts Daksha for insulting Shiv in front of the whole assembly. When he refuses to yield, she gives herself to the fire, told through her feet, hands and face rather than spectacle, and cut against Shiv sensing it from afar.',
+        src: '/projects/shiv-mahapuran/scenes/sati-immolation.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/sati-immolation.webp',
+        duration: '0:54',
+      },
+      {
+        title: 'Bhairav’s entrance and Brahma’s punishment',
+        context:
+          'At the dawn of creation, Brahma’s pride goes too far. Shiv appears only as light, voice and silhouette, and Bhairav’s entrance is built piece by piece before he takes Brahma’s fifth head, without any gore.',
+        src: '/projects/shiv-mahapuran/scenes/bhairav.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/bhairav.webp',
+        duration: '0:32',
+      },
+      {
+        title: 'Tarakasur’s war and the gods’ council',
+        context:
+          'Tarakasur, who can only be killed by a son of Shiv, wages war on the heavens. The defeated gods gather in council, each with one clear line, and the tej is shown as pure light before the episode ends on a curse.',
+        src: '/projects/shiv-mahapuran/scenes/tarakasur.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/tarakasur.webp',
+        duration: '1:13',
+      },
+      {
+        title: 'Shiv carries Sati’s body',
+        context:
+          'Grief told without words. Shiv touches Sati’s forehead, lifts her body and walks through snow, desert and the cosmos. Her body dividing across the land is shown only as light and fireballs.',
+        src: '/projects/shiv-mahapuran/scenes/sati-body.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/sati-body.webp',
+        duration: '1:12',
+      },
+      {
+        title: 'The ganas reach Himavan’s capital',
+        context:
+          'Shiv’s wedding procession arrives: crowds of ash-smeared ganas with damrus and clouds of gulal pour into the city, and Queen Mena’s welcome slowly turns to fear.',
+        src: '/projects/shiv-mahapuran/scenes/baraat-arrives.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/baraat-arrives.webp',
+        duration: '1:16',
+      },
+      {
+        title: 'Shiv’s baraat and Mena faints',
+        context:
+          'The baraat at full scale, seen from above: ganas, snakes and skeletons, true to the Purana. Mena sees the groom for the first time, and her faint plays out step by step: the shock, her blurring view, the fall.',
+        src: '/projects/shiv-mahapuran/scenes/mena-faints.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/mena-faints.webp',
+        duration: '0:49',
+      },
+      {
+        title: 'The tej’s journey to the lotus birth',
+        context:
+          'Shiv’s tej passes from hand to hand on its way to becoming Kartikeya, one line of narration matched to each image. The conception is shown only as light, and the scene closes on a slow push-in on the lotus.',
+        src: '/projects/shiv-mahapuran/scenes/kartikeya-lotus.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/kartikeya-lotus.webp',
+        duration: '1:00',
+      },
+      {
+        title: 'The debate over Parvati’s future',
+        context:
+          'Narad reads young Parvati’s future, and her family argues over what it means for her marriage. A dialogue scene built on single shots and a reaction between every line.',
+        src: '/projects/shiv-mahapuran/scenes/narad-debate.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/narad-debate.webp',
+        duration: '1:10',
+      },
+      {
+        title: 'Frozen Kailash, then Parvati’s birth',
+        context:
+          'After Sati, the world goes silent. Frost creeps over Shiv in meditation and his damru freezes. Then, far away, new life: Mena’s tear, Himavan’s smile and the first smile of the baby Parvati.',
+        src: '/projects/shiv-mahapuran/scenes/frozen-kailash.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/frozen-kailash.webp',
+        duration: '2:44',
+      },
+      {
+        title: 'Vishnu dresses Shiv',
+        context:
+          'On the night of the wedding, Vishnu helps Shiv get ready. Small, intimate close-ups of hands and details: proof that a quiet scene can stay with you as long as the spectacle.',
+        src: '/projects/shiv-mahapuran/scenes/vishnu-dresses.mp4',
+        poster: '/projects/shiv-mahapuran/scenes/vishnu-dresses.webp',
+        duration: '0:21',
+      },
+    ],
   },
   {
     slug: 'ramayan',
