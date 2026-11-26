@@ -18,6 +18,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { projects } from '../../data/projects';
 import Footer from '../layout/Footer';
 import LoopVideo from '../ui/LoopVideo';
+import LightboxGallery from '../ui/Lightbox';
 import HeroSlideshow from './HeroSlideshow';
 import MediaPlaceholder from './MediaPlaceholder';
 import ResearchSection from './ResearchSection';
@@ -418,7 +419,9 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
             >
               Stills
             </Label>
-            {project.stills ? <GroupedStills stills={project.stills} vertical={vertical} /> : <SimpleStills project={project} />}
+            <LightboxGallery>
+              {project.stills ? <GroupedStills stills={project.stills} vertical={vertical} /> : <SimpleStills project={project} />}
+            </LightboxGallery>
           </div>
         </section>
       )}
