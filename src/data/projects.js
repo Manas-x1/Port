@@ -233,13 +233,143 @@ export const projects = [
     rights:
       'Ramayan was made by Durlabh Darshan (TechXR Innovatives). I worked on it during my internship at Durlabh Darshan as a visual designer and animator. The work, its characters and all footage shown here are the intellectual property of Durlabh Darshan (TechXR Innovatives) and are shown with credit, for portfolio purposes only.',
     description:
-      'The Ramayan, brought to the screen with generative AI at Durlabh Darshan (TechXR Innovatives), where I worked as a visual designer and animator.',
-    // To fill in: scope, tools, stills and clips (sections stay hidden while empty)
+      'Episodes 41, 42 and 45 from the Uttar Kand of the Ramayan, an AI-made mythological series at Durlabh Darshan (TechXR Innovatives), where I worked as a visual designer and animator. Built around big, beautiful scenes: gods in the clouds, a city of lamps, the earth opening in gold.',
     bullets: [],
     skills: [],
-    thumbnail: '',
+    thumbnail: '/projects/ramayan/thumbnail.webp',
     stills: [],
-    clips: [],
+    // Muted single-shot loops (≤3.5s, 1280px) from episodes 41–45 (43 and 44 used for shots only). Also feed the slideshow behind the title.
+    clips: [
+      { src: '/projects/ramayan/clips/01-pushpak-clouds.mp4', poster: '/projects/ramayan/clips/01-pushpak-clouds.webp', caption: 'The Pushpak Viman' },
+      { src: '/projects/ramayan/clips/02-river-dawn.mp4', poster: '/projects/ramayan/clips/02-river-dawn.webp', caption: 'Ram and Sita fly home' },
+      { src: '/projects/ramayan/clips/03-gods-in-clouds.mp4', poster: '/projects/ramayan/clips/03-gods-in-clouds.webp', caption: 'Brothers reunited' },
+      { src: '/projects/ramayan/clips/04-ayodhya-above.mp4', poster: '/projects/ramayan/clips/04-ayodhya-above.webp', caption: 'Rangoli for the return' },
+      { src: '/projects/ramayan/clips/05-golden-light.mp4', poster: '/projects/ramayan/clips/05-golden-light.webp', caption: 'Gold light' },
+      { src: '/projects/ramayan/clips/06-heart.mp4', poster: '/projects/ramayan/clips/06-heart.webp', caption: 'Ram and Sita in Hanuman’s heart' },
+      { src: '/projects/ramayan/clips/07-arrow.mp4', poster: '/projects/ramayan/clips/07-arrow.webp', caption: 'Lav and Kush, young' },
+      { src: '/projects/ramayan/clips/08-young-archer.mp4', poster: '/projects/ramayan/clips/08-young-archer.webp', caption: 'A young archer' },
+      { src: '/projects/ramayan/clips/09-yagna.mp4', poster: '/projects/ramayan/clips/09-yagna.webp', caption: 'The Ashwamedha yagna' },
+      { src: '/projects/ramayan/clips/10-offering.mp4', poster: '/projects/ramayan/clips/10-offering.webp', caption: 'The offering' },
+      { src: '/projects/ramayan/clips/11-horse-light.mp4', poster: '/projects/ramayan/clips/11-horse-light.webp', caption: 'The yagna horse' },
+      { src: '/projects/ramayan/clips/12-twin-bows.mp4', poster: '/projects/ramayan/clips/12-twin-bows.webp', caption: 'Ram takes up the bow' },
+      { src: '/projects/ramayan/clips/13-the-bow.mp4', poster: '/projects/ramayan/clips/13-the-bow.webp', caption: 'Sita at court' },
+      { src: '/projects/ramayan/clips/14-palace-dusk.mp4', poster: '/projects/ramayan/clips/14-palace-dusk.webp', caption: 'The palace at dusk' },
+      { src: '/projects/ramayan/clips/15-moonlit-court.mp4', poster: '/projects/ramayan/clips/15-moonlit-court.webp', caption: 'Moonlit courtyard' },
+      { src: '/projects/ramayan/clips/16-earth-cracks.mp4', poster: '/projects/ramayan/clips/16-earth-cracks.webp', caption: 'The earth opens' },
+      { src: '/projects/ramayan/clips/17-ghats.mp4', poster: '/projects/ramayan/clips/17-ghats.webp', caption: 'Ram, the last morning' },
+      { src: '/projects/ramayan/clips/18-into-saryu.mp4', poster: '/projects/ramayan/clips/18-into-saryu.webp', caption: 'Into the Saryu' },
+      { src: '/projects/ramayan/clips/19-sunset-saryu.mp4', poster: '/projects/ramayan/clips/19-sunset-saryu.webp', caption: 'Sunrise over the Saryu' },
+    ],
+    heroSlideshow: true,
+    series: 'Ramayan · Uttar Kand',
+    episodes: [
+      {
+        number: '41',
+        title: 'The return and the coronation',
+        synopsis:
+          'The exile ends. Ram, Sita and Lakshman fly home on the Pushpak Viman, Bharat gives back the sandals he ruled by, and Ayodhya crowns its king. The episode closes on Hanuman, who would rather keep Ram in his heart than any jewel.',
+        scenes: [
+          {
+            title: 'The Pushpak Viman',
+            context:
+              'A golden swan-shaped chariot crosses a sea of clouds at dawn and comes down over forests, rivers and waking villages on the way home.',
+            src: '/projects/ramayan/scenes/41-pushpak.mp4',
+            poster: '/projects/ramayan/scenes/41-pushpak.webp',
+            duration: '0:48',
+          },
+          {
+            title: 'Bharat returns the sandals',
+            context:
+              "At Nandigram, Bharat runs to meet his brother and places the sandals he kept on the throne for fourteen years back at Ram's feet.",
+            src: '/projects/ramayan/scenes/41-sandals.mp4',
+            poster: '/projects/ramayan/scenes/41-sandals.webp',
+            duration: '0:30',
+          },
+          {
+            title: 'The coronation',
+            context:
+              'Ayodhya from above, feet on a carpet of petals, sacred water and a single tear, then lamps lit through the streets as Vashishtha crowns Ram.',
+            src: '/projects/ramayan/scenes/41-coronation.mp4',
+            poster: '/projects/ramayan/scenes/41-coronation.webp',
+            duration: '1:26',
+          },
+          {
+            title: 'Hanuman’s heart',
+            context:
+              'Sita gifts Hanuman a pearl necklace and he breaks the pearls one by one, looking for Ram inside. When the court laughs, he opens his chest and shows Ram and Sita in his heart, in a burst of gold light.',
+            src: '/projects/ramayan/scenes/41-hanuman-heart.mp4',
+            poster: '/projects/ramayan/scenes/41-hanuman-heart.webp',
+            duration: '2:28',
+          },
+        ],
+      },
+      {
+        number: '42',
+        title: 'Sita’s exile and the story of Lav-Kush',
+        original: 'सीता त्याग और लव-कुश की कथा',
+        synopsis:
+          "Gossip in the streets of Ayodhya reaches the palace, and Ram makes the hardest choice of his reign. Sita finds shelter in Valmiki's ashram, where her twin sons grow up in the forest and learn to sing their father's story.",
+        scenes: [
+          {
+            title: 'The last conversation',
+            context:
+              'In a sunlit palace hall, Sita and Ram speak for the last time before the exile, framed in close, warm light.',
+            src: '/projects/ramayan/scenes/42-last-conversation.mp4',
+            poster: '/projects/ramayan/scenes/42-last-conversation.webp',
+            duration: '1:31',
+          },
+          {
+            title: 'Alone in the temple',
+            context:
+              'Sita, alone with her thoughts under the temple lamps, before she leaves the palace.',
+            src: '/projects/ramayan/scenes/42-alone.mp4',
+            poster: '/projects/ramayan/scenes/42-alone.webp',
+            duration: '0:41',
+          },
+          {
+            title: 'Lav and Kush',
+            context:
+              "Valmiki's ashram: the twins are born, learn the bow in the forest and, years later, carry the Ramayan into Ayodhya on their veenas.",
+            src: '/projects/ramayan/scenes/42-lav-kush.mp4',
+            poster: '/projects/ramayan/scenes/42-lav-kush.webp',
+            duration: '2:04',
+          },
+        ],
+      },
+      {
+        number: '45',
+        title: 'Sita returns to the earth',
+        original: 'सीता का पृथ्वी में समा जाना',
+        synopsis:
+          'The last chapter. Sita asks the earth that bore her to take her back, and the ground opens in gold. With her gone, Ram walks into the Saryu at dawn while Ayodhya and Hanuman watch from the ghats.',
+        scenes: [
+          {
+            title: 'A night of grief',
+            context:
+              'Moonlight over the palace. Kaushalya weeps in a lamp-lit courtyard as Ram stands before her.',
+            src: '/projects/ramayan/scenes/45-night.mp4',
+            poster: '/projects/ramayan/scenes/45-night.webp',
+            duration: '0:57',
+          },
+          {
+            title: 'The earth opens',
+            context:
+              'Before the whole court, Sita calls on Mother Earth. Gold veins run across the marble floor, light breaks through, and she sinks into it.',
+            src: '/projects/ramayan/scenes/45-earth-opens.mp4',
+            poster: '/projects/ramayan/scenes/45-earth-opens.webp',
+            duration: '1:26',
+          },
+          {
+            title: 'Into the Saryu',
+            context:
+              'Ram looks over the river from the palace, walks down to the ghats past his people and steps into the water until only the sunrise is left.',
+            src: '/projects/ramayan/scenes/45-saryu.mp4',
+            poster: '/projects/ramayan/scenes/45-saryu.webp',
+            duration: '1:47',
+          },
+        ],
+      },
+    ],
   },
   {
     slug: 'hanuman-chalisa-ar-book',

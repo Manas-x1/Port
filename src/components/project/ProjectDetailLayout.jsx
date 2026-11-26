@@ -29,6 +29,26 @@ import useReveal from '../../hooks/useReveal';
 const EASE = [0.16, 1, 0.3, 1];
 const pad = (n) => String(n).padStart(2, '0');
 
+// Scenes with sound: name and context beside the player; the video loads only when played
+function SceneList({ scenes, prefix = '' }) {
+  return (
+    <ol className="list-none m-0 p-0 flex flex-col gap-16 sm:gap-24">
+      {scenes.map((s, i) => (
+        <li key={s.src} className="reveal grid-12 gap-y-6 items-start">
+          <div className="col-span-4 lg:col-span-4 lg:sticky lg:top-28">
+            <span className="t-label text-ember-orange tabular-nums">{prefix}{pad(i + 1)}</span>
+            <h3 className="t-h3 text-bone-white m-0 mt-3 mb-4">{s.title}</h3>
+            <p className="t-body text-fog-light m-0 max-w-[46ch]">{s.context}</p>
+          </div>
+          <div className="col-span-4 lg:col-start-6 lg:col-span-7">
+            <Film film={{ ...s, label: 'Play scene' }} title={s.title} />
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 function Label({ index, children, aside }) {
   return (
     <div className="rule-t pt-4 t-label text-steel-mid stack-gap flex justify-between gap-6">
@@ -362,6 +382,40 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
         </div>
       </section>
 
+      {/* ── Episodes: each with a short synopsis, then its key scenes with sound ── */}
+      {project.episodes?.length > 0 && (
+        <section className="section pt-0">
+          <div className="shell">
+            <Label
+              index={next()}
+              aside={<span className="tabular-nums">{pad(project.episodes.length)} episodes · {pad(project.episodes.reduce((n, e) => n + e.scenes.length, 0))} scenes · with sound</span>}
+            >
+              Episodes
+            </Label>
+            <div className="flex flex-col gap-24 sm:gap-36">
+              {project.episodes.map((ep) => (
+                <article key={ep.number} aria-labelledby={`ep-${ep.number}`}>
+                  <header className="reveal grid-12 gap-y-4 mb-12 sm:mb-16">
+                    <div className="col-span-4 lg:col-span-4">
+                      <span className="t-label text-steel-mid">Episode</span>
+                      <span className="block font-display font-extrabold text-bone-white leading-none tracking-[-0.04em] tabular-nums text-[clamp(72px,12vw,160px)]">
+                        {ep.number}
+                      </span>
+                    </div>
+                    <div className="col-span-4 lg:col-start-6 lg:col-span-7 lg:self-end">
+                      <h3 id={`ep-${ep.number}`} className="t-h2 text-bone-white m-0 mb-2">{ep.title}</h3>
+                      {ep.original && <p className="t-serif text-fog-light text-xl m-0 mb-5">{ep.original}</p>}
+                      <p className="t-body text-fog-light m-0 max-w-[60ch]">{ep.synopsis}</p>
+                    </div>
+                  </header>
+                  <SceneList scenes={ep.scenes} prefix={`${ep.number}.`} />
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Scenes: name, context, then the scene with sound (most intense first) ── */}
       {project.scenes?.length > 0 && (
         <section className="section pt-0">
@@ -369,20 +423,7 @@ export default function ProjectDetailLayout({ project, index, nextProject }) {
             <Label index={next()} aside={<span className="tabular-nums">{pad(project.scenes.length)} scenes · with sound</span>}>
               Scenes
             </Label>
-            <ol className="list-none m-0 p-0 flex flex-col gap-16 sm:gap-24">
-              {project.scenes.map((s, i) => (
-                <li key={s.src} className="reveal grid-12 gap-y-6 items-start">
-                  <div className="col-span-4 lg:col-span-4 lg:sticky lg:top-28">
-                    <span className="t-label text-ember-orange tabular-nums">{pad(i + 1)}</span>
-                    <h3 className="t-h3 text-bone-white m-0 mt-3 mb-4">{s.title}</h3>
-                    <p className="t-body text-fog-light m-0 max-w-[46ch]">{s.context}</p>
-                  </div>
-                  <div className="col-span-4 lg:col-start-6 lg:col-span-7">
-                    <Film film={{ ...s, label: 'Play scene' }} title={s.title} />
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <SceneList scenes={project.scenes} />
           </div>
         </section>
       )}
