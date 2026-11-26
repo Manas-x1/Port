@@ -1,0 +1,345 @@
+/* =============================================================================
+ * index.css — Cinematic editorial design system
+ * Void black, bone white, one ember accent per screen.
+ * Outfit (display), Instrument Serif italic (accents), Inter (body), Chivo Mono (labels)
+ *
+ * One grid, one spacing scale, one type scale — every section uses:
+ *   .shell        page container (max width + gutters)
+ *   .grid-12      4 columns on phones, 12 from 1024px
+ *   .section      shared vertical rhythm
+ *   .t-*          type scale (display / h1 / h2 / h3 / lead / body / label)
+ * =========================================================================== */
+
+@import "tailwindcss";
+
+@theme {
+  --color-ember-orange: #ff4f2b;
+  --color-void-black:   #000000;
+  --color-carbon:       #111111;
+  --color-graphite-border: #2e2e2e;
+  --color-steel-mid:    #8c8c8c;
+  --color-fog-light:    #bfbfbf;
+  --color-bone-white:   #f2efe9;
+
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font-sans:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif:   'Instrument Serif', ui-serif, Georgia, serif;
+}
+
+:root {
+  --color-ember-orange:    #ff4f2b;
+  --color-void-black:      #000000;
+  --color-carbon:          #111111;
+  --color-graphite-border: #2e2e2e;
+  --color-steel-mid:       #8c8c8c;
+  --color-fog-light:       #bfbfbf;
+  --color-bone-white:      #f2efe9;
+
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Chivo Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font-serif:   'Instrument Serif', ui-serif, Georgia, serif;
+
+  /* Layout scale */
+  --gutter: 20px;          /* page side padding */
+  --col-gap: 16px;         /* grid column gap */
+  --section-y: 96px;       /* vertical padding of every section */
+  --stack: 40px;           /* gap between a section header and its content */
+  --rule: rgba(242, 239, 233, 0.14);
+
+  /* Motion */
+  --ease-film: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  :root { --gutter: 32px; --col-gap: 20px; --section-y: 128px; --stack: 56px; }
+}
+@media (min-width: 1024px) {
+  :root { --gutter: 48px; --col-gap: 24px; --section-y: 160px; --stack: 72px; }
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+html { font-size: 16px; }
+
+body {
+  background-color: #000;
+  color: var(--color-bone-white);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+*:focus { outline: none; }
+*:focus-visible { outline: 2px solid var(--color-ember-orange); outline-offset: 3px; }
+
+::selection { background-color: var(--color-ember-orange); color: #000; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #3c3c3c; border-radius: 0; }
+html { scrollbar-width: thin; scrollbar-color: #3c3c3c #000; }
+
+a { color: inherit; text-decoration: none; }
+img { display: block; }
+
+/* ── Layout ────────────────────────────────────────────────────────────────── */
+.shell {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  box-sizing: border-box;
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+@media (min-width: 1024px) {
+  .grid-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+.section { padding-block: var(--section-y); }
+.stack-gap { margin-bottom: var(--stack); }
+
+.rule-t { border-top: 1px solid var(--rule); }
+.rule-b { border-bottom: 1px solid var(--rule); }
+
+/* ── Type scale ────────────────────────────────────────────────────────────── */
+/* Display — title cards, page names */
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  font-size: clamp(64px, 16vw, 240px);
+}
+/* H1 — page and section statements */
+.t-h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-size: clamp(44px, 8.5vw, 132px);
+}
+/* H2 — section headings */
+.t-h2 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-size: clamp(34px, 5.2vw, 76px);
+}
+/* H3 — card and row titles */
+.t-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  font-size: clamp(22px, 2.4vw, 34px);
+}
+/* Lead — intro paragraphs */
+.t-lead {
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.5;
+  font-size: clamp(18px, 1.6vw, 22px);
+}
+/* Body */
+.t-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.65;
+  font-size: 16px;
+}
+/* Label — mono, uppercase */
+.t-label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  font-size: 12px;
+}
+/* Serif italic accent, used inside display/heading type */
+.t-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 24px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color .4s var(--ease-film), color .4s var(--ease-film), border-color .4s var(--ease-film);
+  user-select: none;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--color-ember-orange); color: #000; }
+.btn-primary:hover { background: var(--color-bone-white); }
+.btn-ghost { background: transparent; color: var(--color-bone-white); border-color: rgba(242,239,233,0.35); }
+.btn-ghost:hover { border-color: var(--color-bone-white); background: var(--color-bone-white); color: #000; }
+
+/* Text link with an underline that draws in */
+.link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size .6s var(--ease-film), color .3s ease;
+}
+.link-line:hover { background-size: 100% 1px; }
+
+/* ── Imagery ───────────────────────────────────────────────────────────────── */
+.frame { position: relative; overflow: hidden; background: var(--color-carbon); }
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease-film), filter 1.4s var(--ease-film);
+}
+.group:hover .frame img { transform: scale(1.04); }
+/* Bottom scrim so title-card type stays readable over any image */
+.scrim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0) 70%);
+  pointer-events: none;
+}
+
+/* Static film grain (no animation cost) */
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  z-index: 1;
+}
+
+/* ── Scroll reveal (slow, deliberate) ──────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 1.4s var(--ease-film), transform 1.4s var(--ease-film);
+}
+.reveal.active { opacity: 1; transform: none; }
+
+/* ── Full-screen menu ──────────────────────────────────────────────────────── */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: #000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .7s var(--ease-film), visibility .7s var(--ease-film);
+  overflow-y: auto;
+}
+.menu-overlay.is-open { opacity: 1; visibility: visible; }
+
+.menu-item { display: block; overflow: hidden; }
+.menu-item-inner {
+  transform: translateY(110%);
+  transition: transform .9s var(--ease-film);
+}
+.menu-overlay.is-open .menu-item-inner { transform: translateY(0); }
+.menu-item:nth-child(1) .menu-item-inner { transition-delay: .08s; }
+.menu-item:nth-child(2) .menu-item-inner { transition-delay: .14s; }
+.menu-item:nth-child(3) .menu-item-inner { transition-delay: .20s; }
+.menu-item:nth-child(4) .menu-item-inner { transition-delay: .26s; }
+.menu-item:nth-child(5) .menu-item-inner { transition-delay: .32s; }
+.menu-item:nth-child(6) .menu-item-inner { transition-delay: .38s; }
+
+/* ── Marquee ───────────────────────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee-scroll 30s linear infinite;
+  contain: layout style;
+}
+
+/* ── Inputs ────────────────────────────────────────────────────────────────── */
+input, textarea {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(242,239,233,0.25);
+  border-radius: 0;
+  color: var(--color-bone-white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  padding: 12px 0;
+  transition: border-color .3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+input::placeholder, textarea::placeholder { color: #6f6f6f; }
+input:focus, textarea:focus { border-color: var(--color-ember-orange); outline: none; }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-bone-white);
+  -webkit-box-shadow: 0 0 0px 1000px #0a0a0a inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ── Utilities ─────────────────────────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-backdrop-filter { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
+/* ── Reduced motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none !important; transform: none !important; }
+  .animate-ping, .animate-pulse { animation: none !important; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .menu-item-inner { transition: none; }
+  .group:hover .frame img { transform: none; }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}
+
+/* ── Project title slideshow (HeroSlideshow.jsx) ───────────────────────────── */
+/* The incoming clip fades in on top; the outgoing one stays opaque underneath */
+@keyframes hs-in { from { opacity: 0; } to { opacity: 1; } }
+.hs-front { z-index: 2; animation: hs-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.hs-back  { z-index: 1; }
+@media (prefers-reduced-motion: reduce) { .hs-front { animation: none; } }
+
+/* Notion card: blinking caret (BrandBackdrop.jsx) */
+@keyframes nb-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.nb-caret { animation: nb-blink 1.05s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .nb-caret { animation: none; } }
