@@ -41,7 +41,7 @@ export default function LoadingScreen() {
   const [hasEntered, setHasEntered] = useState(readEntered);
   const [isInitialLoading, setIsInitialLoading] = useState(!hasEntered);
   const [isTransitionLoading, setIsTransitionLoading] = useState(false);
-  const isFirstEntry = useRef(true);
+  const lastPath = useRef(location.pathname);
   const enterRef = useRef(null);
 
   const handleEnterSite = () => {
@@ -91,10 +91,9 @@ export default function LoadingScreen() {
   // Route transition veil
   useEffect(() => {
     if (!hasEntered) return;
-    if (isFirstEntry.current) {
-      isFirstEntry.current = false;
-      return;
-    }
+    // Only a real route change gets the veil (not first load, not a re-run of this effect)
+    if (lastPath.current === location.pathname) return;
+    lastPath.current = location.pathname;
     setIsTransitionLoading(true);
     window.scrollTo(0, 0);
     const timer = setTimeout(() => {
