@@ -41,7 +41,15 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 
 /* Scroll on route change: new pages start at the top; Back/Forward returns to where
    the visitor was (e.g. back from a project lands on the same spot in the archive). */
-const scrollPositions = new Map();
+// Kept in sessionStorage so the spot survives leaving the site (Instagram, mail) and coming back
+const SCROLL_KEY = 'scroll_positions';
+const scrollPositions = (() => {
+  try { return new Map(JSON.parse(sessionStorage.getItem(SCROLL_KEY) || '[]')); } catch { return new Map(); }
+})();
+const persistScroll = () => {
+  try { sessionStorage.setItem(SCROLL_KEY, JSON.stringify([...scrollPositions].slice(-50))); } catch { /* storage blocked */ }
+};
+if (typeof window !== 'undefined') window.addEventListener('pagehide', persistScroll);
 
 function scrollToY(y, lenisRef) {
   if (lenisRef.current) lenisRef.current.scrollTo(y, { immediate: true, force: true });
@@ -57,14 +65,14 @@ function ScrollToTop({ lenisRef }) {
     let raf = 0;
     const save = () => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => scrollPositions.set(key, window.scrollY));
+      raf = requestAnimationFrame(() => { scrollPositions.set(`${key}|${pathname}`, window.scrollY); persistScroll(); });
     };
     window.addEventListener('scroll', save, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('scroll', save);
     };
-  }, [key]);
+  }, [key, pathname]);
 
   useEffect(() => {
     if (window.history.scrollRestoration) window.history.scrollRestoration = 'manual';
@@ -80,7 +88,7 @@ function ScrollToTop({ lenisRef }) {
       return () => clearTimeout(timer);
     }
 
-    const saved = navType === 'POP' ? scrollPositions.get(key) : undefined;
+    const saved = navType === 'POP' ? scrollPositions.get(`${key}|${pathname}`) : undefined;
     scrollToY(0, lenisRef);
     if (!saved) return;
 
