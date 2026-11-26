@@ -55,7 +55,7 @@ export default function ContactSection() {
   return (
     <section id="contact" className="section bg-void-black">
       <div className="shell">
-        <SectionHeader index="04" label="Contact" aside="Open to projects" />
+        <SectionHeader index="03" label="Contact" aside="Open to projects" />
 
         <div className="grid-12 gap-y-14">
           <div className="col-span-4 lg:col-span-7 flex flex-col">

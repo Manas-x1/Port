@@ -1,12 +1,11 @@
 /**
- * Home.jsx — Hero → Statement → About (01) → Selected work (02) → Skills (03) → Contact (04) → Footer
+ * Home.jsx — Hero → Statement → About (01) → Selected work (02) → Contact (03) → Footer
  */
 import React, { useEffect } from 'react';
 import HeroSection from '../components/sections/HeroSection';
 import StatementBand from '../components/sections/StatementBand';
 import AboutSection from '../components/sections/AboutSection';
 import ProjectsShowcase from '../components/sections/ProjectsShowcase';
-import SkillsSection from '../components/sections/SkillsSection';
 import ContactSection from '../components/sections/ContactSection';
 import Footer from '../components/layout/Footer';
 import useReveal from '../hooks/useReveal';
@@ -23,7 +22,6 @@ export default function Home() {
       <StatementBand />
       <AboutSection />
       <ProjectsShowcase />
-      <SkillsSection />
       <ContactSection />
       <Footer />
     </div>
