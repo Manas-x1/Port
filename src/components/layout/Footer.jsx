@@ -70,7 +70,7 @@ export default function Footer() {
         </div>
 
         <div className="rule-t mt-6 pt-5 pb-20 flex flex-col sm:flex-row justify-between gap-2 t-label text-steel-mid">
-          <span>© 2026 Manas Upadhyay</span>
+          <span>© {new Date().getFullYear()} Manas Upadhyay</span>
           <span>All rights reserved</span>
         </div>
       </div>

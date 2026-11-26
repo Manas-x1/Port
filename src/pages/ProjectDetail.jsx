@@ -11,7 +11,9 @@ export default function ProjectDetail() {
   const { slug } = useParams();
   const index = projects.findIndex((p) => p.slug === slug);
   const project = projects[index];
-  const nextProject = projects.length > 1 ? projects[(index + 1) % projects.length] : null;
+  // Skip projects still waiting on media so 'Next' always lands on something to see
+  const ready = projects.filter((p) => p.thumbnail && p !== project);
+  const nextProject = ready.find((p) => projects.indexOf(p) > index) || ready[0] || null;
 
   useEffect(() => {
     if (project) document.title = `${project.title} — Case Study | Manas Upadhyay (manasxz)`;
