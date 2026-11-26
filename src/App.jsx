@@ -11,7 +11,7 @@
  * Lenis integration provides buttery smooth physics-based scrolling with instant route scroll reset.
  */
 import React, { Suspense, lazy, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import Lenis from 'lenis';
 import { MotionConfig } from 'framer-motion';
 import 'lenis/dist/lenis.css';
@@ -39,33 +39,63 @@ const Skills = lazy(() => import('./pages/Skills'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
-/* Global ScrollToTop helper for Lenis & Window scroll */
+/* Scroll on route change: new pages start at the top; Back/Forward returns to where
+   the visitor was (e.g. back from a project lands on the same spot in the archive). */
+const scrollPositions = new Map();
+
+function scrollToY(y, lenisRef) {
+  if (lenisRef.current) lenisRef.current.scrollTo(y, { immediate: true, force: true });
+  else window.scrollTo(0, y);
+}
+
 function ScrollToTop({ lenisRef }) {
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, key } = useLocation();
+  const navType = useNavigationType();
+
+  // Remember the scroll position of the current history entry
+  useEffect(() => {
+    let raf = 0;
+    const save = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => scrollPositions.set(key, window.scrollY));
+    };
+    window.addEventListener('scroll', save, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', save);
+    };
+  }, [key]);
 
   useEffect(() => {
+    if (window.history.scrollRestoration) window.history.scrollRestoration = 'manual';
+
     if (hash) {
       const timer = setTimeout(() => {
         const el = document.querySelector(hash);
         if (el) {
-          if (lenisRef.current) {
-            lenisRef.current.scrollTo(el);
-          } else {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
+          if (lenisRef.current) lenisRef.current.scrollTo(el);
+          else el.scrollIntoView({ behavior: 'smooth' });
         }
       }, 100);
       return () => clearTimeout(timer);
     }
 
-    // Scroll to top immediately on route change
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
-    }
-  }, [pathname, hash, lenisRef]);
+    const saved = navType === 'POP' ? scrollPositions.get(key) : undefined;
+    scrollToY(0, lenisRef);
+    if (!saved) return;
+
+    // The page may still be loading (lazy route, images): retry until it is tall enough
+    let tries = 0;
+    const timer = setInterval(() => {
+      lenisRef.current?.resize();
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max >= saved - 4 || ++tries > 30) {
+        scrollToY(Math.min(saved, max), lenisRef);
+        clearInterval(timer);
+      }
+    }, 50);
+    return () => clearInterval(timer);
+  }, [pathname, hash, key, navType, lenisRef]);
 
   return null;
 }

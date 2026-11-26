@@ -95,13 +95,10 @@ export default function LoadingScreen() {
     if (lastPath.current === location.pathname) return;
     lastPath.current = location.pathname;
     setIsTransitionLoading(true);
-    window.scrollTo(0, 0);
     const timer = setTimeout(() => {
       setIsTransitionLoading(false);
-      if (window.__lenis) {
-        window.__lenis.resize();
-        if (!window.location.hash) window.__lenis.scrollTo(0, { immediate: true });
-      }
+      // Scroll position is App's job (top for new pages, restored on Back)
+      window.__lenis?.resize();
     }, 450);
     return () => clearTimeout(timer);
   }, [location.pathname, hasEntered]);
