@@ -3,7 +3,7 @@
  *
  * First visit per session: a slow title card ("A portfolio by / Manas Upadhyay").
  * Click, scroll, or Enter lets the visitor in; scroll is locked until then.
- * Route changes: a 1-second black veil with a thin rule drawing across.
+ * Route changes: a short black veil with a thin rule drawing across.
  */
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -12,6 +12,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 const EASE = [0.16, 1, 0.3, 1];
 
 function readEntered() {
+  // Only the home page gets the title card; a shared project link opens straight to it
+  if (typeof window !== 'undefined' && window.location.pathname !== '/') return true;
   try {
     return sessionStorage.getItem('portfolio_entered') === 'true';
   } catch {
@@ -101,7 +103,7 @@ export default function LoadingScreen() {
         window.__lenis.resize();
         if (!window.location.hash) window.__lenis.scrollTo(0, { immediate: true });
       }
-    }, 1000);
+    }, 450);
     return () => clearTimeout(timer);
   }, [location.pathname, hasEntered]);
 
@@ -152,7 +154,7 @@ export default function LoadingScreen() {
             key="transition-loader"
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.4 } }}
+            exit={{ opacity: 0, transition: { duration: 0.3 } }}
             className="fixed inset-0 z-[9998] bg-void-black flex items-center justify-center"
             aria-hidden="true"
           >
@@ -160,7 +162,7 @@ export default function LoadingScreen() {
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.95, ease: EASE }}
+                transition={{ duration: 0.42, ease: EASE }}
                 className="absolute inset-0 bg-bone-white origin-left"
               />
             </div>
